@@ -12,8 +12,12 @@ import {
   TestMarks,
   InstructionHeading,
 } from 'styles/components/InstructionList'
+import { useNavigate } from 'react-router-dom'
+import ROUTES from 'routes'
 
 const InstructionList = () => {
+  const navigate = useNavigate()
+
   return (
     <MainContainer>
       <InstructionContainer>
@@ -55,7 +59,13 @@ const InstructionList = () => {
           </EachInstruction>
         </InstructionBody>
         <ButtonContainer>
-          <StartButton>Start</StartButton>
+          <StartButton
+            onClick={() => {
+              navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
+            }}
+          >
+            Start
+          </StartButton>
         </ButtonContainer>
       </InstructionContainer>
     </MainContainer>
