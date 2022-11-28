@@ -1,27 +1,39 @@
 import React from 'react'
-import { EachQuestion, AnswerList, Answer, ClickSingleAnswer, AnswerLabel } from 'styles/components/Question'
+import {
+  EachQuestion,
+  AnswerList,
+  Answer,
+  ClickSingleAnswer,
+  AnswerLabel,
+  ClickAnswer,
+  CodeContainer,
+} from 'styles/components/Question'
 
-const Question = () => {
+const Question = (props: any) => {
   return (
     <>
-      <EachQuestion>1. Identify the correct extension of the user-defined header file in C++.</EachQuestion>
+      <EachQuestion>{props.data.question}</EachQuestion>
+      {props.data.code && (
+        <CodeContainer>
+          <pre>{props.data.code}</pre>
+        </CodeContainer>
+      )}
       <AnswerList>
-        <Answer>
-          <ClickSingleAnswer />
-          <AnswerLabel>.cpp</AnswerLabel>
-        </Answer>
-        <Answer>
-          <ClickSingleAnswer />
-          <AnswerLabel>.hf</AnswerLabel>
-        </Answer>
-        <Answer>
-          <ClickSingleAnswer />
-          <AnswerLabel>.h</AnswerLabel>
-        </Answer>
-        <Answer>
-          <ClickSingleAnswer />
-          <AnswerLabel>.hg</AnswerLabel>
-        </Answer>
+        {props.data.answers.map((each: any, idx: number) => (
+          <Answer key={idx}>
+            {props.data.questionType === 'singlechoice' ? (
+              <>
+                <ClickSingleAnswer id={`${idx}${props.data.questionId}`} type="radio" value=".cpp" name="answer1" />
+                <AnswerLabel htmlFor={`${idx}${props.data.questionId}`}>{each}</AnswerLabel>
+              </>
+            ) : (
+              <>
+                <ClickAnswer id={`${idx}${props.data.questionId}`} type="checkbox" name="cpp" value="cpp" />
+                <AnswerLabel htmlFor={`${idx}${props.data.questionId}`}>{each}</AnswerLabel>
+              </>
+            )}
+          </Answer>
+        ))}
       </AnswerList>
     </>
   )
