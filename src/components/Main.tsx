@@ -69,7 +69,13 @@ const Main = () => {
           <Question key={`question-no-${index}`} data={quiz} />
         ))}
         <SubmitContainer>
-          <SaveButton>Submit</SaveButton>
+          <SaveButton
+            onClick={() => {
+              navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
+            }}
+          >
+            Submit
+          </SaveButton>
         </SubmitContainer>
       </InnerContainer>
     </MainContainer>
