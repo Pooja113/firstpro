@@ -14,8 +14,11 @@ import {
   ConfirmCheckbox,
   ConfirmConatiner,
 } from 'styles/components/InstructionList'
+import { useNavigate } from 'react-router-dom'
+import ROUTES from 'routes'
 
 const InstructionList = () => {
+  const navigate = useNavigate()
   const [isChecked, setIsChecked] = useState(false)
 
   const handleOnChange = () => {
@@ -70,7 +73,13 @@ const InstructionList = () => {
           </ConfirmConatiner>
         </InstructionBody>
         <ButtonContainer>
-          <StartButton>Start</StartButton>
+          <StartButton
+            onClick={() => {
+              navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
+            }}
+          >
+            Start
+          </StartButton>
         </ButtonContainer>
       </InstructionContainer>
     </MainContainer>

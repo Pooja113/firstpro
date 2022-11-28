@@ -3,17 +3,21 @@
 import { QueryClient, QueryClientProvider } from 'react-query'
 import './App.css'
 import Home from 'pages/Home'
-//import Instructions from 'pages/Instructions'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Instructions from 'pages/Instructions'
+import Thankyou from 'pages/Thankyou'
 
 const queryClient = new QueryClient()
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    {/* <Instructions /> */}
-
-    <Home />
-    {/* <Thankyou /> */}
-    {/* <FailPage /> */}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Instructions />} />
+        <Route path="test" element={<Home />} />
+        <Route path="thankyou" element={<Thankyou />} />
+      </Routes>
+    </BrowserRouter>
   </QueryClientProvider>
 )
 
