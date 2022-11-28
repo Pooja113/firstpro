@@ -1,3 +1,5 @@
+//import FailPage from 'pages/FailPage'
+//import Thankyou from 'pages/Thankyou'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import './App.css'
 import Home from 'pages/Home'

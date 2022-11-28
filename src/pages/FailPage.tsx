@@ -1,16 +1,16 @@
 import Footer from 'components/Footer'
 import Header from 'components/Header'
-import Score from 'components/Score'
 import React from 'react'
+import Sorry from './Sorry'
 
-const Thankyou = () => {
+const FailPage = () => {
   return (
     <>
       <Header />
-      <Score />
+      <Sorry />
       <Footer />
     </>
   )
 }
 
-export default Thankyou
+export default FailPage

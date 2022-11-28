@@ -18,22 +18,37 @@ export const AnswerList = styled.div`
 export const Answer = styled.div`
   display: flex;
   padding: 14px 20px;
-  cursor: pointer;
 
   :hover {
     background-color: #f3f6fd;
   }
 `
 
-export const ClickSingleAnswer = styled.span`
-  display: flex;
+export const ClickSingleAnswer = styled.input`
+  width: 1.4rem;
+  height: 1.4rem;
+  min-width: 1.4rem;
   margin-right: 1rem;
-  width: 1.2rem;
-  height: 1.2rem;
-  min-width: 1.2rem;
-  background: transparent;
-  border: 0.2rem solid #9e9e9e;
-  border-radius: 1rem;
+  cursor: pointer;
+
+  /* &[type='radio'] {
+    border: 3px solid gray;
+  } */
+`
+export const AnswerLabel = styled.label`
   cursor: pointer;
 `
-export const AnswerLabel = styled.div``
+export const ClickAnswer = styled.input`
+  width: 1.4rem;
+  height: 1.4rem;
+  min-width: 1.4rem;
+  margin-right: 1rem;
+  cursor: pointer;
+`
+
+export const CodeContainer = styled.div`
+  background-color: #1a1a1a;
+  color: #fff;
+  padding: 12px 20px;
+  font-weight: 600;
+`
