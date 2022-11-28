@@ -26,10 +26,16 @@ export const TestMarks = styled.div`
   background: #f9f1d2;
   padding: 10px;
 `
-export const InstructionHeading = styled.div`
-  background: #f9f1d2;
-  padding: 10px;
+export const InstructionHeading = styled.h3`
+  padding: 5px 10px;
 `
+
+export const ConfirmConatiner = styled.div`
+  padding: 15px;
+  border-top: 1px solid;
+`
+
+export const ConfirmCheckbox = styled.input``
 
 export const InstructionContainer = styled.div`
   background: #fff;
@@ -42,7 +48,7 @@ export const InstructionContainer = styled.div`
 export const InstructionBody = styled.div``
 export const EachInstruction = styled.li`
   list-style: auto;
-  padding: 15px 10px;
+  padding: 5px 30px 30px;
 `
 export const ButtonContainer = styled.div`
   display: flex;
