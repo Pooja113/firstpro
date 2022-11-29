@@ -23,12 +23,22 @@ const Question = (props: any) => {
           <Answer key={idx}>
             {props.data.questionType === 'singlechoice' ? (
               <>
-                <ClickSingleAnswer id={`${idx}${props.data.questionId}`} type="radio" value=".cpp" name="answer1" />
+                <ClickSingleAnswer
+                  id={`${idx}${props.data.questionId}`}
+                  type="radio"
+                  value={each}
+                  name={props.data.questionId}
+                />
                 <AnswerLabel htmlFor={`${idx}${props.data.questionId}`}>{each}</AnswerLabel>
               </>
             ) : (
               <>
-                <ClickAnswer id={`${idx}${props.data.questionId}`} type="checkbox" name="cpp" value="cpp" />
+                <ClickAnswer
+                  id={`${idx}${props.data.questionId}`}
+                  type="checkbox"
+                  name={`${each}${props.data.questionId}`}
+                  value={each}
+                />
                 <AnswerLabel htmlFor={`${idx}${props.data.questionId}`}>{each}</AnswerLabel>
               </>
             )}
