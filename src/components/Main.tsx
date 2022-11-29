@@ -10,11 +10,17 @@ const Main = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    window.history.replaceState(null, '', '/')
+    document.addEventListener('contextmenu', (event) => event.preventDefault())
 
     window.onblur = () => {
       navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
     }
+
+    window.onload = () => {
+      navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
+    }
+
+    window.history.replaceState(null, '', '/WIL')
   }, [])
   const code = ` print(
       "Hello, World!"
