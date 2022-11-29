@@ -10,11 +10,17 @@ const Main = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    window.history.replaceState(null, '', '/')
+    document.addEventListener('contextmenu', (event) => event.preventDefault())
 
     window.onblur = () => {
       navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
     }
+
+    window.onload = () => {
+      navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
+    }
+
+    window.history.replaceState(null, '', '/WIL')
   }, [])
   const code = ` print(
       "Hello, World!"
@@ -69,7 +75,13 @@ const Main = () => {
           <Question key={`question-no-${index}`} data={quiz} />
         ))}
         <SubmitContainer>
-          <SaveButton>Submit</SaveButton>
+          <SaveButton
+            onClick={() => {
+              navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
+            }}
+          >
+            Submit
+          </SaveButton>
         </SubmitContainer>
       </InnerContainer>
     </MainContainer>
