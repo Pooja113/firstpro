@@ -3,11 +3,11 @@ import { InnerContainer, MainContainer, SaveButton, SubmitContainer } from 'styl
 //import CodeQuestion from './CodeQuestion'
 //import MultiSelectionQues from './MultiSelectionQues'
 import Question from './Question'
-//import { useNavigate } from 'react-router-dom'
-//import ROUTES from 'routes'
+import { useNavigate } from 'react-router-dom'
+import ROUTES from 'routes'
 
 const Main = () => {
-  //const navigate = useNavigate()
+  const navigate = useNavigate()
 
   useEffect(() => {
     document.addEventListener('contextmenu', (event) => event.preventDefault())
