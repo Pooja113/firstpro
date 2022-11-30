@@ -11,11 +11,8 @@ import {
   Timer,
 } from 'styles/components/Header'
 import logo from 'assets/images/witslogo.svg'
-// import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
-  // const navigate = useNavigate()
-
   const [counter, setCounter] = useState(900)
   const minutes = Math.floor(counter / 60)
   const seconds = counter % 60
