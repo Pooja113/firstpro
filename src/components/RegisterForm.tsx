@@ -24,8 +24,12 @@ import {
 import { useForm } from 'react-hook-form'
 import { regiterValidation } from 'utils/registerValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useNavigate } from 'react-router-dom'
+import ROUTES from 'routes'
 
 const RegisterForm = () => {
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -154,7 +158,13 @@ const RegisterForm = () => {
           </DetailsContainer>
         </RegisterContainer>
 
-        <RegisterButton>Register</RegisterButton>
+        <RegisterButton
+          onClick={() => {
+            navigate(`${ROUTES?.INSTRUCTIONS?.LINK}`, { replace: true })
+          }}
+        >
+          Register
+        </RegisterButton>
       </FormContainer>
     </MainContainer>
   )

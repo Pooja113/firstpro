@@ -10,7 +10,7 @@ export interface IRoutes {
 const ROUTES: IRoutes = {
   REGISTRATION: {
     TITLE: 'TEST',
-    LINK: '/registration',
+    LINK: '/',
     SUBHEADER: false,
     SECURE: false,
   },
