@@ -1,0 +1,7 @@
+[
+  { "rule": "Please do not click the URL input While giving the test, this will automatically conclude the test." },
+  { "rule": "Please do not change tabs as that will conclude the test automatically." },
+  { "rule": "Please do not look at other material as this session is being recorded." },
+  { "rule": "Please do not open the inspect pane either as that will conclude the test." },
+  { "rule": "Please do not try to use unfair means as that will lead to cancelation of the attempt." }
+]
