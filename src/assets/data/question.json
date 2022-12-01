@@ -1,0 +1,45 @@
+[
+  {
+    "question": "Identify the correct extension of the user-defined header file in C++.",
+    "answers": [".cpp", ".hf", ".h", ".hg"],
+    "questionId": "01",
+    "questionType": "singlechoice",
+    "questionCategory": "genderalknowledge"
+  },
+  {
+    "question": "What is meant by a polymorphism in C++?",
+    "answers": [
+      "class having only single form",
+      "class having four forms",
+      "class having many forms",
+      "class having two forms"
+    ],
+    "questionId": "02",
+    "questionType": "singlechoice",
+    "questionCategory": "programming"
+  },
+  {
+    "question": "What is meant by a polymorphism in C++?",
+    "answers": [
+      "class having only single form",
+      "class having four forms",
+      "class having many forms",
+      "class having two forms"
+    ],
+    "questionId": "03",
+    "questionType": "mutichoice",
+    "questionCategory": "genderalknowledge"
+  },
+  {
+    "question": "What is meant by a polymorphism in C++?",
+    "answers": [
+      "class having only single form",
+      "class having four forms",
+      "class having many forms",
+      "class having two forms"
+    ],
+    "questionId": "04",
+    "questionType": "mutichoice",
+    "questionCategory": "genderalknowledge"
+  }
+]

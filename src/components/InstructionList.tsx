@@ -16,11 +16,14 @@ import {
 } from 'styles/components/InstructionList'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
-//import { useReactMediaRecorder } from 'react-media-recorder'
+import { useReactMediaRecorder } from 'react-media-recorder'
+
+import instructions from '../assets/data/instruction.json'
 
 const InstructionList = () => {
   const navigate = useNavigate()
   const [isChecked, setIsChecked] = useState(false)
+  const { startRecording } = useReactMediaRecorder({ video: true })
 
   const handleOnChange = () => {
     setIsChecked(!isChecked)
@@ -35,31 +38,9 @@ const InstructionList = () => {
         </SubHeadings>
         <InstructionBody>
           <InstructionHeading>Read the following instructions carefully.</InstructionHeading>
-          <EachInstruction>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat aliquam nulla neque eos tempore.
-            Excepturi sint dignissimos ut molestiae qui, a consequatur quis culpa molestias tempora repellat, asperiores
-            corrupti
-          </EachInstruction>
-          <EachInstruction>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat aliquam nulla neque eos tempore.
-            Excepturi sint dignissimos ut molestiae qui, a consequatur quis culpa molestias tempora repellat, asperiores
-            corrupti
-          </EachInstruction>
-          <EachInstruction>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat aliquam nulla neque eos tempore.
-            Excepturi sint dignissimos ut molestiae qui, a consequatur quis culpa molestias tempora repellat, asperiores
-            corrupti
-          </EachInstruction>
-          <EachInstruction>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat aliquam nulla neque eos tempore.
-            Excepturi sint dignissimos ut molestiae qui, a consequatur quis culpa molestias tempora repellat, asperiores
-            corrupti
-          </EachInstruction>
-          <EachInstruction>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio placeat aliquam nulla neque eos tempore.
-            Excepturi sint dignissimos ut molestiae qui, a consequatur quis culpa molestias tempora repellat, asperiores
-            corrupti
-          </EachInstruction>
+          {instructions.map((instruction, i) => (
+            <EachInstruction key={i}>{instruction.rule}</EachInstruction>
+          ))}
           <ConfirmConatiner>
             <ConfirmCheckbox
               type="checkbox"
@@ -77,6 +58,7 @@ const InstructionList = () => {
           <StartButton
             onClick={() => {
               navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
+              startRecording()
             }}
           >
             Start
