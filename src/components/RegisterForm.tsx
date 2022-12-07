@@ -25,11 +25,11 @@ import { useForm } from 'react-hook-form'
 import { regiterValidation } from 'utils/registerValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
 import usePost from 'hooks/usePost'
-// import { useNavigate } from 'react-router-dom'
-// import ROUTES from 'routes'
+import { useNavigate } from 'react-router-dom'
+import ROUTES from 'routes'
 
 const RegisterForm = () => {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const { mutateAsync } = usePost()
 
@@ -50,6 +50,10 @@ const RegisterForm = () => {
 
       if (response.accessToken) {
         localStorage.setItem('_token', response.accessToken)
+      }
+
+      if (response) {
+        navigate(`${ROUTES?.INSTRUCTIONS?.LINK}`, { replace: true })
       }
     } catch (error: any) {
       return { error: error?.response?.data?.errorMessage }
@@ -138,12 +142,14 @@ const RegisterForm = () => {
               <CourseField>
                 <InputLabel htmlFor="rollNumber">Roll No *</InputLabel>
                 <InputField id="rollNumber" {...register('rollNumber')} />
-                {errors.rollno && <ErrorMessage>{errors.rollno.message}</ErrorMessage>}
+                {errors.rollNumber && <ErrorMessage>{errors.rollNumber.message}</ErrorMessage>}
               </CourseField>
               <CourseField>
                 <InputLabel htmlFor="percentageInSelectedQualif">Percentage * </InputLabel>
                 <InputField id="percentageInSelectedQualif" {...register('percentageInSelectedQualif')} />
-                {errors.percentage && <ErrorMessage>{errors.percentage.message}</ErrorMessage>}
+                {errors.percentageInSelectedQualif && (
+                  <ErrorMessage>{errors.percentageInSelectedQualif.message}</ErrorMessage>
+                )}
               </CourseField>
               <CourseField>
                 <InputLabel htmlFor="passingYearOfSelectedQualf">Passing Year *</InputLabel>
@@ -185,13 +191,13 @@ const RegisterForm = () => {
           <DetailsContainer>
             <InputLabel htmlFor="internshipExpTechnology">If yes, Kindly Mention the Technology *</InputLabel>
             <InputField id="internshipExpTechnology" {...register('internshipExpTechnology')} />
-            {errors.technology && <ErrorMessage>{errors.technology.message}</ErrorMessage>}
+            {errors.internshipExpTechnology && <ErrorMessage>{errors.internshipExpTechnology.message}</ErrorMessage>}
           </DetailsContainer>
 
           <DetailsContainer>
             <InputLabel htmlFor="offerInHand">Any offer in hand ? *</InputLabel>
             <InputTextArea id="offerInHand" {...register('offerInHand')} />
-            {errors.offer && <ErrorMessage>{errors.offer.message}</ErrorMessage>}
+            {errors.offerInHand && <ErrorMessage>{errors.offerInHand.message}</ErrorMessage>}
           </DetailsContainer>
         </RegisterContainer>
         <RegisterButton

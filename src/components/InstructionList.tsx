@@ -19,20 +19,38 @@ import {
 } from 'styles/components/InstructionList'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
-import usePatch from 'hooks/usePatch'
+// import usePatch from 'hooks/usePatch'
 import Modal from 'components/Modal'
 
 import instructions from '../assets/data/instruction.json'
+import usePost from 'hooks/usePost'
+import ErrorModal from './ErrorModal'
 import 'react-html5-camera-photo/build/css/index.css'
+import { useReactMediaRecorder } from 'react-media-recorder'
 
 const InstructionList = () => {
   const navigate = useNavigate()
   const [isChecked, setIsChecked] = useState(false)
-  const { mutateAsync } = usePatch()
+  const { startRecording } = useReactMediaRecorder({ video: true })
+  const { mutateAsync } = usePost()
+  const [modal, setModal] = useState(false)
   const [showCamera, setShowCamera] = useState(false)
 
   const handleOnChange = () => {
     setIsChecked(!isChecked)
+  }
+
+  const startTest = async () => {
+    try {
+      await mutateAsync({
+        url: 'test/startAssignment',
+        token: true,
+      })
+      navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
+    } catch (error: any) {
+      setModal(true)
+      return { error: error?.response?.data?.errorMessage }
+    }
   }
 
   const showCameraModal = () => {
@@ -99,6 +117,8 @@ const InstructionList = () => {
           <StartButton
             disabled={!isChecked}
             onClick={() => {
+              startTest()
+              startRecording()
               showCameraModal()
             }}
           >
@@ -106,6 +126,7 @@ const InstructionList = () => {
           </StartButton>
         </ButtonContainer>
       </InstructionContainer>
+      <ErrorModal isOpen={modal} close={() => setModal(false)} />
     </MainContainer>
   )
 }
