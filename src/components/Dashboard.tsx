@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import useGet from 'hooks/useGet'
 
 type Person = {
   name: string
@@ -11,39 +12,6 @@ type Person = {
   status: string
   action: boolean
 }
-
-const defaultData: Person[] = [
-  {
-    name: 'tanner',
-    email: 'tanner@gmail.com',
-    phone: '2434',
-    university: 'college name',
-    course: 'B.tech',
-    interest: 'react',
-    status: 'processing',
-    action: true,
-  },
-  {
-    name: 'cooper',
-    email: 'tanner@gmail.com',
-    phone: '2434',
-    university: 'college name',
-    course: 'B.tech',
-    interest: 'react',
-    status: 'processing',
-    action: false,
-  },
-  {
-    name: 'rasher',
-    email: 'tanner@gmail.com',
-    phone: '2434',
-    university: 'college name',
-    course: 'B.tech',
-    interest: 'react',
-    status: 'processing',
-    action: true,
-  },
-]
 
 const columnHelper = createColumnHelper<Person>()
 
@@ -121,7 +89,26 @@ const columns = [
 
 const DashboardPage = () => {
   const [data, setData] = React.useState<Person[]>([])
-  setData(defaultData)
+  const { refetch, data: studentData } = useGet('fetchStudents', 'admin/fetchStudents', true)
+
+  useEffect(() => {
+    refetch()
+  }, [])
+
+  useEffect(() => {
+    if (studentData?.data?.length && !data.length) {
+      const formattedData = studentData?.data?.map((item: any) => ({
+        name: item.name,
+        email: item.email,
+        phone: item.phoneNumber,
+        interest: item.intrestedIn,
+        course: item.course,
+        university: item.collegeName,
+        status: 'pending',
+      }))
+      setData(formattedData)
+    }
+  }, [studentData])
 
   const table = useReactTable({
     data,

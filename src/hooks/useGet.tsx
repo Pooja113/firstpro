@@ -2,9 +2,15 @@
 import { useQuery } from 'react-query'
 import axiosInstance from 'services/axiosInstance'
 
-const useGet = (key: string, url: string, configs?: any) => {
+const useGet = (key: string, url: string, token?: boolean, configs?: any) => {
   const get = async () => {
-    const { data } = await axiosInstance.get(url)
+    let headers = {}
+    if (token) {
+      const accessToken = localStorage.getItem('_token')
+      headers = { token: `Bearer ${accessToken}` }
+    }
+
+    const { data } = await axiosInstance.get(url, { headers: headers })
     return data
   }
   const defaultConfig = {

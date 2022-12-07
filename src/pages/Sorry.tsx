@@ -18,11 +18,11 @@ const Sorry = () => {
         <SorryImage src={sadface} />
         <SorryContainer>
           <SorryHeading>Oops! </SorryHeading>
-          <SorrySubHeading>The exam got submitted automatically.</SorrySubHeading>
-          <SorrySubHeading>If you have faced any issue please talk to the invigilator</SorrySubHeading>
+          <SorrySubHeading>Seems like you navigated elsewhere, the exam was forcefully submitted.</SorrySubHeading>
+          <SorrySubHeading>If you have faced any issue, please talk to the invigilator</SorrySubHeading>
           <ContactContainer>
-            <ContactName>Invigilator : 824729184217</ContactName>
-            <ContactName>Email : email@email.com</ContactName>
+            <ContactName>Phone Number: +91-8360894961</ContactName>
+            <ContactName>Email: hardik.thapa@thewitslab.com</ContactName>
           </ContactContainer>
         </SorryContainer>
       </InnerContainer>

@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Instructions from 'pages/Instructions'
 import Thankyou from 'pages/Thankyou'
 import Registration from 'pages/Registration'
+import Dashboard from 'pages/Dashboard'
 import FailPage from 'pages/FailPage'
 import Login from 'pages/Login'
 
@@ -20,6 +21,7 @@ const App = () => (
         <Route path="thankyou" element={<Thankyou />} />
         <Route path="sorry" element={<FailPage />} />
         <Route path="admin" element={<Login />} />
+        <Route path="admin/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   </QueryClientProvider>

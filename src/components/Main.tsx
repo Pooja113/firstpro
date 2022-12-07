@@ -14,11 +14,11 @@ const Main = () => {
     document.addEventListener('contextmenu', (event) => event.preventDefault())
 
     window.onblur = () => {
-      navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
+      navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
     }
 
     window.onload = () => {
-      navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
+      navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
     }
 
     window.history.replaceState(null, '', '/WIL')
