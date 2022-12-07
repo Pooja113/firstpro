@@ -7,7 +7,7 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-around;
   color: #26429a;
-  min-height: 7vh;
+  /* min-height: 7vh; */
 `
 export const Logo = styled.div`
   padding: 5px;
@@ -18,7 +18,7 @@ export const UserDetails = styled.div``
 export const UserName = styled.div`
   font-size: 1.3rem;
   font-weight: 600;
-  padding: 5px 0px;
+  padding: 1vw;
 `
 export const UserCourse = styled.div`
   font-size: 1rem;
