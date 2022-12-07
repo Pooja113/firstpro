@@ -24,11 +24,11 @@ import {
 import { useForm } from 'react-hook-form'
 import { regiterValidation } from 'utils/registerValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useNavigate } from 'react-router-dom'
-import ROUTES from 'routes'
+//import { useNavigate } from 'react-router-dom'
+//import ROUTES from 'routes'
 
 const RegisterForm = () => {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const {
     register,
@@ -93,6 +93,16 @@ const RegisterForm = () => {
               </InputContainer>
 
               <InputContainer>
+                <InputLabel htmlFor="education">Education Qualification *</InputLabel>
+                <Interests id="education" {...register('education')}>
+                  <InterestOptions value="Post Graduate">Post Graduate</InterestOptions>
+                  <InterestOptions value="Graduate">Graduate</InterestOptions>
+                  <InterestOptions value="Diploma">Diploma</InterestOptions>
+                </Interests>
+                {errors.education && <ErrorMessage>{errors.education.message}</ErrorMessage>}
+              </InputContainer>
+
+              <InputContainer>
                 <InputLabel htmlFor="stream">Stream *</InputLabel>
                 <InputField id="stream" {...register('stream')} />
                 {errors.stream && <ErrorMessage>{errors.stream.message}</ErrorMessage>}
@@ -104,12 +114,16 @@ const RegisterForm = () => {
               </InputContainer>
             </PersonalInfo>
 
-            <InputLabel htmlFor="education">Education Qualification</InputLabel>
             <CourseContainer>
               <CourseField>
                 <InputLabel htmlFor="coursename">Course Name *</InputLabel>
                 <InputField id="coursename" {...register('coursename')} />
                 {errors.coursename && <ErrorMessage>{errors.coursename.message}</ErrorMessage>}
+              </CourseField>
+              <CourseField>
+                <InputLabel htmlFor="rollno">Roll No *</InputLabel>
+                <InputField id="rollno" {...register('rollno')} />
+                {errors.rollno && <ErrorMessage>{errors.rollno.message}</ErrorMessage>}
               </CourseField>
               <CourseField>
                 <InputLabel htmlFor="percentage">Percentage * </InputLabel>
@@ -152,6 +166,12 @@ const RegisterForm = () => {
           </DetailsContainer>
 
           <DetailsContainer>
+            <InputLabel htmlFor="technology">If yes, Kindly Mention the Technology *</InputLabel>
+            <InputField id="technology" {...register('technology')} />
+            {errors.technology && <ErrorMessage>{errors.technology.message}</ErrorMessage>}
+          </DetailsContainer>
+
+          <DetailsContainer>
             <InputLabel htmlFor="offer">Any offer in hand ? *</InputLabel>
             <InputTextArea id="offer" {...register('offer')} />
             {errors.offer && <ErrorMessage>{errors.offer.message}</ErrorMessage>}
@@ -160,7 +180,7 @@ const RegisterForm = () => {
 
         <RegisterButton
           onClick={() => {
-            navigate(`${ROUTES?.INSTRUCTIONS?.LINK}`, { replace: true })
+            //navigate(`${ROUTES?.INSTRUCTIONS?.LINK}`, { replace: true })
           }}
         >
           Register
