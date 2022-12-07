@@ -7,6 +7,7 @@ import Thankyou from 'pages/Thankyou'
 import Registration from 'pages/Registration'
 import FailPage from 'pages/FailPage'
 import Login from 'pages/Login'
+import Dashboard from 'pages/Dashboard'
 
 const queryClient = new QueryClient()
 
@@ -16,6 +17,7 @@ const App = () => (
       <Routes>
         <Route path="/" element={<Registration />} />
         <Route path="instructions" element={<Instructions />} />
+        <Route path="dashboard" element={<Dashboard />} />
         <Route path="test" element={<Home />} />
         <Route path="thankyou" element={<Thankyou />} />
         <Route path="sorry" element={<FailPage />} />
