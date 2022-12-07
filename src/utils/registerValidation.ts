@@ -10,6 +10,8 @@ export const regiterValidation = yup.object().shape({
   educationalQualification: yup.string().required('Please select one'),
   semester: yup.string().required('Please enter your semester'),
   course: yup.string().required('Please enter the course name'),
+  rollNumber: yup.string().required('Please enter the roll number'),
+  internshipExpTechnology: yup.string().required('Please enter the intership technology'),
   percentageInSelectedQualif: yup.number().required('Please enter your percentage').typeError('It must be a number'),
   passingYearOfSelectedQualf: yup
     .number()
