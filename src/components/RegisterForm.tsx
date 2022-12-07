@@ -24,11 +24,14 @@ import {
 import { useForm } from 'react-hook-form'
 import { regiterValidation } from 'utils/registerValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
-//import { useNavigate } from 'react-router-dom'
-//import ROUTES from 'routes'
+import usePost from 'hooks/usePost'
+// import { useNavigate } from 'react-router-dom'
+// import ROUTES from 'routes'
 
 const RegisterForm = () => {
   // const navigate = useNavigate()
+
+  const { mutateAsync } = usePost()
 
   const {
     register,
@@ -38,9 +41,21 @@ const RegisterForm = () => {
     resolver: yupResolver(regiterValidation),
   })
 
-  const onSubmit = (data: any) => {
-    return data
+  const onSubmit = async (data: any) => {
+    try {
+      const response = await mutateAsync({
+        url: 'user/registerUser',
+        payload: data,
+      })
+
+      if (response.accessToken) {
+        localStorage.setItem('_token', response.accessToken)
+      }
+    } catch (error: any) {
+      return { error: error?.response?.data?.errorMessage }
+    }
   }
+  //testing
 
   const onError = (errors: any) => {
     return errors
@@ -53,9 +68,9 @@ const RegisterForm = () => {
           <PersonalInfoHeading>Personal Information</PersonalInfoHeading>
           <PersonalInfo>
             <InputContainer>
-              <InputLabel htmlFor="fname">Full name *</InputLabel>
-              <InputField id="fname" {...register('fname')} />
-              {errors.fname && <ErrorMessage>{errors.fname.message}</ErrorMessage>}
+              <InputLabel htmlFor="name">Full name *</InputLabel>
+              <InputField id="name" {...register('name')} />
+              {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
             </InputContainer>
 
             <InputContainer>
@@ -65,9 +80,9 @@ const RegisterForm = () => {
             </InputContainer>
 
             <InputContainer>
-              <InputLabel htmlFor="phone">Phone Number *</InputLabel>
-              <InputField id="phone" {...register('phone')} />
-              {errors.phone && <ErrorMessage>{errors.phone.message}</ErrorMessage>}
+              <InputLabel htmlFor="phoneNumber">Phone Number *</InputLabel>
+              <InputField id="phoneNumber" {...register('phoneNumber')} />
+              {errors.phoneNumber && <ErrorMessage>{errors.phoneNumber.message}</ErrorMessage>}
             </InputContainer>
 
             <InputContainer>
@@ -87,14 +102,14 @@ const RegisterForm = () => {
           <EducationDetails>
             <PersonalInfo>
               <InputContainer>
-                <InputLabel htmlFor="college">College Name *</InputLabel>
-                <InputField id="college" {...register('college')} />
-                {errors.college && <ErrorMessage>{errors.college.message}</ErrorMessage>}
+                <InputLabel htmlFor="collegeName">College Name *</InputLabel>
+                <InputField id="collegeName" {...register('collegeName')} />
+                {errors.collegeName && <ErrorMessage>{errors.collegeName.message}</ErrorMessage>}
               </InputContainer>
 
               <InputContainer>
-                <InputLabel htmlFor="education">Education Qualification *</InputLabel>
-                <Interests id="education" {...register('education')}>
+                <InputLabel htmlFor="educationalQualification">Education Qualification *</InputLabel>
+                <Interests id="educationalQualification" {...register('educationalQualification')}>
                   <InterestOptions value="Post Graduate">Post Graduate</InterestOptions>
                   <InterestOptions value="Graduate">Graduate</InterestOptions>
                   <InterestOptions value="Diploma">Diploma</InterestOptions>
@@ -116,39 +131,41 @@ const RegisterForm = () => {
 
             <CourseContainer>
               <CourseField>
-                <InputLabel htmlFor="coursename">Course Name *</InputLabel>
-                <InputField id="coursename" {...register('coursename')} />
-                {errors.coursename && <ErrorMessage>{errors.coursename.message}</ErrorMessage>}
+                <InputLabel htmlFor="course">Course Name *</InputLabel>
+                <InputField id="course" {...register('course')} />
+                {errors.course && <ErrorMessage>{errors.course.message}</ErrorMessage>}
               </CourseField>
               <CourseField>
-                <InputLabel htmlFor="rollno">Roll No *</InputLabel>
-                <InputField id="rollno" {...register('rollno')} />
+                <InputLabel htmlFor="rollNumber">Roll No *</InputLabel>
+                <InputField id="rollNumber" {...register('rollNumber')} />
                 {errors.rollno && <ErrorMessage>{errors.rollno.message}</ErrorMessage>}
               </CourseField>
               <CourseField>
-                <InputLabel htmlFor="percentage">Percentage * </InputLabel>
-                <InputField id="percentage" {...register('percentage')} />
+                <InputLabel htmlFor="percentageInSelectedQualif">Percentage * </InputLabel>
+                <InputField id="percentageInSelectedQualif" {...register('percentageInSelectedQualif')} />
                 {errors.percentage && <ErrorMessage>{errors.percentage.message}</ErrorMessage>}
               </CourseField>
               <CourseField>
-                <InputLabel htmlFor="passingyear">Passing Year *</InputLabel>
-                <InputField id="passingyear" {...register('passingyear')} />
-                {errors.passingyear && <ErrorMessage>{errors.passingyear.message}</ErrorMessage>}
+                <InputLabel htmlFor="passingYearOfSelectedQualf">Passing Year *</InputLabel>
+                <InputField id="passingYearOfSelectedQualf" {...register('passingYearOfSelectedQualf')} />
+                {errors.passingYearOfSelectedQualf && (
+                  <ErrorMessage>{errors.passingYearOfSelectedQualf.message}</ErrorMessage>
+                )}
               </CourseField>
             </CourseContainer>
           </EducationDetails>
 
           <PersonalInfoHeading>Other Details</PersonalInfoHeading>
           <DetailsContainer>
-            <InputLabel htmlFor="interests">Interested In</InputLabel>
-            <Interests id="interests" {...register('interests')}>
+            <InputLabel htmlFor="intrestedIn">Interested In</InputLabel>
+            <Interests id="intrestedIn" {...register('intrestedIn')}>
               <InterestOptions value="Full stack Developer">Full stack Developer</InterestOptions>
               <InterestOptions value="React.js">React.js</InterestOptions>
               <InterestOptions value="Node.js">Node.js</InterestOptions>
               <InterestOptions value="iOS">iOS</InterestOptions>
               <InterestOptions value="Android">Android</InterestOptions>
               <InterestOptions value=".Net">.Net</InterestOptions>
-              <InterestOptions value=".Web Designing">Web Designing</InterestOptions>
+              <InterestOptions value=".Web Designing">Web Designing</InterestOptions>prevInternshipExp
               <InterestOptions value="UI/UX Designing">UI/UX Designing</InterestOptions>
               <InterestOptions value="Networking">Networking</InterestOptions>
               <InterestOptions value="Digital Marketing,">Digital Marketing,</InterestOptions>
@@ -156,32 +173,31 @@ const RegisterForm = () => {
               <InterestOptions value="Blockchain">Blockchain</InterestOptions>
               <InterestOptions value="AI/ML">AI/ML</InterestOptions>
             </Interests>
-            {errors.interests && <ErrorMessage>{errors.interests.message}</ErrorMessage>}
+            {errors.intrestedIn && <ErrorMessage>{errors.intrestedIn.message}</ErrorMessage>}
           </DetailsContainer>
 
           <DetailsContainer>
-            <InputLabel htmlFor="interneship">Internship Experience ? (If any give details) *</InputLabel>
-            <InputTextArea id="interneship" {...register('interneship')} />
-            {errors.interneship && <ErrorMessage>{errors.interneship.message}</ErrorMessage>}
+            <InputLabel htmlFor="prevInternshipExp">Internship Experience ? (If any give details) *</InputLabel>
+            <InputTextArea id="prevInternshipExp" {...register('prevInternshipExp')} />
+            {errors.prevInternshipExp && <ErrorMessage>{errors.prevInternshipExp.message}</ErrorMessage>}
           </DetailsContainer>
 
           <DetailsContainer>
-            <InputLabel htmlFor="technology">If yes, Kindly Mention the Technology *</InputLabel>
-            <InputField id="technology" {...register('technology')} />
+            <InputLabel htmlFor="internshipExpTechnology">If yes, Kindly Mention the Technology *</InputLabel>
+            <InputField id="internshipExpTechnology" {...register('internshipExpTechnology')} />
             {errors.technology && <ErrorMessage>{errors.technology.message}</ErrorMessage>}
           </DetailsContainer>
 
           <DetailsContainer>
-            <InputLabel htmlFor="offer">Any offer in hand ? *</InputLabel>
-            <InputTextArea id="offer" {...register('offer')} />
+            <InputLabel htmlFor="offerInHand">Any offer in hand ? *</InputLabel>
+            <InputTextArea id="offerInHand" {...register('offerInHand')} />
             {errors.offer && <ErrorMessage>{errors.offer.message}</ErrorMessage>}
           </DetailsContainer>
         </RegisterContainer>
-
         <RegisterButton
-          onClick={() => {
-            //navigate(`${ROUTES?.INSTRUCTIONS?.LINK}`, { replace: true })
-          }}
+        // onClick={() => {
+        //   navigate(`${ROUTES?.INSTRUCTIONS?.LINK}`, { replace: true })
+        // }}
         >
           Register
         </RegisterButton>
