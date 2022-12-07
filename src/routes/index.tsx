@@ -38,5 +38,11 @@ const ROUTES: IRoutes = {
     SUBHEADER: false,
     SECURE: true,
   },
+  ADMIN: {
+    TITLE: 'ADMIN',
+    LINK: '/admin',
+    SUBHEADER: false,
+    SECURE: true,
+  },
 }
 export default ROUTES

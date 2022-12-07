@@ -6,6 +6,7 @@ import Instructions from 'pages/Instructions'
 import Thankyou from 'pages/Thankyou'
 import Registration from 'pages/Registration'
 import FailPage from 'pages/FailPage'
+import Login from 'pages/Login'
 
 const queryClient = new QueryClient()
 
@@ -18,6 +19,7 @@ const App = () => (
         <Route path="test" element={<Home />} />
         <Route path="thankyou" element={<Thankyou />} />
         <Route path="sorry" element={<FailPage />} />
+        <Route path="admin" element={<Login />} />
       </Routes>
     </BrowserRouter>
   </QueryClientProvider>
