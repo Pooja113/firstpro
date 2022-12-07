@@ -10,7 +10,7 @@ import {
   PersonalInfoHeading,
   RegisterButton,
   RegisterContainer,
-} from 'styles/components/RegisterForm'
+} from 'styles/components/LoginForm'
 import { useForm } from 'react-hook-form'
 import { LoginValidation } from 'utils/LoginValidation'
 import { yupResolver } from '@hookform/resolvers/yup'

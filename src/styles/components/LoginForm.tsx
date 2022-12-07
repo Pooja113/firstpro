@@ -10,10 +10,9 @@ export const RegisterContainer = styled.div`
 `
 
 export const PersonalInfo = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  justify-content: center;
   /* border-bottom: 2px solid #eee; */
-  padding-bottom: 40px;
 `
 
 export const ErrorMessage = styled.p`
@@ -48,8 +47,8 @@ export const FormContainer = styled.form`
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px 40px 10px 0px;
-  width: 45%;
+  padding: 10px 0px 10px 0px;
+  /* width: 45%; */
 `
 
 export const DetailsContainer = styled.div`
@@ -118,6 +117,10 @@ export const RegisterButton = styled.button`
   background-color: #2d4195;
   color: #fff;
   cursor: pointer;
+  :hover {
+    color: #000000;
+    background-color: #ffe100;
+  }
 `
 
 export const CourseContainer = styled.div`
