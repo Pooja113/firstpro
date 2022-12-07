@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   ErrorMessage,
   FormContainer,
@@ -17,6 +17,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
 import usePost from 'hooks/usePost'
+import { LoaderContext } from 'context/loader'
 
 interface ILoginForm {
   email: string
@@ -34,8 +35,10 @@ const LoginPage = () => {
     resolver: yupResolver(LoginValidation),
   })
   // const { mutateAsync } = usePost()
+  const { setLoader } = useContext(LoaderContext)
 
   const onSubmit = async (data: ILoginForm) => {
+    setLoader(true)
     try {
       //TODO: turn on loader
       const response = await mutateAsync({
@@ -46,7 +49,12 @@ const LoginPage = () => {
         localStorage.setItem('_token', response?.accessToken)
         navigate(`${ROUTES?.DASHBOARD?.LINK}`, { replace: true })
       }
+
+      if (response) {
+        setLoader(false)
+      }
     } catch (err) {
+      setLoader(false)
       //TODO: handle error scenario
     } finally {
       //TODO: turn off loader
