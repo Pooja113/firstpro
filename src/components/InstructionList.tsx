@@ -19,17 +19,19 @@ import {
 } from 'styles/components/InstructionList'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
+// import usePatch from 'hooks/usePatch'
 import Modal from 'components/Modal'
+
 import instructions from '../assets/data/instruction.json'
-import usePatch from 'hooks/usePatch'
 import usePost from 'hooks/usePost'
 import ErrorModal from './ErrorModal'
 import 'react-html5-camera-photo/build/css/index.css'
+import { useReactMediaRecorder } from 'react-media-recorder'
 
 const InstructionList = () => {
   const navigate = useNavigate()
   const [isChecked, setIsChecked] = useState(false)
-  const { mutateAsync: patchAsync } = usePatch()
+  const { startRecording } = useReactMediaRecorder({ video: true })
   const { mutateAsync } = usePost()
   const [modal, setModal] = useState(false)
   const [showCamera, setShowCamera] = useState(false)
@@ -40,11 +42,11 @@ const InstructionList = () => {
 
   const startTest = async () => {
     try {
-      const response = await mutateAsync({
+      await mutateAsync({
         url: 'test/startAssignment',
         token: true,
       })
-      if (response?.success) showCameraModal()
+      navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
     } catch (error: any) {
       setModal(true)
       return { error: error?.response?.data?.errorMessage }
@@ -57,7 +59,7 @@ const InstructionList = () => {
 
   const handleTakePhoto = async (base64: string) => {
     try {
-      await patchAsync({ url: 'user/addPhoto', payload: { photo: base64 }, token: true })
+      await mutateAsync({ url: 'user/addPhoto', payload: { photo: base64 }, token: true })
       setShowCamera(false)
       navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
     } catch (error: any) {
@@ -106,9 +108,7 @@ const InstructionList = () => {
               checked={isChecked}
               onChange={handleOnChange}
             />
-            I have read all the instructions Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil placeat
-            aliquam iusto pariatur alias magnam nostrum dicta dignissimos minima quibusdam quo incidunt sit corrupti
-            totam aperiam praesentium quam, temporibus consectetur.
+            I have read all the instructions.
           </ConfirmConatiner>
         </InstructionBody>
         <ButtonContainer>
@@ -116,6 +116,8 @@ const InstructionList = () => {
             disabled={!isChecked}
             onClick={() => {
               startTest()
+              startRecording()
+              showCameraModal()
             }}
           >
             Start
