@@ -13,25 +13,48 @@ import {
   InstructionHeading,
   ConfirmCheckbox,
   ConfirmConatiner,
+  BackButton,
+  BackButtonContainer,
 } from 'styles/components/InstructionList'
-import { useNavigate } from 'react-router-dom'
-import ROUTES from 'routes'
-import { useReactMediaRecorder } from 'react-media-recorder'
+// import { useNavigate } from 'react-router-dom'
+// import ROUTES from 'routes'
+import Modal from 'components/Modal'
+import Camera from 'react-html5-camera-photo'
 
 import instructions from '../assets/data/instruction.json'
+import 'react-html5-camera-photo/build/css/index.css'
 
 const InstructionList = () => {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const [isChecked, setIsChecked] = useState(false)
-  const { startRecording } = useReactMediaRecorder({ video: true })
+  // const { startRecording } = useReactMediaRecorder({ video: true })
+  const [showCamera, setShowCamera] = useState(false)
 
   const handleOnChange = () => {
     setIsChecked(!isChecked)
   }
 
+  const showCameraModal = () => {
+    setShowCamera(true)
+  }
+
+  const handleTakePhoto = () => {
+    setShowCamera(false)
+  }
+
+  const goBack = () => {
+    setShowCamera(false)
+  }
+
   return (
     <MainContainer>
       <InstructionContainer>
+        <Modal isOpen={showCamera} setIsOpen={setShowCamera}>
+          <Camera onTakePhoto={handleTakePhoto} imageCompression={0.65} sizeFactor={0.8} />
+          <BackButtonContainer>
+            <BackButton onClick={goBack}>Go back</BackButton>
+          </BackButtonContainer>
+        </Modal>
         <InstructionHeader>Instructions before Test</InstructionHeader>
         <SubHeadings>
           <TestTime>Duration: 15 minutes</TestTime> <TestMarks>Total Marks: 40 minutes</TestMarks>
@@ -57,8 +80,9 @@ const InstructionList = () => {
         <ButtonContainer>
           <StartButton
             onClick={() => {
-              navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
-              startRecording()
+              showCameraModal()
+              // navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
+              // startRecording()
             }}
           >
             Start
