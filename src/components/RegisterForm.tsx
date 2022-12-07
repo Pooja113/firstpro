@@ -170,7 +170,6 @@ const RegisterForm = () => {
               <InterestOptions value="Node.js">Node.js</InterestOptions>
               <InterestOptions value="iOS">iOS</InterestOptions>
               <InterestOptions value="Android">Android</InterestOptions>
-              <InterestOptions value=".Net">.Net</InterestOptions>
               <InterestOptions value=".Web Designing">Web Designing</InterestOptions>prevInternshipExp
               <InterestOptions value="UI/UX Designing">UI/UX Designing</InterestOptions>
               <InterestOptions value="Networking">Networking</InterestOptions>
