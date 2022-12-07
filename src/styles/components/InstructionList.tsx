@@ -86,6 +86,10 @@ export const StartButton = styled.button`
   font-weight: 600;
   cursor: pointer;
 
+  :disabled {
+    opacity: 0.6;
+  }
+
   :hover {
     background-color: #14256c;
   }
