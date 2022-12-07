@@ -5,6 +5,7 @@ import {
   // ModalContainer
   ModalTitle,
 } from '../styles/components/ErrorModal'
+import { LoaderContainer } from 'styles/components/Loader'
 
 const customStyles = {
   content: {
@@ -19,16 +20,18 @@ const customStyles = {
 
 const ErrorModal = ({ isOpen, close }: any) => {
   return (
-    <Modal
-      isOpen={isOpen}
-      //   onAfterOpen={afterOpenModal}
-      onRequestClose={close}
-      style={customStyles}
-      contentLabel="Example Modal"
-    >
-      <button onClick={close}>close</button>
-      <ModalTitle>Sorry! you have given the test Already</ModalTitle>
-    </Modal>
+    <LoaderContainer>
+      <Modal
+        isOpen={isOpen}
+        //   onAfterOpen={afterOpenModal}
+        onRequestClose={close}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <button onClick={close}>close</button>
+        <ModalTitle>Sorry! you have given the test Already</ModalTitle>
+      </Modal>
+    </LoaderContainer>
   )
 }
 
