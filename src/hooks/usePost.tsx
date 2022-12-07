@@ -13,7 +13,7 @@ const post = async ({ url, payload, token }: IParams) => {
     return data
   } else {
     const authToken = localStorage.getItem('_token')
-    const { data } = await axiosInstance.post(url, payload, { headers: { token: authToken ?? '' } })
+    const { data } = await axiosInstance.post(url, payload, { headers: { token: `Bearer ${authToken} ` ?? '' } })
     return data
   }
 }

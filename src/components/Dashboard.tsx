@@ -1,5 +1,21 @@
 import React, { useEffect } from 'react'
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import {
+  MainContainer,
+  ReattemptButton,
+  ReattemptButtonContainer,
+  Table,
+  TableBodyContainer,
+  TableContainer,
+  TableData,
+  TableHead,
+  TableHeader,
+  TableHeadingRow,
+  TableRow,
+  AwaitingButton,
+  ProcessingButton,
+  CompletedButton,
+} from 'styles/components/Dashboard'
 import useGet from 'hooks/useGet'
 
 type Person = {
@@ -40,38 +56,38 @@ const columns = [
       return (
         <div>
           {row.original?.status === 'awaiting' ? (
-            <div
+            <AwaitingButton
               style={{
                 backgroundColor: 'red',
                 height: '0.7vw',
                 width: '0.7vw',
                 borderRadius: '50%',
               }}
-            ></div>
+            ></AwaitingButton>
           ) : (
             ''
           )}
           {row.original?.status === 'processing' ? (
-            <div
+            <ProcessingButton
               style={{
                 backgroundColor: '#ebba34',
                 height: '0.7vw',
                 width: '0.7vw',
                 borderRadius: '50%',
               }}
-            ></div>
+            ></ProcessingButton>
           ) : (
             ''
           )}
           {row.original?.status === 'completed' ? (
-            <div
+            <CompletedButton
               style={{
                 backgroundColor: 'green',
                 height: '0.7vw',
                 width: '0.7vw',
                 borderRadius: '50%',
               }}
-            ></div>
+            ></CompletedButton>
           ) : (
             ''
           )}
@@ -82,7 +98,11 @@ const columns = [
   columnHelper.accessor('action', {
     header: 'Action',
     cell: ({ row }) => {
-      return <div>{row.original?.action ? <button>reattempt</button> : ''}</div>
+      return (
+        <ReattemptButtonContainer>
+          <ReattemptButton disabled={!row.original?.action}>Re-Attempt</ReattemptButton>
+        </ReattemptButtonContainer>
+      )
     },
   }),
 ]
@@ -117,31 +137,33 @@ const DashboardPage = () => {
   })
 
   return (
-    <div>
-      <table>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className="h-4" />
-    </div>
+    <MainContainer>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableHeadingRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableHeader key={header.id}>
+                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                  </TableHeader>
+                ))}
+              </TableHeadingRow>
+            ))}
+          </TableHead>
+          <TableBodyContainer>
+            {table.getRowModel().rows.map((row) => (
+              <TableRow key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <TableData key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableData>
+                ))}
+              </TableRow>
+            ))}
+          </TableBodyContainer>
+        </Table>
+        <div className="h-4" />
+      </TableContainer>
+    </MainContainer>
   )
 }
 
