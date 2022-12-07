@@ -25,11 +25,11 @@ import { useForm } from 'react-hook-form'
 import { regiterValidation } from 'utils/registerValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
 import usePost from 'hooks/usePost'
-// import { useNavigate } from 'react-router-dom'
-// import ROUTES from 'routes'
+import { useNavigate } from 'react-router-dom'
+import ROUTES from 'routes'
 
 const RegisterForm = () => {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const { mutateAsync } = usePost()
 
@@ -50,6 +50,10 @@ const RegisterForm = () => {
 
       if (response.accessToken) {
         localStorage.setItem('_token', response.accessToken)
+      }
+
+      if (response) {
+        navigate(`${ROUTES?.INSTRUCTIONS?.LINK}`, { replace: true })
       }
     } catch (error: any) {
       return { error: error?.response?.data?.errorMessage }

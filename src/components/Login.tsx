@@ -16,6 +16,7 @@ import { LoginValidation } from 'utils/LoginValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
+// import usePost from 'hooks/usePost'
 
 const LoginPage = () => {
   const navigate = useNavigate()
@@ -27,8 +28,21 @@ const LoginPage = () => {
   } = useForm({
     resolver: yupResolver(LoginValidation),
   })
+  // const { mutateAsync } = usePost()
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
+    // try {
+    //   const response = await mutateAsync({
+    //     url: 'user/registerUser',
+    //     payload: data,
+    //   })
+
+    //   if (response.accessToken) {
+    //     localStorage.setItem('_token', response.accessToken)
+    //   }
+    // } catch (error: any) {
+    //   return { error: error?.response?.data?.errorMessage }
+    // }
     if (data) {
       navigate(`${ROUTES?.DASHBOARD?.LINK}`, { replace: true })
     }

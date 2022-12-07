@@ -19,14 +19,31 @@ import ROUTES from 'routes'
 import { useReactMediaRecorder } from 'react-media-recorder'
 
 import instructions from '../assets/data/instruction.json'
+import usePost from 'hooks/usePost'
+import ErrorModal from './ErrorModal'
 
 const InstructionList = () => {
   const navigate = useNavigate()
   const [isChecked, setIsChecked] = useState(false)
   const { startRecording } = useReactMediaRecorder({ video: true })
+  const { mutateAsync } = usePost()
+  const [modal, setModal] = useState(false)
 
   const handleOnChange = () => {
     setIsChecked(!isChecked)
+  }
+
+  const startTest = async () => {
+    try {
+      await mutateAsync({
+        url: 'test/startAssignment',
+        token: true,
+      })
+      navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
+    } catch (error: any) {
+      setModal(true)
+      return { error: error?.response?.data?.errorMessage }
+    }
   }
 
   return (
@@ -57,7 +74,7 @@ const InstructionList = () => {
         <ButtonContainer>
           <StartButton
             onClick={() => {
-              navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
+              startTest()
               startRecording()
             }}
           >
@@ -65,6 +82,7 @@ const InstructionList = () => {
           </StartButton>
         </ButtonContainer>
       </InstructionContainer>
+      <ErrorModal isOpen={modal} close={() => setModal(false)} />
     </MainContainer>
   )
 }
