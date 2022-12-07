@@ -71,6 +71,10 @@ export const InputTextArea = styled.textarea`
   /* outline: none; */
   border: 2px solid #eee;
   border-radius: 10px;
+  max-height: 6vw;
+  max-width: 65vw;
+  min-width: 60vw;
+  min-height: 6vw;
 `
 
 export const InputLabel = styled.label`
