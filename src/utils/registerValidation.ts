@@ -7,8 +7,10 @@ export const regiterValidation = yup.object().shape({
   gender: yup.string().required('Please Select One').typeError('Must select one'),
   college: yup.string().required('Please enter your college name'),
   stream: yup.string().required('Please enter your stream'),
+  education: yup.string().required('Please select one'),
   semester: yup.string().required('Please enter your semester'),
   coursename: yup.string().required('Please enter the course name'),
+  rollno: yup.string().required('Please enter roll no'),
   percentage: yup.number().required('Please enter your percentage').typeError('It must be a number'),
   passingyear: yup
     .number()
@@ -17,5 +19,6 @@ export const regiterValidation = yup.object().shape({
     .typeError('It must be a number'),
   interests: yup.string().required('Please select one'),
   interneship: yup.string().required('Please write "No", if no internship'),
+  technology: yup.string().required('This field is required'),
   offer: yup.string().required('Please write "No", if no offers'),
 })
