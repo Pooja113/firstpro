@@ -49,7 +49,7 @@ const RegisterForm = () => {
       })
 
       if (response.accessToken) {
-        localStorage.setItem('token', response.accessToken)
+        localStorage.setItem('_token', response.accessToken)
       }
     } catch (error: any) {
       return { error: error?.response?.data?.errorMessage }
@@ -107,6 +107,16 @@ const RegisterForm = () => {
               </InputContainer>
 
               <InputContainer>
+                <InputLabel htmlFor="educationalQualification">Education Qualification *</InputLabel>
+                <Interests id="educationalQualification" {...register('educationalQualification')}>
+                  <InterestOptions value="Post Graduate">Post Graduate</InterestOptions>
+                  <InterestOptions value="Graduate">Graduate</InterestOptions>
+                  <InterestOptions value="Diploma">Diploma</InterestOptions>
+                </Interests>
+                {errors.education && <ErrorMessage>{errors.education.message}</ErrorMessage>}
+              </InputContainer>
+
+              <InputContainer>
                 <InputLabel htmlFor="stream">Stream *</InputLabel>
                 <InputField id="stream" {...register('stream')} />
                 {errors.stream && <ErrorMessage>{errors.stream.message}</ErrorMessage>}
@@ -118,7 +128,6 @@ const RegisterForm = () => {
               </InputContainer>
             </PersonalInfo>
 
-            <InputLabel htmlFor="education">Education Qualification</InputLabel>
             <CourseContainer>
               <CourseField>
                 <InputLabel htmlFor="course">Course Name *</InputLabel>
@@ -126,11 +135,14 @@ const RegisterForm = () => {
                 {errors.course && <ErrorMessage>{errors.course.message}</ErrorMessage>}
               </CourseField>
               <CourseField>
+                <InputLabel htmlFor="rollNumber">Roll No *</InputLabel>
+                <InputField id="rollNumber" {...register('rollNumber')} />
+                {errors.rollno && <ErrorMessage>{errors.rollno.message}</ErrorMessage>}
+              </CourseField>
+              <CourseField>
                 <InputLabel htmlFor="percentageInSelectedQualif">Percentage * </InputLabel>
                 <InputField id="percentageInSelectedQualif" {...register('percentageInSelectedQualif')} />
-                {errors.percentageInSelectedQualif && (
-                  <ErrorMessage>{errors.percentageInSelectedQualif.message}</ErrorMessage>
-                )}
+                {errors.percentage && <ErrorMessage>{errors.percentage.message}</ErrorMessage>}
               </CourseField>
               <CourseField>
                 <InputLabel htmlFor="passingYearOfSelectedQualf">Passing Year *</InputLabel>
@@ -170,12 +182,17 @@ const RegisterForm = () => {
           </DetailsContainer>
 
           <DetailsContainer>
+            <InputLabel htmlFor="internshipExpTechnology">If yes, Kindly Mention the Technology *</InputLabel>
+            <InputField id="internshipExpTechnology" {...register('internshipExpTechnology')} />
+            {errors.technology && <ErrorMessage>{errors.technology.message}</ErrorMessage>}
+          </DetailsContainer>
+
+          <DetailsContainer>
             <InputLabel htmlFor="offerInHand">Any offer in hand ? *</InputLabel>
             <InputTextArea id="offerInHand" {...register('offerInHand')} />
-            {errors.offerInHand && <ErrorMessage>{errors.offerInHand.message}</ErrorMessage>}
+            {errors.offer && <ErrorMessage>{errors.offer.message}</ErrorMessage>}
           </DetailsContainer>
         </RegisterContainer>
-
         <RegisterButton
         // onClick={() => {
         //   navigate(`${ROUTES?.INSTRUCTIONS?.LINK}`, { replace: true })

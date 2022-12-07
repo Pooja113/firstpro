@@ -34,7 +34,7 @@ const InstructionList = () => {
       <InstructionContainer>
         <InstructionHeader>Instructions before Test</InstructionHeader>
         <SubHeadings>
-          <TestTime>Duration: 120 minutes</TestTime> <TestMarks>Total Marks: 50 minutes</TestMarks>
+          <TestTime>Duration: 15 minutes</TestTime> <TestMarks>Total Marks: 40 minutes</TestMarks>
         </SubHeadings>
         <InstructionBody>
           <InstructionHeading>Read the following instructions carefully.</InstructionHeading>
