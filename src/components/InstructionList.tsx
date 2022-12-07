@@ -62,7 +62,7 @@ const InstructionList = () => {
         <InstructionBody>
           <InstructionHeading>Read the following instructions carefully.</InstructionHeading>
           {instructions.map((instruction, i) => (
-            <EachInstruction key={i}>{instruction.rule}</EachInstruction>
+            <EachInstruction key={i}>{instruction}</EachInstruction>
           ))}
           <ConfirmConatiner>
             <ConfirmCheckbox
