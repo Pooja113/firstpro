@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Camera from 'react-html5-camera-photo'
 import {
   InstructionHeader,
@@ -25,6 +25,7 @@ import usePatch from 'hooks/usePatch'
 import usePost from 'hooks/usePost'
 import ErrorModal from './ErrorModal'
 import 'react-html5-camera-photo/build/css/index.css'
+import { LoaderContext } from 'context/loader'
 
 const InstructionList = () => {
   const navigate = useNavigate()
@@ -33,19 +34,28 @@ const InstructionList = () => {
   const { mutateAsync } = usePost()
   const [modal, setModal] = useState(false)
   const [showCamera, setShowCamera] = useState(false)
+  const { setLoader } = useContext(LoaderContext)
 
   const handleOnChange = () => {
     setIsChecked(!isChecked)
   }
 
   const startTest = async () => {
+    setLoader(true)
+
     try {
       const response = await mutateAsync({
         url: 'test/startAssignment',
         token: true,
       })
+
+      if (response) {
+        setLoader(false)
+      }
+
       if (response?.success) showCameraModal()
     } catch (error: any) {
+      setLoader(false)
       setModal(true)
       return { error: error?.response?.data?.errorMessage }
     }

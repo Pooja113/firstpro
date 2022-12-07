@@ -7,6 +7,9 @@ export const ModalContainer = styled.div`
 `
 
 export const ModalTitle = styled.h1`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #ffffff;
   color: black;
 `

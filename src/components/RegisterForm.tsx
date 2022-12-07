@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   CourseContainer,
   CourseField,
@@ -27,9 +27,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import usePost from 'hooks/usePost'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
+import { LoaderContext } from 'context/loader'
 
 const RegisterForm = () => {
   const navigate = useNavigate()
+  const { setLoader } = useContext(LoaderContext)
 
   const { mutateAsync } = usePost()
 
@@ -42,6 +44,7 @@ const RegisterForm = () => {
   })
 
   const onSubmit = async (data: any) => {
+    setLoader(true)
     try {
       const response = await mutateAsync({
         url: 'user/registerUser',
@@ -53,9 +56,11 @@ const RegisterForm = () => {
       }
 
       if (response) {
+        setLoader(false)
         navigate(`${ROUTES?.INSTRUCTIONS?.LINK}`, { replace: true })
       }
     } catch (error: any) {
+      setLoader(false)
       return { error: error?.response?.data?.errorMessage }
     }
   }
