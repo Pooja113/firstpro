@@ -11,14 +11,17 @@ const Main = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // document.addEventListener('contextmenu', (event) => event.preventDefault())
-    // window.onblur = () => {
-    //   navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
-    // }
-    // window.onload = () => {
-    //   navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
-    // }
-    // window.history.replaceState(null, '', '/WIL')
+    document.addEventListener('contextmenu', (event) => event.preventDefault())
+
+    window.onblur = () => {
+      navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
+    }
+
+    window.onload = () => {
+      navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
+    }
+
+    window.history.replaceState(null, '', '/WIL')
   }, [])
 
   return (
