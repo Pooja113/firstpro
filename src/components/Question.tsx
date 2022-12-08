@@ -11,7 +11,11 @@ import {
 
 const Question = (props: any) => {
   const handleClick: ReactEventHandler<HTMLInputElement> = (evnt) => {
-    props.answerFunc(evnt.currentTarget.id, +evnt.currentTarget.value)
+    if (!evnt.currentTarget.checked) {
+      props.answerFunc(evnt.currentTarget.id, [-1])
+    } else {
+      props.answerFunc(evnt.currentTarget.id, [evnt.currentTarget.value])
+    }
   }
 
   return (
