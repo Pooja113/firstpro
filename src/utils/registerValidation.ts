@@ -1,24 +1,65 @@
 import * as yup from 'yup'
 
 export const regiterValidation = yup.object().shape({
-  name: yup.string().required('Please enter full name'),
-  email: yup.string().email('Email must be valid').required('Please enter Email'),
-  phoneNumber: yup.number().required('Please enter Phone Number').typeError('It must be a number'),
+  name: yup
+    .string()
+    .required('Please enter full name')
+    .matches(/^[a-zA-Z]{3,25}$/, 'please enter less than 25 alphabets'),
+  email: yup
+    .string()
+    .email('Email must be valid')
+    .required('Please enter Email')
+    .matches(/^.{3,40}$/, 'please enter less alphabets'),
+  phoneNumber: yup
+    .string()
+    .required('Please enter Phone Number')
+    .typeError('It must be a number')
+    .matches(/^[0-9]*$/, 'must be numerical')
+    .matches(/^.{10,10}$/, 'please enter withinn 10 digit limits'),
   gender: yup.string().required('Please Select One').typeError('Must select one'),
-  collegeName: yup.string().required('Please enter your college name'),
-  stream: yup.string().required('Please enter your stream'),
-  educationalQualification: yup.string().required('Please select one'),
-  semester: yup.string().required('Please enter your semester'),
-  course: yup.string().required('Please enter the course name'),
-  rollNumber: yup.string().required('Please enter the roll number'),
-  internshipExpTechnology: yup.string().required('Please enter the intership technology'),
+  collegeName: yup
+    .string()
+    .required('Please enter your college name')
+    .matches(/^.{0,50}$/, 'enter less than 50 alphabets'),
+  stream: yup
+    .string()
+    .required('Please enter your stream')
+    .matches(/^.{0,50}$/, 'enter less than 50 alphabets'),
+  educationalQualification: yup
+    .string()
+    .required('Please select one')
+    .matches(/^.{0,50}$/, 'enter less than 50 alphabets'),
+  semester: yup
+    .string()
+    .required('Please enter your semester')
+    .matches(/^[0-9]*$/, 'must be numerical')
+    .matches(/^.{0,2}$/, 'enter less than 2 alphabets'),
+  course: yup
+    .string()
+    .required('Please enter the course name')
+    .matches(/^.{0,50}$/, 'enter less than 50 alphabets'),
+  rollNumber: yup
+    .string()
+    .required('Please enter the roll number')
+    .matches(/^[0-9]*$/, 'must be numerical'),
+  internshipExpTechnology: yup
+    .string()
+    .required('Please enter the intership technology')
+    .matches(/^.{0,50}$/, 'enter less than 50 alphabets'),
   percentageInSelectedQualif: yup.number().required('Please enter your percentage').typeError('It must be a number'),
   passingYearOfSelectedQualf: yup
-    .number()
+    .string()
     .max(new Date().getFullYear(), 'Max year is 2022')
     .required('Please enter passing year')
-    .typeError('It must be a number'),
+    .typeError('It must be a number')
+    .matches(/^.{4,4}$/, 'enter valid year details'),
   intrestedIn: yup.string().required('Please select one'),
-  prevInternshipExp: yup.string().required('Please write "No", if no internship'),
-  offerInHand: yup.string().required('Please write "No", if no offers'),
+  prevInternshipExp: yup
+    .string()
+    .required('Please write "No", if no internship')
+    .matches(/^.{0,50}$/, 'enter less than 50 alphabets'),
+  offerInHand: yup
+    .string()
+    .required('Please write "No", if no offers')
+    .matches(/^.{0,50}$/, 'enter less than 50 alphabets'),
 })

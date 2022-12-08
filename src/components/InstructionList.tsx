@@ -19,13 +19,14 @@ import {
 } from 'styles/components/InstructionList'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
-import Modal from 'components/Modal'
-import instructions from '../assets/data/instruction.json'
 import usePatch from 'hooks/usePatch'
+import Modal from 'components/Modal'
+
+import instructions from '../assets/data/instruction.json'
 import usePost from 'hooks/usePost'
 import ErrorModal from './ErrorModal'
-import 'react-html5-camera-photo/build/css/index.css'
 import { LoaderContext } from 'context/loader'
+import 'react-html5-camera-photo/build/css/index.css'
 
 const InstructionList = () => {
   const navigate = useNavigate()
@@ -50,12 +51,11 @@ const InstructionList = () => {
         token: true,
       })
 
-      if (response) {
+      if (response?.success) {
         setTestQuestions(response.testData)
         setLoader(false)
+        showCameraModal()
       }
-
-      if (response?.success) showCameraModal()
     } catch (error: any) {
       setLoader(false)
       setModal(true)
@@ -103,7 +103,7 @@ const InstructionList = () => {
         </Modal>
         <InstructionHeader>Instructions before Test</InstructionHeader>
         <SubHeadings>
-          <TestTime>Duration: 15 minutes</TestTime> <TestMarks>Total Marks: 40 minutes</TestMarks>
+          <TestTime>Duration: 20 minutes</TestTime> <TestMarks>Total Marks: 40 marks</TestMarks>
         </SubHeadings>
         <InstructionBody>
           <InstructionHeading>Read the following instructions carefully.</InstructionHeading>
@@ -118,9 +118,7 @@ const InstructionList = () => {
               checked={isChecked}
               onChange={handleOnChange}
             />
-            I have read all the instructions Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil placeat
-            aliquam iusto pariatur alias magnam nostrum dicta dignissimos minima quibusdam quo incidunt sit corrupti
-            totam aperiam praesentium quam, temporibus consectetur.
+            I have read all the instructions.
           </ConfirmConatiner>
         </InstructionBody>
         <ButtonContainer>
@@ -128,6 +126,7 @@ const InstructionList = () => {
             disabled={!isChecked}
             onClick={() => {
               startTest()
+              showCameraModal()
             }}
           >
             Start
