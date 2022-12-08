@@ -8,12 +8,11 @@ import ROUTES from 'routes'
 import usePost from 'hooks/usePost'
 
 const Main = () => {
-  const [answers, setAnswers] = useState<{ questionId: string, key: number[] }[]>([])
+  const [answers, setAnswers] = useState<{ questionId: string; key: number[] }[]>([])
   const { mutateAsync } = usePost()
   const navigate = useNavigate()
   const { state } = useLocation()
-  // @ts-ignore
-  const { test } = state
+  const test = (state as any)?.test
 
   useEffect(() => {
     document.addEventListener('contextmenu', (event) => event.preventDefault())
@@ -33,7 +32,7 @@ const Main = () => {
     const submitTime = new Date(Date.now())
     mutateAsync({
       url: 'test/submitAssignment',
-      payload: { userData: { endTime: submitTime.toUTCString(), scoreDetails: answers } }
+      payload: { userData: { endTime: submitTime.toUTCString(), scoreDetails: answers } },
     })
     navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
   }
