@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   CourseContainer,
   CourseField,
@@ -28,10 +28,13 @@ import usePost from 'hooks/usePost'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
 import { LoaderContext } from 'context/loader'
+import ErrorModal from './RegistrationErrorModal'
 
 const RegisterForm = () => {
   const navigate = useNavigate()
   const { setLoader } = useContext(LoaderContext)
+  const [modal, setModal] = useState(false)
+  const [errMsg, setMErrMsg] = useState()
 
   const { mutateAsync } = usePost()
 
@@ -59,8 +62,13 @@ const RegisterForm = () => {
         setLoader(false)
         navigate(`${ROUTES?.INSTRUCTIONS?.LINK}`, { replace: true })
       }
+
+      if (response?.message) {
+        setMErrMsg(response?.message)
+      }
     } catch (error: any) {
       setLoader(false)
+      setModal(true)
       return { error: error?.response?.data?.errorMessage }
     }
   }
@@ -212,6 +220,7 @@ const RegisterForm = () => {
           Register
         </RegisterButton>
       </FormContainer>
+      <ErrorModal isOpen={modal} error={errMsg} close={() => setModal(false)} />
     </MainContainer>
   )
 }
