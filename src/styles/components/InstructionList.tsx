@@ -52,7 +52,7 @@ export const InstructionHeading = styled.h3`
 `
 
 export const ConfirmConatiner = styled.div`
-  padding: 15px;
+  padding: 15px 30px;
   border-top: 1px solid;
 `
 

@@ -23,11 +23,13 @@ export const ScoreContainer = styled.div`
   margin: 40px auto;
   border-radius: 10px;
 `
-
 export const ThanksContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  padding-top: 20px;
+  width: 75%;
+  margin: 0 auto;
 `
 export const Thanksheading = styled.h1`
   display: flex;

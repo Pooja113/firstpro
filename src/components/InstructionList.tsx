@@ -19,9 +19,10 @@ import {
 } from 'styles/components/InstructionList'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
+// import usePatch from 'hooks/usePatch'
 import Modal from 'components/Modal'
+
 import instructions from '../assets/data/instruction.json'
-import usePatch from 'hooks/usePatch'
 import usePost from 'hooks/usePost'
 import ErrorModal from './ErrorModal'
 import 'react-html5-camera-photo/build/css/index.css'
@@ -30,7 +31,6 @@ import { LoaderContext } from 'context/loader'
 const InstructionList = () => {
   const navigate = useNavigate()
   const [isChecked, setIsChecked] = useState(false)
-  const { mutateAsync: patchAsync } = usePatch()
   const { mutateAsync } = usePost()
   const [modal, setModal] = useState(false)
   const [showCamera, setShowCamera] = useState(false)
@@ -49,11 +49,10 @@ const InstructionList = () => {
         token: true,
       })
 
-      if (response) {
+      if (response?.success) {
         setLoader(false)
+        showCameraModal()
       }
-
-      if (response?.success) showCameraModal()
     } catch (error: any) {
       setLoader(false)
       setModal(true)
@@ -67,7 +66,7 @@ const InstructionList = () => {
 
   const handleTakePhoto = async (base64: string) => {
     try {
-      await patchAsync({ url: 'user/addPhoto', payload: { photo: base64 }, token: true })
+      await mutateAsync({ url: 'user/addPhoto', payload: { photo: base64 }, token: true })
       setShowCamera(false)
       navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
     } catch (error: any) {
@@ -124,6 +123,7 @@ const InstructionList = () => {
             disabled={!isChecked}
             onClick={() => {
               startTest()
+              showCameraModal()
             }}
           >
             Start
