@@ -103,7 +103,7 @@ const InstructionList = () => {
         </Modal>
         <InstructionHeader>Instructions before Test</InstructionHeader>
         <SubHeadings>
-          <TestTime>Duration: 20 minutes</TestTime> <TestMarks>Total Marks: 40 marks</TestMarks>
+          <TestTime>Duration: 30 minutes</TestTime> <TestMarks>Total Marks: 40 marks</TestMarks>
         </SubHeadings>
         <InstructionBody>
           <InstructionHeading>Read the following instructions carefully.</InstructionHeading>
