@@ -116,9 +116,7 @@ const InstructionList = () => {
               checked={isChecked}
               onChange={handleOnChange}
             />
-            I have read all the instructions Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil placeat
-            aliquam iusto pariatur alias magnam nostrum dicta dignissimos minima quibusdam quo incidunt sit corrupti
-            totam aperiam praesentium quam, temporibus consectetur.
+            I have read all the instructions.
           </ConfirmConatiner>
         </InstructionBody>
         <ButtonContainer>
