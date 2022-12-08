@@ -51,7 +51,11 @@ const RegisterForm = () => {
     try {
       const response = await mutateAsync({
         url: 'user/registerUser',
-        payload: data,
+        payload: {
+          ...data,
+          passingYearOfSelectedQualf: parseInt(data?.passingYearOfSelectedQualf),
+          phoneNumber: parseInt(data?.phoneNumber),
+        },
       })
 
       if (response.accessToken) {
