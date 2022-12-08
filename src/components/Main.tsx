@@ -8,7 +8,7 @@ import ROUTES from 'routes'
 import usePost from 'hooks/usePost'
 
 const Main = () => {
-  const [answers, setAnswers] = useState<{ questionId: string, key: number[] }[]>([]);
+  const [answers, setAnswers] = useState<{ questionId: string, key: number[] }[]>([])
   const { mutateAsync } = usePost()
   const navigate = useNavigate()
   const { state } = useLocation()
@@ -32,7 +32,7 @@ const Main = () => {
   const handleSubmit = () => {
     const submitTime = new Date(Date.now())
     mutateAsync({
-      url: 'test/submitAssiginment',
+      url: 'test/submitAssignment',
       payload: { userData: { endTime: submitTime.toUTCString(), scoreDetails: answers } }
     })
     navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
