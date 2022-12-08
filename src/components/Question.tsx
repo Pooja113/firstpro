@@ -1,4 +1,4 @@
-import React from 'react'
+import { ReactEventHandler } from 'react'
 import {
   EachQuestion,
   AnswerList,
@@ -10,6 +10,10 @@ import {
 } from 'styles/components/Question'
 
 const Question = (props: any) => {
+  const handleClick: ReactEventHandler<HTMLInputElement> = (evnt) => {
+    props.answerFunc(evnt.currentTarget.id, +evnt.currentTarget.value)
+  }
+
   return (
     <>
       <EachQuestion>{props.data.question}</EachQuestion>
@@ -24,20 +28,21 @@ const Question = (props: any) => {
             {props.data.questionType === 'singlechoice' ? (
               <>
                 <ClickSingleAnswer
-                  id={`${idx}${props.data.questionId}`}
+                  id={`${props.data.questionId}`}
                   type="radio"
-                  value={each}
+                  value={idx}
                   name={props.data.questionId}
+                  onClick={handleClick}
                 />
                 <AnswerLabel htmlFor={`${idx}${props.data.questionId}`}>{each}</AnswerLabel>
               </>
             ) : (
               <>
                 <ClickAnswer
-                  id={`${idx}${props.data.questionId}`}
+                  id={`${props.data.questionId}`}
                   type="checkbox"
                   name={`${each}${props.data.questionId}`}
-                  value={each}
+                  value={idx}
                 />
                 <AnswerLabel htmlFor={`${idx}${props.data.questionId}`}>{each}</AnswerLabel>
               </>

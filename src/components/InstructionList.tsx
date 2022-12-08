@@ -34,6 +34,7 @@ const InstructionList = () => {
   const { mutateAsync } = usePost()
   const [modal, setModal] = useState(false)
   const [showCamera, setShowCamera] = useState(false)
+  const [testQuestions, setTestQuestions] = useState([])
   const { setLoader } = useContext(LoaderContext)
 
   const handleOnChange = () => {
@@ -50,6 +51,7 @@ const InstructionList = () => {
       })
 
       if (response) {
+        setTestQuestions(response.testData)
         setLoader(false)
       }
 
@@ -69,10 +71,10 @@ const InstructionList = () => {
     try {
       await patchAsync({ url: 'user/addPhoto', payload: { photo: base64 }, token: true })
       setShowCamera(false)
-      navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
+      navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
     } catch (error: any) {
       //TODO: Show error modal
-      navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
+      navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
     }
   }
 
@@ -81,7 +83,7 @@ const InstructionList = () => {
   }
 
   const skip = () => {
-    navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
+    navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
   }
 
   return (
