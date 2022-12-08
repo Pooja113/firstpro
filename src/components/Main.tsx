@@ -1,14 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { InnerContainer, MainContainer, SaveButton, SubmitContainer } from 'styles/components/Main'
 //import CodeQuestion from './CodeQuestion'
 //import MultiSelectionQues from './MultiSelectionQues'
 import Question from './Question'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import ROUTES from 'routes'
-import questions from '../assets/data/question.json'
+import usePost from 'hooks/usePost'
 
 const Main = () => {
+  const [answers, setAnswers] = useState<{ questionId: string, key: number[] }[]>([]);
+  const { mutateAsync } = usePost()
   const navigate = useNavigate()
+  const { state } = useLocation()
+  // @ts-ignore
+  const { test } = state
 
   useEffect(() => {
     document.addEventListener('contextmenu', (event) => event.preventDefault())
@@ -24,20 +29,27 @@ const Main = () => {
     window.history.replaceState(null, '', '/WIL')
   }, [])
 
+  const handleSubmit = () => {
+    const submitTime = new Date(Date.now())
+    mutateAsync({
+      url: 'test/submitAssiginment',
+      payload: { userData: { endTime: submitTime.toUTCString(), scoreDetails: answers } }
+    })
+    navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
+  }
+
+  const getAnswers = (questionId: string, key: number[]) => {
+    setAnswers([...answers, { questionId: questionId, key: key }])
+  }
+
   return (
     <MainContainer>
       <InnerContainer>
-        {questions.map((quiz: any, index: number) => (
-          <Question key={`question-no-${index}`} data={quiz} />
+        {test.map((quiz: any, index: number) => (
+          <Question key={`question-no-${index}`} data={quiz} answerFunc={getAnswers} />
         ))}
         <SubmitContainer>
-          <SaveButton
-            onClick={() => {
-              navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
-            }}
-          >
-            Submit
-          </SaveButton>
+          <SaveButton onClick={handleSubmit}>Submit</SaveButton>
         </SubmitContainer>
       </InnerContainer>
     </MainContainer>
