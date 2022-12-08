@@ -19,21 +19,23 @@ import {
 } from 'styles/components/InstructionList'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
-// import usePatch from 'hooks/usePatch'
+import usePatch from 'hooks/usePatch'
 import Modal from 'components/Modal'
 
 import instructions from '../assets/data/instruction.json'
 import usePost from 'hooks/usePost'
 import ErrorModal from './ErrorModal'
-import 'react-html5-camera-photo/build/css/index.css'
 import { LoaderContext } from 'context/loader'
+import 'react-html5-camera-photo/build/css/index.css'
 
 const InstructionList = () => {
   const navigate = useNavigate()
   const [isChecked, setIsChecked] = useState(false)
+  const { mutateAsync: patchAsync } = usePatch()
   const { mutateAsync } = usePost()
   const [modal, setModal] = useState(false)
   const [showCamera, setShowCamera] = useState(false)
+  const [testQuestions, setTestQuestions] = useState([])
   const { setLoader } = useContext(LoaderContext)
 
   const handleOnChange = () => {
@@ -50,6 +52,7 @@ const InstructionList = () => {
       })
 
       if (response?.success) {
+        setTestQuestions(response.testData)
         setLoader(false)
         showCameraModal()
       }
@@ -66,12 +69,12 @@ const InstructionList = () => {
 
   const handleTakePhoto = async (base64: string) => {
     try {
-      await mutateAsync({ url: 'user/addPhoto', payload: { photo: base64 }, token: true })
+      await patchAsync({ url: 'user/addPhoto', payload: { photo: base64 }, token: true })
       setShowCamera(false)
-      navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
+      navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
     } catch (error: any) {
       //TODO: Show error modal
-      navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
+      navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
     }
   }
 
@@ -80,7 +83,7 @@ const InstructionList = () => {
   }
 
   const skip = () => {
-    navigate(`${ROUTES?.TEST?.LINK}`, { replace: true })
+    navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
   }
 
   return (
