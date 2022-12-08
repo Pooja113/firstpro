@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const MainContainer = styled.div`
-  /* background: #eff0f2; */
   background: #f9f1d2;
   padding: 20px;
   min-height: 70vh;
@@ -14,6 +13,7 @@ export const InnerContainer = styled.div`
   border-radius: 10px 10px 0 0;
   padding: 20px;
   display: flex;
+  justify-content: space-evenly;
 `
 
 export const SorryImage = styled.img`
