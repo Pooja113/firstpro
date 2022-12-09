@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import {
   CourseContainer,
   CourseField,
@@ -27,9 +27,14 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import usePost from 'hooks/usePost'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
+import { LoaderContext } from 'context/loader'
+import ErrorModal from './RegistrationErrorModal'
 
 const RegisterForm = () => {
   const navigate = useNavigate()
+  const { setLoader } = useContext(LoaderContext)
+  const [modal, setModal] = useState(false)
+  const [errMsg, setMErrMsg] = useState()
 
   const { mutateAsync } = usePost()
 
@@ -42,10 +47,15 @@ const RegisterForm = () => {
   })
 
   const onSubmit = async (data: any) => {
+    setLoader(true)
     try {
       const response = await mutateAsync({
         url: 'user/registerUser',
-        payload: data,
+        payload: {
+          ...data,
+          passingYearOfSelectedQualf: parseInt(data?.passingYearOfSelectedQualf),
+          phoneNumber: parseInt(data?.phoneNumber),
+        },
       })
 
       if (response.accessToken) {
@@ -53,9 +63,16 @@ const RegisterForm = () => {
       }
 
       if (response) {
+        setLoader(false)
         navigate(`${ROUTES?.INSTRUCTIONS?.LINK}`, { replace: true })
       }
+
+      if (response?.message) {
+        setMErrMsg(response?.message)
+      }
     } catch (error: any) {
+      setLoader(false)
+      setModal(true)
       return { error: error?.response?.data?.errorMessage }
     }
   }
@@ -170,7 +187,6 @@ const RegisterForm = () => {
               <InterestOptions value="Node.js">Node.js</InterestOptions>
               <InterestOptions value="iOS">iOS</InterestOptions>
               <InterestOptions value="Android">Android</InterestOptions>
-              <InterestOptions value=".Net">.Net</InterestOptions>
               <InterestOptions value=".Web Designing">Web Designing</InterestOptions>prevInternshipExp
               <InterestOptions value="UI/UX Designing">UI/UX Designing</InterestOptions>
               <InterestOptions value="Networking">Networking</InterestOptions>
@@ -208,6 +224,7 @@ const RegisterForm = () => {
           Register
         </RegisterButton>
       </FormContainer>
+      <ErrorModal isOpen={modal} error={errMsg} close={() => setModal(false)} />
     </MainContainer>
   )
 }

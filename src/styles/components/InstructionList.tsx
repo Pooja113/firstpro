@@ -10,6 +10,27 @@ export const InstructionHeader = styled.h1`
   justify-content: center;
 `
 
+export const BackButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+`
+
+export const BackButton = styled.button`
+  background-color: #2d4195;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #fff;
+  min-width: 100px;
+  padding: 10px;
+
+  :hover {
+    background-color: #22347b;
+  }
+`
+
 export const SubHeadings = styled.div`
   display: flex;
   justify-content: center;
@@ -31,7 +52,7 @@ export const InstructionHeading = styled.h3`
 `
 
 export const ConfirmConatiner = styled.div`
-  padding: 15px;
+  padding: 15px 30px;
   border-top: 1px solid;
 `
 
@@ -64,6 +85,10 @@ export const StartButton = styled.button`
   font-size: 1.2rem;
   font-weight: 600;
   cursor: pointer;
+
+  :disabled {
+    opacity: 0.6;
+  }
 
   :hover {
     background-color: #14256c;

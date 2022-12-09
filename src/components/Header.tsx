@@ -4,9 +4,9 @@ import {
   Heading,
   Logo,
   UserDetails,
-  UserName,
-  UserCourse,
-  UserCollege,
+  // UserName,
+  // UserCourse,
+  // UserCollege,
   MainSection,
   Timer,
 } from 'styles/components/Header'
@@ -16,7 +16,7 @@ import ROUTES from 'routes'
 
 const Header = () => {
   const navigate = useNavigate()
-  const [counter, setCounter] = useState(900)
+  const [counter, setCounter] = useState(1800)
   const minutes = Math.floor(counter / 60)
   const seconds = counter % 60
 
@@ -45,9 +45,9 @@ const Header = () => {
         )}
       </MainSection>
       <UserDetails>
-        <UserName>Full Name</UserName>
+        {/* <UserName>Full Name</UserName>
         <UserCourse>Course Name</UserCourse>
-        <UserCollege>College Name</UserCollege>
+        <UserCollege>College Name</UserCollege> */}
       </UserDetails>
     </HeaderContainer>
   )

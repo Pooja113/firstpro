@@ -10,6 +10,7 @@ const VideoPreview = ({ stream }: { stream: MediaStream | null }) => {
       videoRef.current.srcObject = stream
     }
   }, [stream])
+
   if (!stream) {
     return null
   }

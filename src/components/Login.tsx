@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   ErrorMessage,
   FormContainer,
@@ -16,35 +16,48 @@ import { LoginValidation } from 'utils/LoginValidation'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
-// import usePost from 'hooks/usePost'
+import usePost from 'hooks/usePost'
+import { LoaderContext } from 'context/loader'
+
+interface ILoginForm {
+  email: string
+  password: string
+}
 
 const LoginPage = () => {
   const navigate = useNavigate()
-
+  const { mutateAsync } = usePost()
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<ILoginForm>({
     resolver: yupResolver(LoginValidation),
   })
   // const { mutateAsync } = usePost()
+  const { setLoader } = useContext(LoaderContext)
 
-  const onSubmit = async (data: any) => {
-    // try {
-    //   const response = await mutateAsync({
-    //     url: 'user/registerUser',
-    //     payload: data,
-    //   })
+  const onSubmit = async (data: ILoginForm) => {
+    setLoader(true)
+    try {
+      //TODO: turn on loader
+      const response = await mutateAsync({
+        url: 'admin/login',
+        payload: { username: data.email, password: data.password },
+      })
+      if (response?.success) {
+        localStorage.setItem('_token', response?.accessToken)
+        navigate(`${ROUTES?.DASHBOARD?.LINK}`, { replace: true })
+      }
 
-    //   if (response.accessToken) {
-    //     localStorage.setItem('_token', response.accessToken)
-    //   }
-    // } catch (error: any) {
-    //   return { error: error?.response?.data?.errorMessage }
-    // }
-    if (data) {
-      navigate(`${ROUTES?.DASHBOARD?.LINK}`, { replace: true })
+      if (response) {
+        setLoader(false)
+      }
+    } catch (err) {
+      setLoader(false)
+      //TODO: handle error scenario
+    } finally {
+      //TODO: turn off loader
     }
   }
 
