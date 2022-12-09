@@ -4,7 +4,7 @@ export const regiterValidation = yup.object().shape({
   name: yup
     .string()
     .required('Please enter full name')
-    .matches(/^[a-zA-Z]{3,25}$/, 'please enter less than 25 alphabets'),
+    .matches(/^.{0,25}$/, 'please enter less than 25 alphabets'),
   email: yup
     .string()
     .email('Email must be valid')
@@ -15,7 +15,7 @@ export const regiterValidation = yup.object().shape({
     .required('Please enter Phone Number')
     .typeError('It must be a number')
     .matches(/^[0-9]*$/, 'must be numerical')
-    .matches(/^.{10,10}$/, 'please enter withinn 10 digit limits'),
+    .matches(/^.{10,10}$/, 'please enter with in 10 digit limits'),
   gender: yup.string().required('Please Select One').typeError('Must select one'),
   collegeName: yup
     .string()
@@ -32,8 +32,7 @@ export const regiterValidation = yup.object().shape({
   semester: yup
     .string()
     .required('Please enter your semester')
-    .matches(/^[0-9]*$/, 'must be numerical')
-    .matches(/^.{0,2}$/, 'enter less than 2 alphabets'),
+    .matches(/^.{0,15}$/, 'enter less than 15 alphabets'),
   course: yup
     .string()
     .required('Please enter the course name')
@@ -41,7 +40,7 @@ export const regiterValidation = yup.object().shape({
   rollNumber: yup
     .string()
     .required('Please enter the roll number')
-    .matches(/^[0-9]*$/, 'must be numerical'),
+    .matches(/^.{0,30}$/, 'enter less than 30 alphabets'),
   internshipExpTechnology: yup
     .string()
     .required('Please enter the intership technology')
