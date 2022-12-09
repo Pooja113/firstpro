@@ -16,7 +16,6 @@ const Main = () => {
 
   useEffect(() => {
     document.addEventListener('contextmenu', (event) => event.preventDefault())
-
     window.onblur = () => {
       navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
     }
@@ -46,7 +45,7 @@ const Main = () => {
     <MainContainer>
       <InnerContainer>
         {test.map((quiz: any, index: number) => (
-          <Question key={`question-no-${index}`} data={quiz} answerFunc={getAnswers} />
+          <Question key={`question-no-${index}`} index={index} data={quiz} answerFunc={getAnswers} />
         ))}
         <SubmitContainer>
           <SaveButton onClick={handleSubmit}>Submit</SaveButton>
