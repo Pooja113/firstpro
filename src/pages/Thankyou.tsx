@@ -1,9 +1,9 @@
-import Footer from 'components/Footer'
-import Header from 'components/Header'
-import Score from 'components/Score'
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
+import Footer from 'components/Footer'
+import Header from 'components/Header'
+import Score from 'components/Score'
 
 const Thankyou = () => {
   const navigate = useNavigate()
