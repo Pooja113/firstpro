@@ -215,13 +215,7 @@ const RegisterForm = () => {
             {errors.offerInHand && <ErrorMessage>{errors.offerInHand.message}</ErrorMessage>}
           </DetailsContainer>
         </RegisterContainer>
-        <RegisterButton
-        // onClick={() => {
-        //   navigate(`${ROUTES?.INSTRUCTIONS?.LINK}`, { replace: true })
-        // }}
-        >
-          Register
-        </RegisterButton>
+        <RegisterButton>Register</RegisterButton>
       </FormContainer>
       <ErrorModal isOpen={modal} error={errMsg} close={() => setModal(false)} />
     </MainContainer>
