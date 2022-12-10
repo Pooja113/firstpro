@@ -15,16 +15,14 @@ const Main = () => {
   const test = (state as any)?.test
 
   useEffect(() => {
-    document.addEventListener('contextmenu', (event) => event.preventDefault())
-    window.onblur = () => {
-      navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
-    }
-
-    window.onload = () => {
-      navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
-    }
-
-    window.history.replaceState(null, '', '/WIL')
+    // document.addEventListener('contextmenu', (event) => event.preventDefault())
+    // window.onblur = () => {
+    //   navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
+    // }
+    // window.onload = () => {
+    //   navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
+    // }
+    // window.history.replaceState(null, '', '/WIL')
   }, [])
 
   const handleSubmit = () => {
