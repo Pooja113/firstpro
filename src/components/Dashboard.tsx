@@ -57,7 +57,7 @@ const columns = [
     cell: ({ row }) => {
       return (
         <div>
-          {row.original?.status === 'awaiting' ? (
+          {row.original?.status === 'awaiting' && (
             <AwaitingButton
               style={{
                 backgroundColor: 'red',
@@ -66,10 +66,8 @@ const columns = [
                 borderRadius: '50%',
               }}
             />
-          ) : (
-            ''
           )}
-          {row.original?.status === 'processing' ? (
+          {row.original?.status === 'processing' && (
             <ProcessingButton
               style={{
                 backgroundColor: '#ebba34',
@@ -78,10 +76,8 @@ const columns = [
                 borderRadius: '50%',
               }}
             />
-          ) : (
-            ''
           )}
-          {row.original?.status === 'completed' ? (
+          {row.original?.status === 'completed' && (
             <CompletedButton
               style={{
                 backgroundColor: 'green',
@@ -90,8 +86,6 @@ const columns = [
                 borderRadius: '50%',
               }}
             />
-          ) : (
-            ''
           )}
         </div>
       )
@@ -152,7 +146,7 @@ const DashboardPage = () => {
         interest: item.intrestedIn,
         course: item.course,
         university: item.collegeName,
-        status: 'awaiting',
+        status: 'processing',
         marks: (18 / 30) * 100,
         pass: '',
       }))
