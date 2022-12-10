@@ -65,7 +65,7 @@ const columns = [
                 width: '0.7vw',
                 borderRadius: '50%',
               }}
-            ></AwaitingButton>
+            />
           ) : (
             ''
           )}
@@ -77,7 +77,7 @@ const columns = [
                 width: '0.7vw',
                 borderRadius: '50%',
               }}
-            ></ProcessingButton>
+            />
           ) : (
             ''
           )}
@@ -89,7 +89,7 @@ const columns = [
                 width: '0.7vw',
                 borderRadius: '50%',
               }}
-            ></CompletedButton>
+            />
           ) : (
             ''
           )}
@@ -108,27 +108,15 @@ const columns = [
     cell: ({ row }) => {
       return (
         <div>
-          {row.original?.marks < 50 ? (
-            <AwaitingButton
-              style={{
-                backgroundColor: 'red',
-                height: '0.7vw',
-                width: '0.7vw',
-                borderRadius: '50%',
-              }}
-            ></AwaitingButton>
-          ) : (
-            ''
-          )}
+          {row.original?.marks < 50 ? <div style={{ color: 'red' }}>Fail</div> : ''}
           {row.original?.marks >= 50 ? (
-            <ProcessingButton
+            <div
               style={{
-                backgroundColor: 'green',
-                height: '0.7vw',
-                width: '0.7vw',
-                borderRadius: '50%',
+                color: 'green',
               }}
-            ></ProcessingButton>
+            >
+              Pass
+            </div>
           ) : (
             ''
           )}
@@ -166,7 +154,7 @@ const DashboardPage = () => {
         course: item.course,
         university: item.collegeName,
         status: 'awaiting',
-        marks: (12 / 30) * 100,
+        marks: (15 / 30) * 100,
         pass: '',
       }))
       setData(formattedData)
