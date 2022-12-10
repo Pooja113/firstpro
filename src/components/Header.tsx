@@ -9,7 +9,7 @@ import usePost from 'hooks/usePost'
 const Header = () => {
   const { answers } = useContext(AnswerContext)
   const navigate = useNavigate()
-  const [counter, setCounter] = useState(10)
+  const [counter, setCounter] = useState(1800)
   const minutes = Math.floor(counter / 60)
   const seconds = counter % 60
   const { mutateAsync } = usePost()
