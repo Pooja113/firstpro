@@ -90,7 +90,13 @@ export const StartButton = styled.button`
     opacity: 0.6;
   }
 
+  :disabled:hover {
+    opacity: 0.6;
+    background-color: #2d4195;
+    cursor: default;
+  }
+
   :hover {
-    background-color: #14256c;
+    background-color: #ffb700;
   }
 `

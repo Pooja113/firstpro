@@ -40,3 +40,14 @@ export const MainSection = styled.div`
   flex-direction: column;
   align-items: center;
 `
+export const LogoutButton = styled.button`
+  background-color: #2d4195;
+  color: #fff;
+  border-radius: 10px;
+  margin-top: 1.8vw;
+  padding: 1vw;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+`
