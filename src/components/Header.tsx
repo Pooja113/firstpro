@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {
-  HeaderContainer,
-  Heading,
-  Logo,
-  UserDetails,
-  // UserName,
-  // UserCourse,
-  // UserCollege,
-  MainSection,
-  Timer,
-} from 'styles/components/Header'
+import { HeaderContainer, Heading, Logo, UserDetails, LogoutButton, MainSection, Timer } from 'styles/components/Header'
 import logo from 'assets/images/witslogo.svg'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
@@ -29,6 +19,12 @@ const Header = () => {
       navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
     }
   }, [counter])
+
+  const LogoutBtn = () => {
+    window?.localStorage.clear()
+    navigate(`${ROUTES?.ADMIN?.LINK}`, { replace: true })
+  }
+
   return (
     <HeaderContainer>
       <Logo>
@@ -36,18 +32,16 @@ const Header = () => {
       </Logo>
       <MainSection>
         <Heading>WIL HIRING TEST </Heading>
-        {window.location.pathname === '/test' || window.location.pathname === '/WIL' ? (
+        {(window.location.pathname === '/test' || window.location.pathname === '/WIL') && (
           <Timer>
             {minutes}m: {seconds}s
           </Timer>
-        ) : (
-          ''
         )}
       </MainSection>
       <UserDetails>
-        {/* <UserName>Full Name</UserName>
-        <UserCourse>Course Name</UserCourse>
-        <UserCollege>College Name</UserCollege> */}
+        {window.location.pathname === '/admin/dashboard' && (
+          <LogoutButton onClick={() => LogoutBtn()}>Logout</LogoutButton>
+        )}
       </UserDetails>
     </HeaderContainer>
   )

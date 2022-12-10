@@ -26,6 +26,8 @@ type Person = {
   course: string
   interest: string
   status: string
+  marks: string | number
+  pass: string
   action: boolean
 }
 
@@ -55,7 +57,7 @@ const columns = [
     cell: ({ row }) => {
       return (
         <div>
-          {row.original?.status === 'awaiting' ? (
+          {row.original?.status === 'awaiting' && (
             <AwaitingButton
               style={{
                 backgroundColor: 'red',
@@ -63,11 +65,9 @@ const columns = [
                 width: '0.7vw',
                 borderRadius: '50%',
               }}
-            ></AwaitingButton>
-          ) : (
-            ''
+            />
           )}
-          {row.original?.status === 'processing' ? (
+          {row.original?.status === 'processing' && (
             <ProcessingButton
               style={{
                 backgroundColor: '#ebba34',
@@ -75,11 +75,9 @@ const columns = [
                 width: '0.7vw',
                 borderRadius: '50%',
               }}
-            ></ProcessingButton>
-          ) : (
-            ''
+            />
           )}
-          {row.original?.status === 'completed' ? (
+          {row.original?.status === 'completed' && (
             <CompletedButton
               style={{
                 backgroundColor: 'green',
@@ -87,9 +85,33 @@ const columns = [
                 width: '0.7vw',
                 borderRadius: '50%',
               }}
-            ></CompletedButton>
+            />
+          )}
+        </div>
+      )
+    },
+  }),
+  columnHelper.accessor('marks', {
+    header: 'Marks',
+    cell: ({ row }) => {
+      return <div>{row.original.marks}</div>
+    },
+  }),
+  columnHelper.accessor('pass', {
+    header: 'Pass',
+    cell: ({ row }) => {
+      return (
+        <div>
+          {row.original?.marks < 50 ? (
+            <div style={{ color: 'red' }}>Fail</div>
           ) : (
-            ''
+            <div
+              style={{
+                color: 'green',
+              }}
+            >
+              Pass
+            </div>
           )}
         </div>
       )
@@ -124,7 +146,9 @@ const DashboardPage = () => {
         interest: item.intrestedIn,
         course: item.course,
         university: item.collegeName,
-        status: 'pending',
+        status: 'processing',
+        marks: (18 / 30) * 100,
+        pass: '',
       }))
       setData(formattedData)
     }
