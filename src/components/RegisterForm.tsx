@@ -76,7 +76,6 @@ const RegisterForm = () => {
       return { error: error?.response?.data?.errorMessage }
     }
   }
-  //testing
 
   const onError = (errors: any) => {
     return errors
@@ -162,14 +161,14 @@ const RegisterForm = () => {
                 {errors.rollNumber && <ErrorMessage>{errors.rollNumber.message}</ErrorMessage>}
               </CourseField>
               <CourseField>
-                <InputLabel htmlFor="percentageInSelectedQualif">Percentage * </InputLabel>
+                <InputLabel htmlFor="percentageInSelectedQualif">Percentage/CGPA * </InputLabel>
                 <InputField id="percentageInSelectedQualif" {...register('percentageInSelectedQualif')} />
                 {errors.percentageInSelectedQualif && (
                   <ErrorMessage>{errors.percentageInSelectedQualif.message}</ErrorMessage>
                 )}
               </CourseField>
               <CourseField>
-                <InputLabel htmlFor="passingYearOfSelectedQualf">Passing Year *</InputLabel>
+                <InputLabel htmlFor="passingYearOfSelectedQualf">Passing Year (YYYY) *</InputLabel>
                 <InputField id="passingYearOfSelectedQualf" {...register('passingYearOfSelectedQualf')} />
                 {errors.passingYearOfSelectedQualf && (
                   <ErrorMessage>{errors.passingYearOfSelectedQualf.message}</ErrorMessage>
@@ -216,13 +215,7 @@ const RegisterForm = () => {
             {errors.offerInHand && <ErrorMessage>{errors.offerInHand.message}</ErrorMessage>}
           </DetailsContainer>
         </RegisterContainer>
-        <RegisterButton
-        // onClick={() => {
-        //   navigate(`${ROUTES?.INSTRUCTIONS?.LINK}`, { replace: true })
-        // }}
-        >
-          Register
-        </RegisterButton>
+        <RegisterButton>Register</RegisterButton>
       </FormContainer>
       <ErrorModal isOpen={modal} error={errMsg} close={() => setModal(false)} />
     </MainContainer>

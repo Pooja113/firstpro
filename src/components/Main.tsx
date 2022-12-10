@@ -8,7 +8,7 @@ import ROUTES from 'routes'
 import usePost from 'hooks/usePost'
 
 const Main = () => {
-  const [answers, setAnswers] = useState<{ questionId: string; key: number[] }[]>([])
+  const [answers, setAnswers] = useState<any>([])
   const { mutateAsync } = usePost()
   const navigate = useNavigate()
   const { state } = useLocation()
@@ -16,7 +16,6 @@ const Main = () => {
 
   useEffect(() => {
     document.addEventListener('contextmenu', (event) => event.preventDefault())
-
     window.onblur = () => {
       navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
     }
@@ -33,6 +32,7 @@ const Main = () => {
     mutateAsync({
       url: 'test/submitAssignment',
       payload: { userData: { endTime: submitTime.toUTCString(), scoreDetails: answers } },
+      token: true,
     })
     navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
   }
@@ -45,7 +45,7 @@ const Main = () => {
     <MainContainer>
       <InnerContainer>
         {test.map((quiz: any, index: number) => (
-          <Question key={`question-no-${index}`} data={quiz} answerFunc={getAnswers} />
+          <Question key={`question-no-${index}`} index={index} data={quiz} answerFunc={getAnswers} />
         ))}
         <SubmitContainer>
           <SaveButton onClick={handleSubmit}>Submit</SaveButton>
