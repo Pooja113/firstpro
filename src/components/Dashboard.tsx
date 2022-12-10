@@ -26,6 +26,8 @@ type Person = {
   course: string
   interest: string
   status: string
+  marks: string | number
+  pass: string
   action: boolean
 }
 
@@ -95,6 +97,45 @@ const columns = [
       )
     },
   }),
+  columnHelper.accessor('marks', {
+    header: 'Marks',
+    cell: ({ row }) => {
+      return <div>{row.original.marks}</div>
+    },
+  }),
+  columnHelper.accessor('pass', {
+    header: 'Pass',
+    cell: ({ row }) => {
+      return (
+        <div>
+          {row.original?.marks < 50 ? (
+            <AwaitingButton
+              style={{
+                backgroundColor: 'red',
+                height: '0.7vw',
+                width: '0.7vw',
+                borderRadius: '50%',
+              }}
+            ></AwaitingButton>
+          ) : (
+            ''
+          )}
+          {row.original?.marks >= 50 ? (
+            <ProcessingButton
+              style={{
+                backgroundColor: 'green',
+                height: '0.7vw',
+                width: '0.7vw',
+                borderRadius: '50%',
+              }}
+            ></ProcessingButton>
+          ) : (
+            ''
+          )}
+        </div>
+      )
+    },
+  }),
   columnHelper.accessor('action', {
     header: 'Action',
     cell: ({ row }) => {
@@ -124,7 +165,9 @@ const DashboardPage = () => {
         interest: item.intrestedIn,
         course: item.course,
         university: item.collegeName,
-        status: 'pending',
+        status: 'awaiting',
+        marks: (12 / 30) * 100,
+        pass: '',
       }))
       setData(formattedData)
     }

@@ -4,6 +4,7 @@ import {
   Heading,
   Logo,
   UserDetails,
+  LogoutButton,
   // UserName,
   // UserCourse,
   // UserCollege,
@@ -29,6 +30,12 @@ const Header = () => {
       navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
     }
   }, [counter])
+
+  const LogoutBtn = () => {
+    window?.localStorage.clear()
+    navigate(`${ROUTES?.ADMIN?.LINK}`, { replace: true })
+  }
+
   return (
     <HeaderContainer>
       <Logo>
@@ -48,6 +55,11 @@ const Header = () => {
         {/* <UserName>Full Name</UserName>
         <UserCourse>Course Name</UserCourse>
         <UserCollege>College Name</UserCollege> */}
+        {window.location.pathname === '/admin/dashboard' ? (
+          <LogoutButton onClick={() => LogoutBtn()}>Logout</LogoutButton>
+        ) : (
+          ''
+        )}
       </UserDetails>
     </HeaderContainer>
   )
