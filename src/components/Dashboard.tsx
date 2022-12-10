@@ -108,8 +108,9 @@ const columns = [
     cell: ({ row }) => {
       return (
         <div>
-          {row.original?.marks < 50 ? <div style={{ color: 'red' }}>Fail</div> : ''}
-          {row.original?.marks >= 50 ? (
+          {row.original?.marks < 50 ? (
+            <div style={{ color: 'red' }}>Fail</div>
+          ) : (
             <div
               style={{
                 color: 'green',
@@ -117,8 +118,6 @@ const columns = [
             >
               Pass
             </div>
-          ) : (
-            ''
           )}
         </div>
       )
@@ -154,7 +153,7 @@ const DashboardPage = () => {
         course: item.course,
         university: item.collegeName,
         status: 'awaiting',
-        marks: (15 / 30) * 100,
+        marks: (18 / 30) * 100,
         pass: '',
       }))
       setData(formattedData)
