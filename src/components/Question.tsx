@@ -26,7 +26,6 @@ const Question = (props: any) => {
 
   return (
     <>
-      {props?.data?.questionCategory}
       {props.data.question.includes('<code><pre>') ? (
         <>
           <EachQuestion>{props.index + 1}. What is the output of the following code?</EachQuestion>

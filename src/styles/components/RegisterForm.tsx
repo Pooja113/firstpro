@@ -6,7 +6,7 @@ export const MainContainer = styled.div`
 `
 
 export const RegisterContainer = styled.div`
-  padding: 50px;
+  padding: 40px;
 `
 
 export const PersonalInfo = styled.div`
