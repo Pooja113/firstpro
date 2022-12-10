@@ -47,7 +47,7 @@ export const LogoutButton = styled.button`
   margin-top: 1.8vw;
   padding: 1vw;
   border: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
 `

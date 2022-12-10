@@ -22,6 +22,8 @@ import {
   AwaitingButton,
   ProcessingButton,
   CompletedButton,
+  DownloadButton,
+  DownloadContainer,
 } from 'styles/components/Dashboard'
 import useGet from 'hooks/useGet'
 
@@ -175,46 +177,57 @@ const DashboardPage = () => {
   })
 
   return (
-    <MainContainer>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableHeadingRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHeader key={header.id} colSpan={header.colSpan}>
-                    {header.isPlaceholder ? null : (
-                      <div
-                        {...{
-                          className: header.column.getCanSort() ? 'cursor-pointer select-none' : '',
-                          onClick: header.column.getToggleSortingHandler(),
-                        }}
-                      >
-                        {flexRender(header.column.columnDef.header, header.getContext())}
-                        {{
-                          asc: ' 🔼',
-                          desc: ' 🔽',
-                        }[header.column.getIsSorted() as string] ?? null}
-                      </div>
-                    )}
-                  </TableHeader>
-                ))}
-              </TableHeadingRow>
-            ))}
-          </TableHead>
-          <TableBodyContainer>
-            {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableData key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableData>
-                ))}
-              </TableRow>
-            ))}
-          </TableBodyContainer>
-        </Table>
-        <div className="h-4" />
-      </TableContainer>
-    </MainContainer>
+    <>
+      <DownloadContainer>
+        <DownloadButton
+          onClick={() => {
+            window.location.pathname = '/admin/downloadexcel'
+          }}
+        >
+          Download
+        </DownloadButton>
+      </DownloadContainer>
+      <MainContainer>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableHeadingRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <TableHeader key={header.id} colSpan={header.colSpan}>
+                      {header.isPlaceholder ? null : (
+                        <div
+                          {...{
+                            className: header.column.getCanSort() ? 'cursor-pointer select-none' : '',
+                            onClick: header.column.getToggleSortingHandler(),
+                          }}
+                        >
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                          {{
+                            asc: ' 🔼',
+                            desc: ' 🔽',
+                          }[header.column.getIsSorted() as string] ?? null}
+                        </div>
+                      )}
+                    </TableHeader>
+                  ))}
+                </TableHeadingRow>
+              ))}
+            </TableHead>
+            <TableBodyContainer>
+              {table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableData key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableData>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBodyContainer>
+          </Table>
+          <div className="h-4" />
+        </TableContainer>
+      </MainContainer>
+    </>
   )
 }
 

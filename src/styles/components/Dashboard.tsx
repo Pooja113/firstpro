@@ -74,3 +74,19 @@ export const AwaitingButton = styled.div`
 `
 export const ProcessingButton = styled.div``
 export const CompletedButton = styled.div``
+
+export const DownloadContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
+export const DownloadButton = styled.button`
+  background-color: #2d4195;
+  color: #fff;
+  border-radius: 10px;
+  margin-top: 0.2vw;
+  padding: 1vw;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+`
