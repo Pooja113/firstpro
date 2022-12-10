@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { InnerContainer, MainContainer, SaveButton, SubmitContainer } from 'styles/components/Main'
-//import CodeQuestion from './CodeQuestion'
-//import MultiSelectionQues from './MultiSelectionQues'
 import Question from './Question'
 import { useNavigate, useLocation } from 'react-router-dom'
 import ROUTES from 'routes'
 import usePost from 'hooks/usePost'
+import { AnswerContext } from 'context/answers'
 
 const Main = () => {
-  const [answers, setAnswers] = useState<any>([])
+  const { answers, setAnswers } = useContext(AnswerContext)
   const { mutateAsync } = usePost()
   const navigate = useNavigate()
   const { state } = useLocation()
@@ -17,14 +16,28 @@ const Main = () => {
   useEffect(() => {
     document.addEventListener('contextmenu', (event) => event.preventDefault())
     window.onblur = () => {
+      handleSubmit()
       navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
     }
 
     window.onload = () => {
+      handleSubmit()
       navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
     }
 
     window.history.replaceState(null, '', '/WIL')
+
+    return () => {
+      document.removeEventListener('contextmenu', (event) => event.preventDefault())
+      window.removeEventListener('load', () => {
+        handleSubmit()
+        navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
+      })
+      window.removeEventListener('blur', () => {
+        handleSubmit()
+        navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
+      })
+    }
   }, [])
 
   const handleSubmit = () => {
@@ -34,7 +47,6 @@ const Main = () => {
       payload: { userData: { endTime: submitTime.toUTCString(), scoreDetails: answers } },
       token: true,
     })
-    navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
   }
 
   const getAnswers = (questionId: string, key: number[]) => {
@@ -48,7 +60,14 @@ const Main = () => {
           <Question key={`question-no-${index}`} index={index} data={quiz} answerFunc={getAnswers} />
         ))}
         <SubmitContainer>
-          <SaveButton onClick={handleSubmit}>Submit</SaveButton>
+          <SaveButton
+            onClick={() => {
+              handleSubmit()
+              navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
+            }}
+          >
+            Submit
+          </SaveButton>
         </SubmitContainer>
       </InnerContainer>
     </MainContainer>
