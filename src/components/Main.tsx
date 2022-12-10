@@ -17,14 +17,28 @@ const Main = () => {
   useEffect(() => {
     document.addEventListener('contextmenu', (event) => event.preventDefault())
     window.onblur = () => {
+      handleSubmit()
       navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
     }
 
     window.onload = () => {
+      handleSubmit()
       navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
     }
 
     window.history.replaceState(null, '', '/WIL')
+
+    return () => {
+      document.removeEventListener('contextmenu', (event) => event.preventDefault())
+      window.removeEventListener('load', () => {
+        handleSubmit()
+        navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
+      })
+      window.removeEventListener('blur', () => {
+        handleSubmit()
+        navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
+      })
+    }
   }, [])
 
   const handleSubmit = () => {
@@ -34,7 +48,6 @@ const Main = () => {
       payload: { userData: { endTime: submitTime.toUTCString(), scoreDetails: answers } },
       token: true,
     })
-    navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
   }
 
   const getAnswers = (questionId: string, key: number[]) => {
@@ -48,7 +61,14 @@ const Main = () => {
           <Question key={`question-no-${index}`} index={index} data={quiz} answerFunc={getAnswers} />
         ))}
         <SubmitContainer>
-          <SaveButton onClick={handleSubmit}>Submit</SaveButton>
+          <SaveButton
+            onClick={() => {
+              handleSubmit()
+              navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
+            }}
+          >
+            Submit
+          </SaveButton>
         </SubmitContainer>
       </InnerContainer>
     </MainContainer>
