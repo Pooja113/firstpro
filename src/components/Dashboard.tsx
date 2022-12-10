@@ -1,5 +1,12 @@
 import React, { useEffect } from 'react'
-import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import {
+  createColumnHelper,
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  SortingState,
+  useReactTable,
+} from '@tanstack/react-table'
 import {
   MainContainer,
   ReattemptButton,
@@ -108,6 +115,8 @@ const columns = [
 ]
 
 const DashboardPage = () => {
+  const [sorting, setSorting] = React.useState<SortingState>([])
+
   const [data, setData] = React.useState<Person[]>([])
   const { refetch, data: studentData } = useGet('fetchStudents', 'admin/fetchStudents', true)
 
@@ -133,7 +142,12 @@ const DashboardPage = () => {
   const table = useReactTable({
     data,
     columns,
+    state: {
+      sorting,
+    },
+    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   })
 
   return (
@@ -144,8 +158,21 @@ const DashboardPage = () => {
             {table.getHeaderGroups().map((headerGroup) => (
               <TableHeadingRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHeader key={header.id}>
-                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                  <TableHeader key={header.id} colSpan={header.colSpan}>
+                    {header.isPlaceholder ? null : (
+                      <div
+                        {...{
+                          className: header.column.getCanSort() ? 'cursor-pointer select-none' : '',
+                          onClick: header.column.getToggleSortingHandler(),
+                        }}
+                      >
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                        {{
+                          asc: ' 🔼',
+                          desc: ' 🔽',
+                        }[header.column.getIsSorted() as string] ?? null}
+                      </div>
+                    )}
                   </TableHeader>
                 ))}
               </TableHeadingRow>
