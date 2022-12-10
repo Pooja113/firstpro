@@ -12,31 +12,35 @@ import { useState } from 'react'
 import { LoaderContext } from 'context/loader'
 import Loader from 'components/Loader'
 import ProtectedRoutes from 'components/ProtectedRoutes'
+import { AnswerContext } from 'context/answers'
 
 const queryClient = new QueryClient()
 
 const App = () => {
   const [loader, setLoader] = useState(false)
+  const [answers, setAnswers] = useState<IAnswer[]>([])
 
   return (
     <>
       {loader && <Loader />}
       <QueryClientProvider client={queryClient}>
-        <LoaderContext.Provider value={{ loader, setLoader }}>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Registration />} />
-              <Route path="/" element={<ProtectedRoutes />}>
-                <Route path="instructions" element={<Instructions />} />
-                <Route path="test" element={<Home />} />
-                <Route path="thankyou" element={<Thankyou />} />
-                <Route path="sorry" element={<FailPage />} />
-                <Route path="admin" element={<Login />} />
-                <Route path="admin/dashboard" element={<Dashboard />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </LoaderContext.Provider>
+        <AnswerContext.Provider value={{ answers, setAnswers }}>
+          <LoaderContext.Provider value={{ loader, setLoader }}>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Registration />} />
+                <Route path="/" element={<ProtectedRoutes />}>
+                  <Route path="instructions" element={<Instructions />} />
+                  <Route path="test" element={<Home />} />
+                  <Route path="thankyou" element={<Thankyou />} />
+                  <Route path="sorry" element={<FailPage />} />
+                  <Route path="admin" element={<Login />} />
+                  <Route path="admin/dashboard" element={<Dashboard />} />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </LoaderContext.Provider>
+        </AnswerContext.Provider>
       </QueryClientProvider>
     </>
   )

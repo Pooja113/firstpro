@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { InnerContainer, MainContainer, SaveButton, SubmitContainer } from 'styles/components/Main'
 //import CodeQuestion from './CodeQuestion'
 //import MultiSelectionQues from './MultiSelectionQues'
@@ -6,9 +6,10 @@ import Question from './Question'
 import { useNavigate, useLocation } from 'react-router-dom'
 import ROUTES from 'routes'
 import usePost from 'hooks/usePost'
+import { AnswerContext } from 'context/answers'
 
 const Main = () => {
-  const [answers, setAnswers] = useState<any>([])
+  const { answers, setAnswers } = useContext(AnswerContext)
   const { mutateAsync } = usePost()
   const navigate = useNavigate()
   const { state } = useLocation()
