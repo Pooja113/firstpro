@@ -1,7 +1,5 @@
 import React, { useContext, useEffect } from 'react'
 import { InnerContainer, MainContainer, SaveButton, SubmitContainer } from 'styles/components/Main'
-//import CodeQuestion from './CodeQuestion'
-//import MultiSelectionQues from './MultiSelectionQues'
 import Question from './Question'
 import { useNavigate, useLocation } from 'react-router-dom'
 import ROUTES from 'routes'
