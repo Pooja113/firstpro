@@ -21,7 +21,6 @@ import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
 import usePatch from 'hooks/usePatch'
 import Modal from 'components/Modal'
-
 import instructions from '../assets/data/instruction.json'
 import usePost from 'hooks/usePost'
 import ErrorModal from './ErrorModal'

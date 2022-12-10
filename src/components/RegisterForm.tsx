@@ -29,6 +29,8 @@ import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
 import { LoaderContext } from 'context/loader'
 import ErrorModal from './RegistrationErrorModal'
+import interests from '../assets/data/interests.json'
+import qualification from '../assets/data/qualification.json'
 
 const RegisterForm = () => {
   const navigate = useNavigate()
@@ -130,11 +132,15 @@ const RegisterForm = () => {
               <InputContainer>
                 <InputLabel htmlFor="educationalQualification">Education Qualification *</InputLabel>
                 <Interests id="educationalQualification" {...register('educationalQualification')}>
-                  <InterestOptions value="Post Graduate">Post Graduate</InterestOptions>
-                  <InterestOptions value="Graduate">Graduate</InterestOptions>
-                  <InterestOptions value="Diploma">Diploma</InterestOptions>
+                  {qualification.map((each) => (
+                    <InterestOptions key={each.value} value={each.value}>
+                      {each.label}
+                    </InterestOptions>
+                  ))}
                 </Interests>
-                {errors.education && <ErrorMessage>{errors.education.message}</ErrorMessage>}
+                {errors.educationalQualification && (
+                  <ErrorMessage>{errors.educationalQualification.message}</ErrorMessage>
+                )}
               </InputContainer>
 
               <InputContainer>
@@ -180,19 +186,13 @@ const RegisterForm = () => {
           <PersonalInfoHeading>Other Details</PersonalInfoHeading>
           <DetailsContainer>
             <InputLabel htmlFor="intrestedIn">Interested In</InputLabel>
+
             <Interests id="intrestedIn" {...register('intrestedIn')}>
-              <InterestOptions value="Full stack Developer">Full stack Developer</InterestOptions>
-              <InterestOptions value="React.js">React.js</InterestOptions>
-              <InterestOptions value="Node.js">Node.js</InterestOptions>
-              <InterestOptions value="iOS">iOS</InterestOptions>
-              <InterestOptions value="Android">Android</InterestOptions>
-              <InterestOptions value=".Web Designing">Web Designing</InterestOptions>prevInternshipExp
-              <InterestOptions value="UI/UX Designing">UI/UX Designing</InterestOptions>
-              <InterestOptions value="Networking">Networking</InterestOptions>
-              <InterestOptions value="Digital Marketing,">Digital Marketing,</InterestOptions>
-              <InterestOptions value="Quality Analyst">Quality Analyst</InterestOptions>
-              <InterestOptions value="Blockchain">Blockchain</InterestOptions>
-              <InterestOptions value="AI/ML">AI/ML</InterestOptions>
+              {interests.map((interest) => (
+                <InterestOptions key={interest.value} value={interest.value}>
+                  {interest.label}
+                </InterestOptions>
+              ))}
             </Interests>
             {errors.intrestedIn && <ErrorMessage>{errors.intrestedIn.message}</ErrorMessage>}
           </DetailsContainer>
