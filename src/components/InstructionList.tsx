@@ -72,8 +72,6 @@ const InstructionList = () => {
       setShowCamera(false)
       navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
     } catch (error: any) {
-      //TODO: Show error modal
-      // navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
       setErrorModal(true)
     }
   }
@@ -81,10 +79,6 @@ const InstructionList = () => {
   const goBack = () => {
     setShowCamera(false)
   }
-
-  // const skip = () => {
-  //   navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
-  // }
 
   useEffect(() => {
     window.scrollTo(0, 0)

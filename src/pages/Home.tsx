@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import Footer from 'components/Footer'
 import Header from 'components/Header'
 import Main from 'components/Main'
-// import VideoRecord from 'components/VideoRecord'
 
 const Home = () => {
   const elem: any = document.documentElement
