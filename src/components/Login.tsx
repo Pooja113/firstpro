@@ -55,9 +55,8 @@ const LoginPage = () => {
       }
     } catch (err) {
       setLoader(false)
-      //TODO: handle error scenario
     } finally {
-      //TODO: turn off loader
+      setLoader(false)
     }
   }
 
