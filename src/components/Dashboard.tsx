@@ -115,7 +115,7 @@ const columns = [
     },
   }),
   columnHelper.accessor('pass', {
-    header: 'Pass/Fail',
+    header: 'Result',
     cell: ({ row }) => {
       return (
         <div>
