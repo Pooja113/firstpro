@@ -1,7 +1,7 @@
+import React, { useEffect } from 'react'
 import Footer from 'components/Footer'
 import Header from 'components/Header'
 import Main from 'components/Main'
-import React, { useEffect } from 'react'
 // import VideoRecord from 'components/VideoRecord'
 
 const Home = () => {
@@ -22,6 +22,7 @@ const Home = () => {
       return false
     }
   }, [])
+
   return (
     <>
       <Header />
