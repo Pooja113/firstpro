@@ -29,6 +29,8 @@ import Modal from 'react-modal'
 import { ModalTitle } from '../styles/components/ErrorModal'
 import usePost from 'hooks/usePost'
 import { LoaderContext } from 'context/loader'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 type Person = {
   name: string
@@ -135,6 +137,7 @@ const columns = [
     header: 'Action',
     cell: ({ row }) => {
       const { setLoader } = useContext(LoaderContext)
+      const notify = () => toast('Student Deleted Successfully!')
 
       const { mutateAsync } = usePost()
 
@@ -147,6 +150,10 @@ const columns = [
           })
           if (response) {
             setLoader(false)
+            notify()
+            setTimeout(() => {
+              window.location.reload()
+            }, 2000)
           }
         } catch (error: any) {
           setLoader(false)
@@ -159,6 +166,7 @@ const columns = [
           <ReattemptButton onClick={() => RemoveStudent()} disabled={row.original?.action}>
             Remove Student
           </ReattemptButton>
+          <ToastContainer />
         </ReattemptButtonContainer>
       )
     },
