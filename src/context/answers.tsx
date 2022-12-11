@@ -6,7 +6,7 @@ interface IAnswerContext {
 }
 
 const defaultState = {
-  answers: [],
+  answers: [{ questionId: '', key: [] }],
   setAnswers: () => null,
 }
 const AnswerContext = createContext<IAnswerContext>(defaultState)

@@ -82,3 +82,20 @@ export const ViewPhotoBtn = styled.div`
     text-decoration: underline;
   }
 `
+
+export const DownloadContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  background: #f9f1d2;
+`
+export const DownloadButton = styled.button`
+  background-color: #2d4195;
+  color: #fff;
+  border-radius: 10px;
+  margin: 1em 7vw;
+  padding: 1em;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+`

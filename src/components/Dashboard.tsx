@@ -23,14 +23,17 @@ import {
   ProcessingButton,
   CompletedButton,
   ViewPhotoBtn,
+  DownloadContainer,
+  DownloadButton,
 } from 'styles/components/Dashboard'
-import useGet from 'hooks/useGet'
 import Modal from 'react-modal'
 import { ModalTitle } from '../styles/components/ErrorModal'
 import usePost from 'hooks/usePost'
-import { LoaderContext } from 'context/loader'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import useGet from 'hooks/useGet'
+import instance from 'services/axiosInstance'
+import { LoaderContext } from 'context/loader'
 
 type Person = {
   name: string
@@ -220,10 +223,38 @@ const columns = [
 ]
 
 const DashboardPage = () => {
+  const { setLoader } = useContext(LoaderContext)
   const [sorting, setSorting] = React.useState<SortingState>([])
 
   const [data, setData] = React.useState<Person[]>([])
   const { refetch, data: studentData } = useGet('fetchStudents', 'admin/fetchStudents', true)
+
+  const downloadExcelFile = () => {
+    setLoader(true)
+    instance({
+      url: 'admin/downloadExcel',
+      method: 'GET',
+      responseType: 'blob', // important
+      headers: {
+        token: `Bearer ${localStorage.getItem('_token')}`,
+        Accept: 'application/vnd.ms-excel',
+      },
+    })
+      .then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', 'students.xlsx')
+        document.body.appendChild(link)
+        link.click()
+      })
+      .catch((error) => {
+        alert(`An error occured while downloading file ${error}`)
+      })
+      .finally(() => {
+        setLoader(false)
+      })
+  }
 
   useEffect(() => {
     refetch()
@@ -260,46 +291,51 @@ const DashboardPage = () => {
   })
 
   return (
-    <MainContainer>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableHeadingRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHeader key={header.id} colSpan={header.colSpan}>
-                    {header.isPlaceholder ? null : (
-                      <div
-                        {...{
-                          className: header.column.getCanSort() ? 'cursor-pointer select-none' : '',
-                          onClick: header.column.getToggleSortingHandler(),
-                        }}
-                      >
-                        {flexRender(header.column.columnDef.header, header.getContext())}
-                        {{
-                          asc: ' 🔼',
-                          desc: ' 🔽',
-                        }[header.column.getIsSorted() as string] ?? null}
-                      </div>
-                    )}
-                  </TableHeader>
-                ))}
-              </TableHeadingRow>
-            ))}
-          </TableHead>
-          <TableBodyContainer>
-            {table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableData key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableData>
-                ))}
-              </TableRow>
-            ))}
-          </TableBodyContainer>
-        </Table>
-        <div className="h-4" />
-      </TableContainer>
-    </MainContainer>
+    <>
+      <DownloadContainer>
+        <DownloadButton onClick={downloadExcelFile}>Download</DownloadButton>
+      </DownloadContainer>
+      <MainContainer>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableHeadingRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <TableHeader key={header.id} colSpan={header.colSpan}>
+                      {header.isPlaceholder ? null : (
+                        <div
+                          {...{
+                            className: header.column.getCanSort() ? 'cursor-pointer select-none' : '',
+                            onClick: header.column.getToggleSortingHandler(),
+                          }}
+                        >
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                          {{
+                            asc: ' 🔼',
+                            desc: ' 🔽',
+                          }[header.column.getIsSorted() as string] ?? null}
+                        </div>
+                      )}
+                    </TableHeader>
+                  ))}
+                </TableHeadingRow>
+              ))}
+            </TableHead>
+            <TableBodyContainer>
+              {table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableData key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableData>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBodyContainer>
+          </Table>
+          <div className="h-4" />
+        </TableContainer>
+      </MainContainer>
+    </>
   )
 }
 
