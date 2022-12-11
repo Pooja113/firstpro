@@ -73,7 +73,7 @@ const columns = [
     cell: ({ row }) => {
       return (
         <div>
-          {row.original?.status === 'awaiting' && (
+          {row.original?.status === null ? (
             <AwaitingButton
               style={{
                 backgroundColor: 'red',
@@ -82,8 +82,7 @@ const columns = [
                 borderRadius: '50%',
               }}
             />
-          )}
-          {row.original?.status === 'processing' && (
+          ) : row.original?.status === 'inProgress' ? (
             <ProcessingButton
               style={{
                 backgroundColor: '#ebba34',
@@ -92,8 +91,7 @@ const columns = [
                 borderRadius: '50%',
               }}
             />
-          )}
-          {row.original?.status === 'completed' && (
+          ) : row.original?.status === 'finished' ? (
             <CompletedButton
               style={{
                 backgroundColor: 'green',
@@ -102,6 +100,8 @@ const columns = [
                 borderRadius: '50%',
               }}
             />
+          ) : (
+            <></>
           )}
         </div>
       )
@@ -114,11 +114,11 @@ const columns = [
     },
   }),
   columnHelper.accessor('pass', {
-    header: 'Pass',
+    header: 'Pass/Fail',
     cell: ({ row }) => {
       return (
         <div>
-          {row.original?.marks < 50 ? (
+          {row.original?.pass === 'fail' ? (
             <div style={{ color: 'red' }}>Fail</div>
           ) : (
             <div
@@ -238,9 +238,9 @@ const DashboardPage = () => {
         interest: item.intrestedIn,
         course: item.course,
         university: item.collegeName,
-        status: 'processing',
-        marks: (18 / 30) * 100,
-        pass: '',
+        status: item.status,
+        marks: item.userScore,
+        pass: item.result,
         photo: '',
         id: item.id,
       }))
