@@ -9,6 +9,7 @@ import { AnswerContext } from 'context/answers'
 const Main = () => {
   const { answers, setAnswers } = useContext(AnswerContext)
   const { mutateAsync } = usePost()
+  // const [count, setCount] = useState(0)
   const navigate = useNavigate()
   const { state } = useLocation()
   const test = (state as any)?.test
@@ -52,6 +53,15 @@ const Main = () => {
   const getAnswers = (questionId: string, key: number[]) => {
     setAnswers([...answers, { questionId: questionId, key: key }])
   }
+
+  useEffect(() => {
+    window.addEventListener('resize', function () {
+      if (document?.fullscreenElement === null) {
+        handleSubmit()
+        navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
+      }
+    })
+  }, [])
 
   return (
     <MainContainer>
