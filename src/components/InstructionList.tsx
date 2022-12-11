@@ -31,7 +31,7 @@ const InstructionList = () => {
   const [isChecked, setIsChecked] = useState(false)
   const { mutateAsync: patchAsync } = usePatch()
   const { mutateAsync } = usePost()
-  const [modal, setModal] = useState(false)
+  const [errorModal, setErrorModal] = useState(false)
   const [showCamera, setShowCamera] = useState(false)
   const [testQuestions, setTestQuestions] = useState([])
   const { setLoader } = useContext(LoaderContext)
@@ -57,7 +57,7 @@ const InstructionList = () => {
       }
     } catch (error: any) {
       setLoader(false)
-      setModal(true)
+      setErrorModal(true)
       return { error: error?.response?.data?.errorMessage }
     }
   }
@@ -73,7 +73,8 @@ const InstructionList = () => {
       navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
     } catch (error: any) {
       //TODO: Show error modal
-      navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
+      // navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
+      setErrorModal(true)
     }
   }
 
@@ -81,9 +82,9 @@ const InstructionList = () => {
     setShowCamera(false)
   }
 
-  const skip = () => {
-    navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
-  }
+  // const skip = () => {
+  //   navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
+  // }
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -95,7 +96,10 @@ const InstructionList = () => {
         <Modal isOpen={showCamera} setIsOpen={setShowCamera}>
           <Camera
             onTakePhotoAnimationDone={handleTakePhoto}
-            onCameraError={skip}
+            onCameraError={() => {
+              setErrorModal(true)
+              setShowCamera(false)
+            }}
             imageCompression={0.65}
             sizeFactor={0.8}
             idealResolution={{ width: 640, height: 480 }}
@@ -136,7 +140,11 @@ const InstructionList = () => {
           </StartButton>
         </ButtonContainer>
       </InstructionContainer>
-      <ErrorModal isOpen={modal} close={() => setModal(false)} />
+      <ErrorModal
+        isOpen={errorModal}
+        error={'An error occured with the camera, please contact invigilator'}
+        close={() => setErrorModal(false)}
+      />
     </MainContainer>
   )
 }

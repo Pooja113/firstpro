@@ -28,7 +28,7 @@ import usePost from 'hooks/usePost'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
 import { LoaderContext } from 'context/loader'
-import ErrorModal from './RegistrationErrorModal'
+import ErrorModal from './ErrorModal'
 import interests from '../assets/data/interests.json'
 import qualification from '../assets/data/qualification.json'
 
