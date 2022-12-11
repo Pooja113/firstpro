@@ -55,13 +55,20 @@ const Main = () => {
     setAnswers([...answers, { questionId: questionId, key: key }])
   }
 
+  const handleResize = () => {
+    if (document?.fullscreenElement === null) {
+      handleSubmit()
+      navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
+    }
+  }
+
   useEffect(() => {
-    window.addEventListener('resize', function () {
-      if (document?.fullscreenElement === null) {
-        handleSubmit()
-        navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
-      }
-    })
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      document?.exitFullscreen()
+    }
   }, [])
 
   return (
