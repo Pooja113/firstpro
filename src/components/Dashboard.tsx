@@ -119,16 +119,12 @@ const columns = [
     cell: ({ row }) => {
       return (
         <div>
-          {row.original?.pass === 'fail' ? (
+          {row.original?.pass === 'Fail' ? (
             <div style={{ color: 'red' }}>Fail</div>
+          ) : row.original?.pass === 'Pass' ? (
+            <div style={{ color: 'green' }}>Pass</div>
           ) : (
-            <div
-              style={{
-                color: 'green',
-              }}
-            >
-              Pass
-            </div>
+            <></>
           )}
         </div>
       )
