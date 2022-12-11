@@ -14,6 +14,8 @@ const Main = () => {
   const test = (state as any)?.test
 
   useEffect(() => {
+    window.scrollTo(0, 0)
+
     document.addEventListener('contextmenu', (event) => event.preventDefault())
     window.onblur = () => {
       handleSubmit()
