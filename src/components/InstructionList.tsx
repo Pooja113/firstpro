@@ -10,7 +10,6 @@ import {
   EachInstruction,
   SubHeadings,
   TestTime,
-  TestMarks,
   InstructionHeading,
   ConfirmCheckbox,
   ConfirmConatiner,
@@ -21,7 +20,6 @@ import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
 import usePatch from 'hooks/usePatch'
 import Modal from 'components/Modal'
-
 import instructions from '../assets/data/instruction.json'
 import usePost from 'hooks/usePost'
 import ErrorModal from './ErrorModal'
@@ -55,6 +53,7 @@ const InstructionList = () => {
         setTestQuestions(response.testData)
         setLoader(false)
         showCameraModal()
+        return response.testData
       }
     } catch (error: any) {
       setLoader(false)
@@ -103,7 +102,7 @@ const InstructionList = () => {
         </Modal>
         <InstructionHeader>Instructions before Test</InstructionHeader>
         <SubHeadings>
-          <TestTime>Duration: 30 minutes</TestTime> <TestMarks>Total Marks: 40 marks</TestMarks>
+          <TestTime>Duration: 30 minutes</TestTime>
         </SubHeadings>
         <InstructionBody>
           <InstructionHeading>Read the following instructions carefully.</InstructionHeading>
@@ -124,8 +123,8 @@ const InstructionList = () => {
         <ButtonContainer>
           <StartButton
             disabled={!isChecked}
-            onClick={() => {
-              startTest()
+            onClick={async () => {
+              await startTest()
               showCameraModal()
             }}
           >

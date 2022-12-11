@@ -1,0 +1,6 @@
+[
+  { "value": "", "label": "-- Select an option --" },
+  { "value": "postgraduate", "label": "Post Graduate" },
+  { "value": "graduate", "label": "Graduate" },
+  { "value": "diploma", "label": "Diploma" }
+]

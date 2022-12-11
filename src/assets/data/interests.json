@@ -1,0 +1,14 @@
+[
+  { "value": "", "label": "-- Select an option --" },
+  { "value": "fullStack", "label": "Full stack Developer" },
+  { "value": "react", "label": "React.js" },
+  { "value": "node", "label": "Node.js" },
+  { "value": "ios", "label": "iOS" },
+  { "value": "android", "label": "Android" },
+  { "value": "webDesign", "label": "Web Designing" },
+  { "value": "ui", "label": "UI/UX Designing" },
+  { "value": "digitalMarketing", "label": "Digital Marketing" },
+  { "value": "qa", "label": "Quality Analyst" },
+  { "value": "blockChain", "label": "Blockchain" },
+  { "value": "ai", "label": "AI/ML" }
+]

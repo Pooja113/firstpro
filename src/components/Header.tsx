@@ -1,14 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { HeaderContainer, Heading, Logo, UserDetails, LogoutButton, MainSection, Timer } from 'styles/components/Header'
 import logo from 'assets/images/witslogo.svg'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
+import { AnswerContext } from 'context/answers'
+import usePost from 'hooks/usePost'
 
 const Header = () => {
+  const { answers } = useContext(AnswerContext)
   const navigate = useNavigate()
   const [counter, setCounter] = useState(1800)
   const minutes = Math.floor(counter / 60)
   const seconds = counter % 60
+  const { mutateAsync } = usePost()
+
+  const handleSubmit = () => {
+    const submitTime = new Date(Date.now())
+    mutateAsync({
+      url: 'test/submitAssignment',
+      payload: { userData: { endTime: submitTime.toUTCString(), scoreDetails: answers } },
+      token: true,
+    })
+  }
 
   useEffect(() => {
     if (window.location.pathname === '/test' || window.location.pathname === '/WIL') {
@@ -16,6 +29,7 @@ const Header = () => {
     }
 
     if (counter === 0) {
+      handleSubmit()
       navigate(`${ROUTES?.THANKYOU?.LINK}`, { replace: true })
     }
   }, [counter])
