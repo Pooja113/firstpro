@@ -76,16 +76,7 @@ const columns = [
     cell: ({ row }) => {
       return (
         <div>
-          {row.original?.status === null ? (
-            <AwaitingButton
-              style={{
-                backgroundColor: 'red',
-                height: '0.7vw',
-                width: '0.7vw',
-                borderRadius: '50%',
-              }}
-            />
-          ) : row.original?.status === 'inProgress' ? (
+          {row.original?.status === 'inProgress' ? (
             <ProcessingButton
               style={{
                 backgroundColor: '#ebba34',
@@ -104,7 +95,14 @@ const columns = [
               }}
             />
           ) : (
-            <></>
+            <AwaitingButton
+              style={{
+                backgroundColor: 'red',
+                height: '0.7vw',
+                width: '0.7vw',
+                borderRadius: '50%',
+              }}
+            />
           )}
         </div>
       )
