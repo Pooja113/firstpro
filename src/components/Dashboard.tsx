@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import {
   createColumnHelper,
   flexRender,
@@ -23,9 +23,11 @@ import {
   ProcessingButton,
   CompletedButton,
   DownloadContainer,
-  DownloadLink,
+  DownloadButton,
 } from 'styles/components/Dashboard'
 import useGet from 'hooks/useGet'
+import instance from 'services/axiosInstance'
+import { LoaderContext } from 'context/loader'
 
 type Person = {
   name: string
@@ -139,10 +141,38 @@ const columns = [
 ]
 
 const DashboardPage = () => {
+  const { setLoader } = useContext(LoaderContext)
   const [sorting, setSorting] = React.useState<SortingState>([])
 
   const [data, setData] = React.useState<Person[]>([])
   const { refetch, data: studentData } = useGet('fetchStudents', 'admin/fetchStudents', true)
+
+  const downloadExcelFile = () => {
+    setLoader(true)
+    instance({
+      url: 'admin/downloadExcel',
+      method: 'GET',
+      responseType: 'blob', // important
+      headers: {
+        token: `Bearer ${localStorage.getItem('_token')}`,
+        Accept: 'application/vnd.ms-excel',
+      },
+    })
+      .then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', 'students.xlsx')
+        document.body.appendChild(link)
+        link.click()
+      })
+      .catch((error) => {
+        alert(`An error occured while downloading file ${error}`)
+      })
+      .finally(() => {
+        setLoader(false)
+      })
+  }
 
   useEffect(() => {
     refetch()
@@ -179,9 +209,7 @@ const DashboardPage = () => {
   return (
     <>
       <DownloadContainer>
-        <DownloadLink href="/admin/downloadExcel" target="_self" download>
-          Download
-        </DownloadLink>
+        <DownloadButton onClick={downloadExcelFile}>Download</DownloadButton>
       </DownloadContainer>
       <MainContainer>
         <TableContainer>
