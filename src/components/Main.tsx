@@ -53,6 +53,15 @@ const Main = () => {
     setAnswers([...answers, { questionId: questionId, key: key }])
   }
 
+  useEffect(() => {
+    window.addEventListener('resize', function () {
+      if (document?.fullscreenElement === null) {
+        handleSubmit()
+        navigate(`${ROUTES?.SORRY?.LINK}`, { replace: true })
+      }
+    })
+  }, [])
+
   return (
     <MainContainer>
       <InnerContainer>
