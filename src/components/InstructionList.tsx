@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Camera from 'react-html5-camera-photo'
 import {
   InstructionHeader,
@@ -84,6 +84,10 @@ const InstructionList = () => {
   const skip = () => {
     navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <MainContainer>
