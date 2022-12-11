@@ -74,3 +74,11 @@ export const AwaitingButton = styled.div`
 `
 export const ProcessingButton = styled.div``
 export const CompletedButton = styled.div``
+
+export const ViewPhotoBtn = styled.div`
+  color: blue;
+  :hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`

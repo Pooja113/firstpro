@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   createColumnHelper,
   flexRender,
@@ -22,8 +22,13 @@ import {
   AwaitingButton,
   ProcessingButton,
   CompletedButton,
+  ViewPhotoBtn,
 } from 'styles/components/Dashboard'
 import useGet from 'hooks/useGet'
+import Modal from 'react-modal'
+import { ModalTitle } from '../styles/components/ErrorModal'
+import usePost from 'hooks/usePost'
+import { LoaderContext } from 'context/loader'
 
 type Person = {
   name: string
@@ -36,6 +41,8 @@ type Person = {
   marks: string | number
   pass: string
   action: boolean
+  photo: any
+  id: any
 }
 
 const columnHelper = createColumnHelper<Person>()
@@ -127,9 +134,77 @@ const columns = [
   columnHelper.accessor('action', {
     header: 'Action',
     cell: ({ row }) => {
+      const { setLoader } = useContext(LoaderContext)
+
+      const { mutateAsync } = usePost()
+
+      const RemoveStudent = async () => {
+        setLoader(true)
+        try {
+          const response = await mutateAsync({
+            url: 'admin/removeStudent',
+            payload: { userId: row.original.id },
+          })
+          if (response) {
+            setLoader(false)
+          }
+        } catch (error: any) {
+          setLoader(false)
+          return { error: error?.response?.data?.errorMessage }
+        }
+      }
+
       return (
         <ReattemptButtonContainer>
-          <ReattemptButton disabled={!row.original?.action}>Re-Attempt</ReattemptButton>
+          <ReattemptButton onClick={() => RemoveStudent()} disabled={row.original?.action}>
+            Remove Student
+          </ReattemptButton>
+        </ReattemptButtonContainer>
+      )
+    },
+  }),
+  columnHelper.accessor('photo', {
+    header: 'Photo',
+    cell: ({ row }) => {
+      const [modal, setModal] = useState(false)
+      const { setLoader } = useContext(LoaderContext)
+      const [img, setImg] = useState()
+
+      const { mutateAsync } = usePost()
+
+      const ViewPhoto = async () => {
+        setLoader(true)
+        try {
+          const response = await mutateAsync({
+            url: 'admin/viewPhoto',
+            payload: { userId: row.original.id },
+          })
+          if (response) {
+            setLoader(false)
+            setImg(response.data)
+            setModal(true)
+          }
+        } catch (error: any) {
+          setLoader(false)
+          return { error: error?.response?.data?.errorMessage }
+        }
+      }
+
+      return (
+        <ReattemptButtonContainer>
+          <ViewPhotoBtn
+            onClick={() => {
+              ViewPhoto()
+            }}
+          >
+            View Photo
+          </ViewPhotoBtn>
+          <Modal isOpen={modal} onRequestClose={close} contentLabel="Example Modal">
+            <button onClick={() => setModal(false)}>close</button>
+            <ModalTitle>
+              <img src={img} />
+            </ModalTitle>
+          </Modal>
         </ReattemptButtonContainer>
       )
     },
@@ -158,6 +233,8 @@ const DashboardPage = () => {
         status: 'processing',
         marks: (18 / 30) * 100,
         pass: '',
+        photo: '',
+        id: item.id,
       }))
       setData(formattedData)
     }
