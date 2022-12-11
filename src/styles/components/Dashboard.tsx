@@ -80,8 +80,7 @@ export const DownloadContainer = styled.div`
   justify-content: flex-end;
   background: #f9f1d2;
 `
-export const DownloadLink = styled.a`
-  text-decoration: none;
+export const DownloadButton = styled.button`
   background-color: #2d4195;
   color: #fff;
   border-radius: 10px;
