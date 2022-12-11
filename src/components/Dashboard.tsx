@@ -22,8 +22,8 @@ import {
   AwaitingButton,
   ProcessingButton,
   CompletedButton,
-  DownloadButton,
   DownloadContainer,
+  DownloadLink,
 } from 'styles/components/Dashboard'
 import useGet from 'hooks/useGet'
 
@@ -179,13 +179,9 @@ const DashboardPage = () => {
   return (
     <>
       <DownloadContainer>
-        <DownloadButton
-          onClick={() => {
-            window.location.pathname = '/admin/downloadexcel'
-          }}
-        >
+        <DownloadLink href="/admin/downloadExcel" target="_self" download>
           Download
-        </DownloadButton>
+        </DownloadLink>
       </DownloadContainer>
       <MainContainer>
         <TableContainer>
