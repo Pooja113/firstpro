@@ -207,7 +207,7 @@ const RegisterForm = () => {
 
           <PersonalInfoHeading>Other Details</PersonalInfoHeading>
           <DetailsContainer>
-            <InputLabel htmlFor="intrestedIn">Interested In</InputLabel>
+            <InputLabel htmlFor="intrestedIn">Interested In *</InputLabel>
 
             <Interests id="intrestedIn" {...register('intrestedIn')}>
               {interests.map((interest) => (

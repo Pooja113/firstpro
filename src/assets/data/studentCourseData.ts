@@ -26,7 +26,7 @@ const gender = [
   { value: 'Female', label: 'Female' },
   { value: 'Other', label: 'Other' },
 ]
-const passingYear = ['', '2021', '2022', '2023', '2024'].map((e) => {
+const passingYear = ['', '2021', '2022', '2023'].map((e) => {
   if (!e) return { value: '', label: '-- Select an option --' }
   return {
     label: e,
