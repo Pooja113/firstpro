@@ -54,6 +54,9 @@ const Header = () => {
       </MainSection>
       <UserDetails>
         {window.location.pathname === '/admin/dashboard' && (
+          <LogoutButton onClick={() => navigate('/admin/dashboard/questions')}>Question Directory</LogoutButton>
+        )}
+        {window.location.pathname === '/admin/dashboard' && (
           <LogoutButton onClick={() => LogoutBtn()}>Logout</LogoutButton>
         )}
       </UserDetails>
