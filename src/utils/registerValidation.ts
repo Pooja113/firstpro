@@ -5,7 +5,7 @@ export const regiterValidation = yup.object().shape({
     .string()
     .required('Please enter full name')
     .matches(/^.{0,25}$/, 'please enter less than 25 alphabets')
-    .matches(/^\S|^$/, 'Field value must not start with space'),
+    .matches(/^[^\s][a-zA-Z\s]+$/, 'Please enter valid first name'),
 
   email: yup
     .string()
@@ -18,9 +18,9 @@ export const regiterValidation = yup.object().shape({
     .string()
     .required('Please enter Phone Number')
     .typeError('It must be a number')
-    .matches(/^[0-9]*$/, 'must be numerical')
-    .matches(/^.{10,10}$/, 'please enter with in 10 digit limits')
-    .matches(/^((?!(0))[0-9]{9})$/, 'Please enter valid phone number'),
+    .min(10, 'Mobile number should be of 10 digits')
+    .max(10, 'Mobile number should be of 10 digits')
+    .matches(/^[1-9][0-9]*$/, 'Enter valid mobile number'),
 
   gender: yup.string().required('Please Select One').typeError('Must select one'),
 
