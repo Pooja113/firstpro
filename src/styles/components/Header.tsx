@@ -2,11 +2,14 @@ import styled from 'styled-components'
 
 export const HeaderContainer = styled.div`
   background: #fff;
-  position: sticky;
   font-size: 1.2rem;
   display: flex;
   justify-content: space-around;
   color: #26429a;
+  position: sticky;
+  width: 100%;
+  top: 0;
+  z-index: 2;
 `
 export const Logo = styled.div`
   padding: 5px;
