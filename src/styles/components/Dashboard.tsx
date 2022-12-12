@@ -2,10 +2,11 @@ import styled from 'styled-components'
 
 export const MainContainer = styled.div`
   background: #f9f1d2;
-  width: 100vw;
+  display: flex;
+  justify-content: center;
 `
 export const TableContainer = styled.div`
-  width: 100%;
+  width: 95%;
   background-color: #fff;
 `
 export const StyledTable = styled.table`
@@ -18,6 +19,16 @@ export const TableHead = styled.thead`
 export const TableHeader = styled.th`
   padding: 5px;
   font-size: 0.7rem;
+  padding: 10px;
+  font-size: 0.9rem;
+
+  input[type='text'] {
+    padding: 5px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    width: 92%;
+    margin-top: 5px;
+  }
 `
 export const TableData = styled.td`
   font-size: 0.6rem;
@@ -93,4 +104,20 @@ export const DownloadButton = styled.button`
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
+`
+
+export const PaginationContainer = styled.div`
+  display: flex;
+  padding: 12px;
+  justify-content: flex-end;
+
+  button {
+    padding: 10px 20px;
+    background-color: #2d4195;
+    color: #fff;
+    border: 1px solid #ccc;
+    :hover {
+      background-color: #ffd900;
+    }
+  }
 `

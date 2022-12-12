@@ -11,6 +11,7 @@ import {
   useReactTable,
   getFilteredRowModel,
   FilterFn,
+  getPaginationRowModel,
 } from '@tanstack/react-table'
 
 import { RankingInfo, rankItem } from '@tanstack/match-sorter-utils'
@@ -30,6 +31,7 @@ import {
   ViewPhotoBtn,
   DownloadContainer,
   DownloadButton,
+  PaginationContainer,
 } from 'styles/components/Dashboard'
 import Modal from 'react-modal'
 import { ModalTitle } from 'styles/components/ErrorModal'
@@ -66,6 +68,7 @@ const columns = [
   }),
   columnHelper.accessor('phone', {
     header: 'Phone',
+    enableColumnFilter: false,
   }),
   columnHelper.accessor('university', {
     header: 'University',
@@ -75,16 +78,19 @@ const columns = [
   }),
   columnHelper.accessor('interest', {
     header: 'Interest',
+    enableColumnFilter: false,
   }),
 
   columnHelper.accessor('marks', {
     header: 'Marks',
+    enableColumnFilter: false,
     cell: ({ row }) => {
       return <div>{row.original.pass ? row.original.marks : '-'}</div>
     },
   }),
   columnHelper.accessor('pass', {
     header: 'Result',
+    enableColumnFilter: false,
     cell: ({ row }) => {
       return (
         <div>
@@ -101,6 +107,7 @@ const columns = [
   }),
   columnHelper.accessor('action', {
     header: 'Action',
+    enableColumnFilter: false,
     cell: ({ row }) => {
       const { setLoader } = useContext(LoaderContext)
       const notify = () => toast('Student Deleted Successfully!')
@@ -140,6 +147,7 @@ const columns = [
   }),
   columnHelper.accessor('photo', {
     header: 'Photo',
+    enableColumnFilter: false,
     cell: ({ row }) => {
       const [modal, setModal] = useState(false)
       const { setLoader } = useContext(LoaderContext)
@@ -200,29 +208,14 @@ declare module '@tanstack/table-core' {
 }
 
 const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
-  // Rank the item
   const itemRank = rankItem(row.getValue(columnId), value)
 
-  // Store the itemRank info
   addMeta({
     itemRank,
   })
 
-  // Return if the item should be filtered in/out
   return itemRank.passed
 }
-
-// const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
-//   let dir = 0
-
-//   // Only sort by rank if the column has ranking information
-//   if (rowA.columnFiltersMeta[columnId]) {
-//     dir = compareItems(rowA.columnFiltersMeta[columnId]?.itemRank!, rowB.columnFiltersMeta[columnId]?.itemRank!)
-//   }
-
-//   // Provide an alphanumeric fallback for when the item ranks are equal
-//   return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir
-// }
 
 const DashboardPage = () => {
   const { setLoader } = useContext(LoaderContext)
@@ -283,20 +276,6 @@ const DashboardPage = () => {
     }
   }, [studentData])
 
-  // const table = useReactTable({
-  //   data,
-  //   columns,
-  //   state: {
-  //     sorting,
-  //     globalFilter,
-  //   },
-  //   onSortingChange: setSorting,
-  //   getCoreRowModel: getCoreRowModel(),
-  //   getSortedRowModel: getSortedRowModel(),
-  //   onGlobalFilterChange: setGlobalFilter,
-  //   getFilteredRowModel: getFilteredRowModel(),
-  // })
-
   const table = useReactTable({
     data,
     columns,
@@ -315,6 +294,7 @@ const DashboardPage = () => {
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     debugTable: true,
     debugHeaders: true,
     debugColumns: false,
@@ -377,7 +357,50 @@ const DashboardPage = () => {
               ))}
             </TableBodyContainer>
           </StyledTable>
-          <div className="h-4" />
+          <PaginationContainer>
+            <button onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
+              {'<<'}
+            </button>
+            <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+              {'<'}
+            </button>
+            <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+              {'>'}
+            </button>
+            <button onClick={() => table.setPageIndex(table.getPageCount() - 1)} disabled={!table.getCanNextPage()}>
+              {'>>'}
+            </button>
+            <span className="flex items-center gap-1">
+              <div>Page</div>
+              <strong>
+                {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+              </strong>
+            </span>
+            <span className="flex items-center gap-1">
+              | Go to page:
+              <input
+                type="number"
+                defaultValue={table.getState().pagination.pageIndex + 1}
+                onChange={(e) => {
+                  const page = e.target.value ? Number(e.target.value) - 1 : 0
+                  table.setPageIndex(page)
+                }}
+                className="border p-1 rounded w-16"
+              />
+            </span>
+            {/* <select
+              value={table.getState().pagination.pageSize}
+              onChange={(e) => {
+                table.setPageSize(Number(e.target.value))
+              }}
+            >
+              {[10, 20, 30, 40, 50].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select> */}
+          </PaginationContainer>
         </TableContainer>
       </MainContainer>
     </>
@@ -432,7 +455,6 @@ function Filter({ column, table }: { column: Column<any, unknown>; table: Table<
         value={(columnFilterValue ?? '') as string}
         onChange={(value) => column.setFilterValue(value)}
         placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
-        className="w-36 border shadow rounded"
         list={column.id + 'list'}
       />
       <div className="h-1" />
