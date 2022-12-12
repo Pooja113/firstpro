@@ -30,10 +30,6 @@ export const ClickSingleAnswer = styled.input`
   min-width: 1.4rem;
   margin-right: 1rem;
   cursor: pointer;
-
-  /* &[type='radio'] {
-    border: 3px solid gray;
-  } */
 `
 export const AnswerLabel = styled.label`
   cursor: pointer;
