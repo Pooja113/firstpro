@@ -20,7 +20,7 @@ const Question = (props: any) => {
     if (!evnt.currentTarget.checked) {
       props.answerFunc(evnt.currentTarget.id, [-1])
     } else {
-      props.answerFunc(evnt.currentTarget.id, [(+evnt.currentTarget.value + 1).toString()])
+      props.answerFunc(evnt.currentTarget.id, [(+evnt.currentTarget.value).toString()])
     }
   }
 
