@@ -15,9 +15,10 @@ export const PersonalInfo = styled.div`
   padding-bottom: 40px;
 `
 
-export const ErrorMessage = styled.p`
+export const ErrorMessage = styled.div`
   font-size: 0.8rem;
   color: #dc3545;
+  margin-top: 0.1vw;
 `
 
 export const EducationDetails = styled.div`
@@ -48,12 +49,14 @@ export const InputContainer = styled.div`
   flex-direction: column;
   padding: 10px;
   width: 46%;
+  min-height: 85px;
 `
 
 export const DetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
+  min-height: 95px;
   width: 94%;
 `
 
@@ -121,6 +124,7 @@ export const CourseField = styled.div`
   display: flex;
   flex-direction: column;
   width: 22.3%;
+  min-height: 85px;
   padding: 10px;
 `
 

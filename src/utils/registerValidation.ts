@@ -6,6 +6,7 @@ export const regiterValidation = yup.object().shape({
     .string()
     .required('Please enter full name')
     .matches(/^.{0,25}$/, 'please enter less than 25 alphabets')
+    .matches(/^\S|^$/, 'Field value must not start with space')
     .matches(/^[a-zA-Z ]*$/, 'Please enter valid name, no special char allowed'),
 
   email: yup
