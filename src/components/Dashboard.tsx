@@ -165,6 +165,9 @@ const columns = [
           return { error: error?.response?.data?.errorMessage }
         }
       }
+      const customStyles = {
+        overlay: { zIndex: '9' },
+      }
 
       return (
         <ReattemptButtonContainer>
@@ -175,7 +178,7 @@ const columns = [
           >
             View Photo
           </ViewPhotoBtn>
-          <Modal isOpen={modal} onRequestClose={close} contentLabel="Example Modal">
+          <Modal isOpen={modal} onRequestClose={close} contentLabel="Example Modal" style={customStyles}>
             <button onClick={() => setModal(false)}>close</button>
             <ModalTitle>
               <img src={img} />

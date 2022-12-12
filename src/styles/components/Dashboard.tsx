@@ -2,14 +2,11 @@ import styled from 'styled-components'
 
 export const MainContainer = styled.div`
   background: #f9f1d2;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
+  width: 100vw;
 `
 export const TableContainer = styled.div`
-  width: 90%;
+  width: 100%;
   background-color: #fff;
-  min-height: 75vh;
 `
 export const StyledTable = styled.table`
   width: 100%;
@@ -19,12 +16,11 @@ export const TableHead = styled.thead`
   color: #26429a;
 `
 export const TableHeader = styled.th`
-  padding: 10px;
-  font-size: 0.9rem;
+  padding: 5px;
+  font-size: 0.7rem;
 `
 export const TableData = styled.td`
-  padding: 10px;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
 `
 
 export const TableHeadingRow = styled.tr``
@@ -46,7 +42,7 @@ export const ReattemptButtonContainer = styled.div`
 `
 
 export const ReattemptButton = styled.button`
-  font-size: 0.8rem;
+  font-size: 0.5rem;
   font-weight: 600;
   padding: 10px;
   border-radius: 10px;
