@@ -13,6 +13,7 @@ import { LoaderContext } from 'context/loader'
 import Loader from 'components/Loader'
 import ProtectedRoutes from 'components/ProtectedRoutes'
 import { AnswerContext } from 'context/answers'
+import Questions from 'components/Questions'
 
 const queryClient = new QueryClient()
 
@@ -36,6 +37,7 @@ const App = () => {
                   <Route path="thankyou" element={<Thankyou />} />
                   <Route path="sorry" element={<FailPage />} />
                   <Route path="admin/dashboard" element={<Dashboard />} />
+                  <Route path="admin/dashboard/questions" element={<Questions />} />
                 </Route>
               </Routes>
             </BrowserRouter>

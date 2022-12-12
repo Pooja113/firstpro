@@ -13,7 +13,11 @@ export const Logo = styled.div`
 `
 
 export const Heading = styled.h1``
-export const UserDetails = styled.div``
+export const UserDetails = styled.div`
+  button {
+    margin-left: 10px;
+  }
+`
 export const UserName = styled.div`
   font-size: 1.3rem;
   font-weight: 600;

@@ -26,6 +26,12 @@ const ROUTES: IRoutes = {
     SUBHEADER: false,
     SECURE: true,
   },
+  QUESTIONS: {
+    TITLE: 'ADMIN DASHBOARD',
+    LINK: '/admin/dashboard/questions',
+    SUBHEADER: false,
+    SECURE: true,
+  },
   TEST: {
     TITLE: 'TEST',
     LINK: '/test',

@@ -11,6 +11,7 @@ const useGet = (key: string, url: string, token?: boolean, configs?: any) => {
     }
 
     const { data } = await axiosInstance.get(url, { headers: headers })
+
     return data
   }
   const defaultConfig = {
