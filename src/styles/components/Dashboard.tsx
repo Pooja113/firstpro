@@ -2,12 +2,11 @@ import styled from 'styled-components'
 
 export const MainContainer = styled.div`
   background: #f9f1d2;
-  padding: 20px;
   display: flex;
   justify-content: center;
 `
 export const TableContainer = styled.div`
-  width: 90%;
+  width: 95%;
   background-color: #fff;
   min-height: 75vh;
 `
@@ -21,6 +20,14 @@ export const TableHead = styled.thead`
 export const TableHeader = styled.th`
   padding: 10px;
   font-size: 0.9rem;
+
+  input[type='text'] {
+    padding: 5px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    width: 92%;
+    margin-top: 5px;
+  }
 `
 export const TableData = styled.td`
   padding: 10px;
@@ -97,4 +104,17 @@ export const DownloadButton = styled.button`
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
+`
+
+export const PaginationContainer = styled.div`
+  display: flex;
+  padding: 12px;
+  justify-content: center;
+
+  button {
+    padding: 10px 20px;
+    background-color: #2d4195;
+    color: #fff;
+    border: 1px solid #ccc;
+  }
 `
