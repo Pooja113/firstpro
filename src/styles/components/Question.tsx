@@ -14,6 +14,13 @@ export const AnswerList = styled.div`
   font-weight: 600;
   font-size: 1.2rem;
   border-radius: 5px;
+  p {
+    color: green;
+    font-size: 1.2rem;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+  }
 `
 export const Answer = styled.div`
   display: flex;
@@ -30,6 +37,11 @@ export const ClickSingleAnswer = styled.input`
   min-width: 1.4rem;
   margin-right: 1rem;
   cursor: pointer;
+  backgroundColor
+
+  /* &[type='radio'] {
+    border: 3px solid gray;
+  } */
 `
 export const AnswerLabel = styled.label`
   cursor: pointer;
