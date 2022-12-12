@@ -65,8 +65,7 @@ const Question = (props: any) => {
             )}
           </Answer>
         ))}
-
-        {props?.answerKey !== undefined && <p className="ans"> {'Answer : ' + parseInt(props?.answerKey) + 1}</p>}
+        {props?.answerKey !== undefined && <p className="ans"> {'Answer : ' + parseInt(props?.answerKey + 1)}</p>}
         {props?.answerKey !== undefined && <p className="ans"> {'Category : ' + props?.category}</p>}
       </AnswerList>
     </>
