@@ -43,6 +43,8 @@ const RegisterForm = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(regiterValidation),
+    mode: 'all',
+    reValidateMode: 'onChange',
   })
 
   const onSubmit = async (data: any) => {
