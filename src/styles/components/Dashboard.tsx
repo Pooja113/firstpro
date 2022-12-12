@@ -60,7 +60,6 @@ export const ReattemptButton = styled.button`
   }
 
   :disabled {
-    /* border: 1px solid #999999; */
     background-color: #cccccc;
     color: #979595;
     cursor: auto;

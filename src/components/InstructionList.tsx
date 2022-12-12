@@ -137,7 +137,11 @@ const InstructionList = () => {
       <ErrorModal
         isOpen={errorModal}
         error={'An error occured with the camera, please contact invigilator'}
-        close={() => setErrorModal(false)}
+        close={() => {
+          setErrorModal(false)
+          navigate('/')
+          localStorage.removeItem('_token')
+        }}
       />
     </MainContainer>
   )

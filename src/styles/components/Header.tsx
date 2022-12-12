@@ -7,7 +7,6 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-around;
   color: #26429a;
-  /* min-height: 7vh; */
 `
 export const Logo = styled.div`
   padding: 5px;
