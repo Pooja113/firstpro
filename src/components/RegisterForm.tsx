@@ -31,7 +31,7 @@ import { LoaderContext } from 'context/loader'
 import ErrorModal from './ErrorModal'
 import interests from '../assets/data/interests.json'
 import qualification from '../assets/data/qualification.json'
-
+import textCapitalize from '../utils/text'
 const RegisterForm = () => {
   const navigate = useNavigate()
   const { setLoader } = useContext(LoaderContext)
@@ -55,6 +55,11 @@ const RegisterForm = () => {
         url: 'user/registerUser',
         payload: {
           ...data,
+          name: textCapitalize(data?.name),
+          email: data?.email?.toLowerCase(),
+          collegeName: textCapitalize(data?.collegeName),
+          course: textCapitalize(data?.course),
+          stream: textCapitalize(data?.stream),
           passingYearOfSelectedQualf: parseInt(data?.passingYearOfSelectedQualf),
           phoneNumber: parseInt(data?.phoneNumber),
         },
