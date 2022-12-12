@@ -191,7 +191,7 @@ const DashboardPage = () => {
     instance({
       url: 'admin/downloadExcel',
       method: 'GET',
-      responseType: 'blob', // important
+      responseType: 'blob',
       headers: {
         token: `Bearer ${localStorage.getItem('_token')}`,
         Accept: 'application/vnd.ms-excel',

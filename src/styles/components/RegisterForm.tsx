@@ -12,7 +12,6 @@ export const RegisterContainer = styled.div`
 export const PersonalInfo = styled.div`
   display: flex;
   flex-wrap: wrap;
-  /* border-bottom: 2px solid #eee; */
   padding-bottom: 40px;
 `
 
@@ -22,7 +21,6 @@ export const ErrorMessage = styled.p`
 `
 
 export const EducationDetails = styled.div`
-  /* border-bottom: 2px solid #eee; */
   padding-bottom: 40px;
 `
 
@@ -48,33 +46,28 @@ export const FormContainer = styled.form`
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px 40px 10px 0px;
-  width: 45%;
+  padding: 10px;
+  width: 46%;
 `
 
 export const DetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px 40px 10px 0px;
-  /* width: 45%; */
+  padding: 10px;
+  width: 94%;
 `
 
 export const InputField = styled.input`
   padding: 10px;
-  /* outline: none; */
   border: 2px solid #eee;
   border-radius: 10px;
 `
 
 export const InputTextArea = styled.textarea`
   padding: 10px;
-  /* outline: none; */
   border: 2px solid #eee;
   border-radius: 10px;
-  max-height: 6vw;
-  max-width: 65vw;
-  min-width: 60vw;
-  min-height: 6vw;
+  max-height: 4vw;
 `
 
 export const InputLabel = styled.label`
@@ -127,8 +120,8 @@ export const CourseContainer = styled.div`
 export const CourseField = styled.div`
   display: flex;
   flex-direction: column;
-  width: 30%;
-  padding: 10px 10px 0px 0px;
+  width: 22.3%;
+  padding: 10px;
 `
 
 export const Interests = styled.select`
@@ -137,9 +130,4 @@ export const Interests = styled.select`
   border-radius: 10px;
 `
 
-export const InterestOptions = styled.option`
-  /* display: flex;
-  flex-direction: column;
-  width: 30%;
-  padding: 10px 10px 0px 0px; */
-`
+export const InterestOptions = styled.option``

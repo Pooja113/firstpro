@@ -11,12 +11,10 @@ export const InnerContainer = styled.div`
   margin: 30px auto;
   border-radius: 10px;
   padding: 20px;
-  /* height: 68vh; */
 `
 
 export const ScoreContainer = styled.div`
   display: flex;
-  /* justify-content: center; */
   flex-direction: column;
   padding: 30px;
   background-color: #26429a;
