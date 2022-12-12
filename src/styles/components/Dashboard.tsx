@@ -11,7 +11,7 @@ export const TableContainer = styled.div`
   background-color: #fff;
   min-height: 75vh;
 `
-export const Table = styled.table`
+export const StyledTable = styled.table`
   width: 100%;
 `
 export const TableHead = styled.thead`
