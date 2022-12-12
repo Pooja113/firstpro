@@ -33,7 +33,6 @@ const InstructionList = () => {
   const { mutateAsync } = usePost()
   const [errorModal, setErrorModal] = useState(false)
   const [showCamera, setShowCamera] = useState(false)
-  const [testQuestions, setTestQuestions] = useState([])
   const { setLoader } = useContext(LoaderContext)
 
   const handleOnChange = () => {
@@ -50,9 +49,7 @@ const InstructionList = () => {
       })
 
       if (response?.success) {
-        setTestQuestions(response.testData)
         setLoader(false)
-        showCameraModal()
         return response.testData
       }
     } catch (error: any) {
@@ -70,7 +67,8 @@ const InstructionList = () => {
     try {
       await patchAsync({ url: 'user/addPhoto', payload: { photo: base64 }, token: true })
       setShowCamera(false)
-      navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: testQuestions } })
+      const res = await startTest()
+      navigate(`${ROUTES?.TEST?.LINK}`, { replace: true, state: { test: res } })
     } catch (error: any) {
       setErrorModal(true)
     }
@@ -126,7 +124,6 @@ const InstructionList = () => {
           <StartButton
             disabled={!isChecked}
             onClick={async () => {
-              await startTest()
               showCameraModal()
             }}
           >
