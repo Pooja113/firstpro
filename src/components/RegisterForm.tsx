@@ -57,6 +57,7 @@ const RegisterForm = () => {
           name: textCapitalize(data?.name),
           email: data?.email?.toLowerCase(),
           collegeName: textCapitalize(data?.collegeName),
+          internshipExpTechnology: '',
           course: textCapitalize(data?.course),
           stream: textCapitalize(data?.stream),
           passingYearOfSelectedQualf: parseInt(data?.passingYearOfSelectedQualf),
