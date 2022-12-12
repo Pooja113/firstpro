@@ -144,6 +144,7 @@ const columns = [
           const response = await mutateAsync({
             url: 'admin/removeStudent',
             payload: { userId: row.original.id },
+            token: true,
           })
           if (response) {
             setLoader(false)
@@ -183,6 +184,7 @@ const columns = [
           const response = await mutateAsync({
             url: 'admin/viewPhoto',
             payload: { userId: row.original.id },
+            token: true,
           })
           if (response) {
             setLoader(false)
