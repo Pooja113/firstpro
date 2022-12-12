@@ -34,13 +34,11 @@ const LoginPage = () => {
   } = useForm<ILoginForm>({
     resolver: yupResolver(LoginValidation),
   })
-  // const { mutateAsync } = usePost()
   const { setLoader } = useContext(LoaderContext)
 
   const onSubmit = async (data: ILoginForm) => {
     setLoader(true)
     try {
-      //TODO: turn on loader
       const response = await mutateAsync({
         url: 'admin/login',
         payload: { username: data.email, password: data.password },
