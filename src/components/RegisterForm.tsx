@@ -6,18 +6,15 @@ import {
   EducationDetails,
   ErrorMessage,
   FormContainer,
-  GenderContainer,
   InputContainer,
   InputField,
   InputLabel,
-  InputSubLabel,
   InputTextArea,
   InterestOptions,
   Interests,
   MainContainer,
   PersonalInfo,
   PersonalInfoHeading,
-  Radiobuttonfield,
   RegisterButton,
   RegisterContainer,
 } from 'styles/components/RegisterForm'
@@ -31,6 +28,7 @@ import { LoaderContext } from 'context/loader'
 import ErrorModal from 'components/ErrorModal'
 import interests from 'assets/data/interests.json'
 import qualification from 'assets/data/qualification.json'
+import { semester, gender, passingYear, courses } from 'assets/data/studentCourseData'
 import textCapitalize from 'utils/text'
 
 const RegisterForm = () => {
@@ -45,6 +43,8 @@ const RegisterForm = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(regiterValidation),
+    mode: 'all',
+    reValidateMode: 'onChange',
   })
 
   const onSubmit = async (data: any) => {
@@ -113,14 +113,13 @@ const RegisterForm = () => {
 
             <InputContainer>
               <InputLabel htmlFor="gender">Gender *</InputLabel>
-              <GenderContainer>
-                <Radiobuttonfield id="male" type="radio" {...register('gender')} value="male" />
-                <InputSubLabel htmlFor="male">Male</InputSubLabel>
-                <Radiobuttonfield id="female" type="radio" {...register('gender')} value="female" />
-                <InputSubLabel htmlFor="female">Female</InputSubLabel>
-                <Radiobuttonfield id="others" type="radio" {...register('gender')} value="others" />
-                <InputSubLabel htmlFor="others">Others</InputSubLabel>
-              </GenderContainer>
+              <Interests id="gender" {...register('gender')}>
+                {gender.map((data) => (
+                  <InterestOptions key={data.value} value={data.value}>
+                    {data.label}
+                  </InterestOptions>
+                ))}
+              </Interests>
               {errors.gender && <ErrorMessage>{errors.gender.message}</ErrorMessage>}
             </InputContainer>
           </PersonalInfo>
@@ -154,7 +153,13 @@ const RegisterForm = () => {
               </InputContainer>
               <InputContainer>
                 <InputLabel htmlFor="semester">Semester *</InputLabel>
-                <InputField id="semester" {...register('semester')} />
+                <Interests id="semester" {...register('semester')}>
+                  {semester.map((each) => (
+                    <InterestOptions key={each.value} value={each.value}>
+                      {each.label}
+                    </InterestOptions>
+                  ))}
+                </Interests>
                 {errors.semester && <ErrorMessage>{errors.semester.message}</ErrorMessage>}
               </InputContainer>
             </PersonalInfo>
@@ -162,7 +167,13 @@ const RegisterForm = () => {
             <CourseContainer>
               <CourseField>
                 <InputLabel htmlFor="course">Course Name *</InputLabel>
-                <InputField id="course" {...register('course')} />
+                <Interests id="course" {...register('course')}>
+                  {courses.map((course) => (
+                    <InterestOptions key={course.value} value={course.value}>
+                      {course.label}
+                    </InterestOptions>
+                  ))}
+                </Interests>
                 {errors.course && <ErrorMessage>{errors.course.message}</ErrorMessage>}
               </CourseField>
               <CourseField>
@@ -179,7 +190,13 @@ const RegisterForm = () => {
               </CourseField>
               <CourseField>
                 <InputLabel htmlFor="passingYearOfSelectedQualf">Passing Year (YYYY) *</InputLabel>
-                <InputField id="passingYearOfSelectedQualf" {...register('passingYearOfSelectedQualf')} />
+                <Interests id="passingYearOfSelectedQualf" {...register('passingYearOfSelectedQualf')}>
+                  {passingYear.map((each) => (
+                    <InterestOptions key={each.value} value={each.value}>
+                      {each.label}
+                    </InterestOptions>
+                  ))}
+                </Interests>
                 {errors.passingYearOfSelectedQualf && (
                   <ErrorMessage>{errors.passingYearOfSelectedQualf.message}</ErrorMessage>
                 )}
@@ -202,15 +219,11 @@ const RegisterForm = () => {
           </DetailsContainer>
 
           <DetailsContainer>
-            <InputLabel htmlFor="prevInternshipExp">Internship Experience ? (If any give details) *</InputLabel>
+            <InputLabel htmlFor="prevInternshipExp">
+              Internship Experience ? (If any,Please give details with technology.) *
+            </InputLabel>
             <InputTextArea id="prevInternshipExp" {...register('prevInternshipExp')} />
             {errors.prevInternshipExp && <ErrorMessage>{errors.prevInternshipExp.message}</ErrorMessage>}
-          </DetailsContainer>
-
-          <DetailsContainer>
-            <InputLabel htmlFor="internshipExpTechnology">If yes, Kindly Mention the Technology *</InputLabel>
-            <InputField id="internshipExpTechnology" {...register('internshipExpTechnology')} />
-            {errors.internshipExpTechnology && <ErrorMessage>{errors.internshipExpTechnology.message}</ErrorMessage>}
           </DetailsContainer>
 
           <DetailsContainer>
