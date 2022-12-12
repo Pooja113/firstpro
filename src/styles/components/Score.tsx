@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const MainContainer = styled.div`
   background: #f9f1d2;
   padding: 20px;
-  min-height: 78vh;
 `
 export const InnerContainer = styled.div`
   background: #fff;
@@ -26,7 +25,7 @@ export const ThanksContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 100px;
+  padding: 20px;
   width: 68%;
   margin: 0 auto;
 `

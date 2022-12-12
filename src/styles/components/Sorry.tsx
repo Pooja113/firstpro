@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const MainContainer = styled.div`
   background: #f9f1d2;
   padding: 20px;
-  min-height: 78vh;
 `
 
 export const InnerContainer = styled.div`
@@ -28,12 +27,13 @@ export const SorryContainer = styled.div`
 
 export const SorryHeading = styled.h1`
   font-size: 4.5rem;
+  margin: 0;
 `
 
 export const SorrySubHeading = styled.p``
 
 export const ContactContainer = styled.div`
-  padding: 40px 0px;
+  padding: 10px 0px;
 `
 
 export const ContactName = styled.h3`
