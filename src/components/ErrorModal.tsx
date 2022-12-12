@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from 'react-modal'
 
-import { ModalTitle } from '../styles/components/ErrorModal'
+import { ModalTitle } from 'styles/components/ErrorModal'
 
 const ErrorModal = ({ isOpen, close, error }: any) => {
   return (

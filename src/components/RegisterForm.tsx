@@ -28,10 +28,10 @@ import usePost from 'hooks/usePost'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
 import { LoaderContext } from 'context/loader'
-import ErrorModal from './ErrorModal'
-import interests from '../assets/data/interests.json'
-import qualification from '../assets/data/qualification.json'
-import textCapitalize from '../utils/text'
+import ErrorModal from 'components/ErrorModal'
+import interests from 'assets/data/interests.json'
+import qualification from 'assets/data/qualification.json'
+import textCapitalize from 'utils/text'
 const RegisterForm = () => {
   const navigate = useNavigate()
   const { setLoader } = useContext(LoaderContext)

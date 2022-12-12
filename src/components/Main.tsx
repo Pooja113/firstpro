@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { InnerContainer, MainContainer, SaveButton, SubmitContainer } from 'styles/components/Main'
-import Question from './Question'
+import Question from 'components/Question'
 import { useNavigate, useLocation } from 'react-router-dom'
 import ROUTES from 'routes'
 import usePost from 'hooks/usePost'
