@@ -6,6 +6,7 @@ export const regiterValidation = yup.object().shape({
     .string()
     .required('Please enter full name')
     .matches(/^.{0,25}$/, 'please enter less than 25 alphabets')
+    .matches(/^\S|^$/, 'Field value must not start with space')
     .matches(/^[a-zA-Z ]*$/, 'Please enter valid name, no special char allowed'),
 
   email: yup
@@ -32,7 +33,7 @@ export const regiterValidation = yup.object().shape({
     .matches(/^.{0,50}$/, 'enter less than 50 alphabets')
     .matches(/^\S|^$/, 'Field value must not start with space')
     .min(3)
-    .matches(/^[a-zA-Z ]*$/, 'Please enter valid name, no special char and number are allowed'),
+    .matches(/^[a-zA-Z \-,.()]*$/, 'Please enter valid name'),
 
   stream: yup
     .string()
@@ -59,7 +60,7 @@ export const regiterValidation = yup.object().shape({
   rollNumber: yup
     .string()
     .required('Please enter the roll number')
-    .matches(/^[1-9][0-9]*$/, 'Enter valid valid roll no. (number only)')
+    .matches(/^[a-zA-Z0-9_.-]*$/, 'Enter valid valid roll no. (number only)')
     .matches(/^.{0,30}$/, 'enter less than 30 alphabets')
     .matches(/^\S|^$/, 'Field value must not start with space'),
 
@@ -93,5 +94,6 @@ export const regiterValidation = yup.object().shape({
     .string()
     .required('Please write "No", if no offers')
     .matches(/^.{0,50}$/, 'enter less than 50 alphabets')
-    .matches(/^\S|^$/, 'Field value must not start with space'),
+    .matches(/^\S|^$/, 'Field value must not start with space')
+    .matches(/^[a-zA-Z0-9 _.-]*$/, 'Please enter valid value'),
 })
