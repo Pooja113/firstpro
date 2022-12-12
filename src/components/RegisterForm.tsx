@@ -32,12 +32,11 @@ import ErrorModal from 'components/ErrorModal'
 import interests from 'assets/data/interests.json'
 import qualification from 'assets/data/qualification.json'
 import textCapitalize from 'utils/text'
+
 const RegisterForm = () => {
   const navigate = useNavigate()
   const { setLoader } = useContext(LoaderContext)
   const [modal, setModal] = useState(false)
-  // const [errMsg, setErrMsg] = useState<string>('')
-
   const { mutateAsync } = usePost()
 
   const {
