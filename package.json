@@ -5,6 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.8.0",
     "@hookform/resolvers": "^2.9.10",
+    "@tanstack/match-sorter-utils": "^8.7.2",
     "@tanstack/react-table": "^8.7.0",
     "@types/react-router-dom": "^5.3.3",
     "antd": "^5.0.2",

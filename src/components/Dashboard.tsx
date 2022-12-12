@@ -1,17 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {
+  Column,
+  Table,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
+  ColumnFiltersState,
   getSortedRowModel,
   SortingState,
   useReactTable,
+  getFilteredRowModel,
+  FilterFn,
+  getPaginationRowModel,
 } from '@tanstack/react-table'
+
+import { RankingInfo, rankItem } from '@tanstack/match-sorter-utils'
+
 import {
   MainContainer,
   ReattemptButton,
   ReattemptButtonContainer,
-  Table,
+  StyledTable,
   TableBodyContainer,
   TableContainer,
   TableData,
@@ -22,6 +31,7 @@ import {
   ViewPhotoBtn,
   DownloadContainer,
   DownloadButton,
+  PaginationContainer,
 } from 'styles/components/Dashboard'
 import Modal from 'react-modal'
 import { ModalTitle } from 'styles/components/ErrorModal'
@@ -58,6 +68,7 @@ const columns = [
   }),
   columnHelper.accessor('phone', {
     header: 'Phone',
+    enableColumnFilter: false,
   }),
   columnHelper.accessor('university', {
     header: 'University',
@@ -67,16 +78,19 @@ const columns = [
   }),
   columnHelper.accessor('interest', {
     header: 'Interest',
+    enableColumnFilter: false,
   }),
 
   columnHelper.accessor('marks', {
     header: 'Marks',
+    enableColumnFilter: false,
     cell: ({ row }) => {
       return <div>{row.original.pass ? row.original.marks : '-'}</div>
     },
   }),
   columnHelper.accessor('pass', {
     header: 'Result',
+    enableColumnFilter: false,
     cell: ({ row }) => {
       return (
         <div>
@@ -93,6 +107,7 @@ const columns = [
   }),
   columnHelper.accessor('action', {
     header: 'Action',
+    enableColumnFilter: false,
     cell: ({ row }) => {
       const { setLoader } = useContext(LoaderContext)
       const notify = () => toast('Student Deleted Successfully!')
@@ -132,6 +147,7 @@ const columns = [
   }),
   columnHelper.accessor('photo', {
     header: 'Photo',
+    enableColumnFilter: false,
     cell: ({ row }) => {
       const [modal, setModal] = useState(false)
       const { setLoader } = useContext(LoaderContext)
@@ -157,6 +173,9 @@ const columns = [
           return { error: error?.response?.data?.errorMessage }
         }
       }
+      const customStyles = {
+        overlay: { zIndex: '9' },
+      }
 
       return (
         <ReattemptButtonContainer>
@@ -167,7 +186,7 @@ const columns = [
           >
             View Photo
           </ViewPhotoBtn>
-          <Modal isOpen={modal} onRequestClose={close} contentLabel="Example Modal">
+          <Modal isOpen={modal} onRequestClose={close} contentLabel="Example Modal" style={customStyles}>
             <button onClick={() => setModal(false)}>close</button>
             <ModalTitle>
               <img src={img} />
@@ -179,9 +198,30 @@ const columns = [
   }),
 ]
 
+declare module '@tanstack/table-core' {
+  interface FilterFns {
+    fuzzy: FilterFn<unknown>
+  }
+  interface FilterMeta {
+    itemRank: RankingInfo
+  }
+}
+
+const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
+  const itemRank = rankItem(row.getValue(columnId), value)
+
+  addMeta({
+    itemRank,
+  })
+
+  return itemRank.passed
+}
+
 const DashboardPage = () => {
   const { setLoader } = useContext(LoaderContext)
   const [sorting, setSorting] = React.useState<SortingState>([])
+  const [globalFilter, setGlobalFilter] = React.useState('')
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
 
   const [data, setData] = React.useState<Person[]>([])
   const { refetch, data: studentData } = useGet('fetchStudents', 'admin/fetchStudents', true)
@@ -239,13 +279,34 @@ const DashboardPage = () => {
   const table = useReactTable({
     data,
     columns,
+    filterFns: {
+      fuzzy: fuzzyFilter,
+    },
     state: {
       sorting,
+      columnFilters,
+      globalFilter,
     },
     onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn: fuzzyFilter,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    debugTable: true,
+    debugHeaders: true,
+    debugColumns: false,
   })
+
+  useEffect(() => {
+    if (table.getState().columnFilters[0]?.id === 'fullName') {
+      if (table.getState().sorting[0]?.id !== 'fullName') {
+        table.setSorting([{ id: 'fullName', desc: false }])
+      }
+    }
+  }, [table.getState().columnFilters[0]?.id])
 
   return (
     <>
@@ -254,25 +315,32 @@ const DashboardPage = () => {
       </DownloadContainer>
       <MainContainer>
         <TableContainer>
-          <Table>
+          <StyledTable>
             <TableHead>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableHeadingRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
                     <TableHeader key={header.id} colSpan={header.colSpan}>
                       {header.isPlaceholder ? null : (
-                        <div
-                          {...{
-                            className: header.column.getCanSort() ? 'cursor-pointer select-none' : '',
-                            onClick: header.column.getToggleSortingHandler(),
-                          }}
-                        >
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                          {{
-                            asc: ' 🔼',
-                            desc: ' 🔽',
-                          }[header.column.getIsSorted() as string] ?? null}
-                        </div>
+                        <>
+                          <div
+                            {...{
+                              className: header.column.getCanSort() ? 'cursor-pointer select-none' : '',
+                              onClick: header.column.getToggleSortingHandler(),
+                            }}
+                          >
+                            {flexRender(header.column.columnDef.header, header.getContext())}
+                            {{
+                              asc: ' 🔼',
+                              desc: ' 🔽',
+                            }[header.column.getIsSorted() as string] ?? null}
+                          </div>
+                          {header.column.getCanFilter() ? (
+                            <div>
+                              <Filter column={header.column} table={table} />
+                            </div>
+                          ) : null}
+                        </>
                       )}
                     </TableHeader>
                   ))}
@@ -288,8 +356,51 @@ const DashboardPage = () => {
                 </TableRow>
               ))}
             </TableBodyContainer>
-          </Table>
-          <div className="h-4" />
+          </StyledTable>
+          <PaginationContainer>
+            <button onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
+              {'<<'}
+            </button>
+            <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+              {'<'}
+            </button>
+            <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+              {'>'}
+            </button>
+            <button onClick={() => table.setPageIndex(table.getPageCount() - 1)} disabled={!table.getCanNextPage()}>
+              {'>>'}
+            </button>
+            <span className="flex items-center gap-1">
+              <div>Page</div>
+              <strong>
+                {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+              </strong>
+            </span>
+            <span className="flex items-center gap-1">
+              | Go to page:
+              <input
+                type="number"
+                defaultValue={table.getState().pagination.pageIndex + 1}
+                onChange={(e) => {
+                  const page = e.target.value ? Number(e.target.value) - 1 : 0
+                  table.setPageIndex(page)
+                }}
+                className="border p-1 rounded w-16"
+              />
+            </span>
+            {/* <select
+              value={table.getState().pagination.pageSize}
+              onChange={(e) => {
+                table.setPageSize(Number(e.target.value))
+              }}
+            >
+              {[10, 20, 30, 40, 50].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select> */}
+          </PaginationContainer>
         </TableContainer>
       </MainContainer>
     </>
@@ -297,3 +408,83 @@ const DashboardPage = () => {
 }
 
 export default DashboardPage
+
+function Filter({ column, table }: { column: Column<any, unknown>; table: Table<any> }) {
+  const firstValue = table.getPreFilteredRowModel().flatRows[0]?.getValue(column.id)
+
+  const columnFilterValue = column.getFilterValue()
+
+  const sortedUniqueValues = React.useMemo(
+    () => (typeof firstValue === 'number' ? [] : Array.from(column.getFacetedUniqueValues().keys()).sort()),
+    [column.getFacetedUniqueValues()],
+  )
+
+  return typeof firstValue === 'number' ? (
+    <div>
+      <div className="flex space-x-2">
+        <DebouncedInput
+          type="number"
+          min={Number(column.getFacetedMinMaxValues()?.[0] ?? '')}
+          max={Number(column.getFacetedMinMaxValues()?.[1] ?? '')}
+          value={(columnFilterValue as [number, number])?.[0] ?? ''}
+          onChange={(value) => column.setFilterValue((old: [number, number]) => [value, old?.[1]])}
+          placeholder={`Min ${column.getFacetedMinMaxValues()?.[0] ? `(${column.getFacetedMinMaxValues()?.[0]})` : ''}`}
+          className="w-24 border shadow rounded"
+        />
+        <DebouncedInput
+          type="number"
+          min={Number(column.getFacetedMinMaxValues()?.[0] ?? '')}
+          max={Number(column.getFacetedMinMaxValues()?.[1] ?? '')}
+          value={(columnFilterValue as [number, number])?.[1] ?? ''}
+          onChange={(value) => column.setFilterValue((old: [number, number]) => [old?.[0], value])}
+          placeholder={`Max ${column.getFacetedMinMaxValues()?.[1] ? `(${column.getFacetedMinMaxValues()?.[1]})` : ''}`}
+          className="w-24 border shadow rounded"
+        />
+      </div>
+      <div className="h-1" />
+    </div>
+  ) : (
+    <>
+      <datalist id={column.id + 'list'}>
+        {sortedUniqueValues.slice(0, 5000).map((value: any) => (
+          <option value={value} key={value} />
+        ))}
+      </datalist>
+      <DebouncedInput
+        type="text"
+        value={(columnFilterValue ?? '') as string}
+        onChange={(value) => column.setFilterValue(value)}
+        placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
+        list={column.id + 'list'}
+      />
+      <div className="h-1" />
+    </>
+  )
+}
+
+function DebouncedInput({
+  value: initialValue,
+  onChange,
+  debounce = 500,
+  ...props
+}: {
+  value: string | number
+  onChange: (value: string | number) => void
+  debounce?: number
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'>) {
+  const [value, setValue] = React.useState(initialValue)
+
+  React.useEffect(() => {
+    setValue(initialValue)
+  }, [initialValue])
+
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      onChange(value)
+    }, debounce)
+
+    return () => clearTimeout(timeout)
+  }, [value])
+
+  return <input {...props} value={value} onChange={(e) => setValue(e.target.value)} />
+}
