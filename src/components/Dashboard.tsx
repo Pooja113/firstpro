@@ -19,9 +19,6 @@ import {
   TableHeader,
   TableHeadingRow,
   TableRow,
-  AwaitingButton,
-  ProcessingButton,
-  CompletedButton,
   ViewPhotoBtn,
   DownloadContainer,
   DownloadButton,
@@ -71,47 +68,11 @@ const columns = [
   columnHelper.accessor('interest', {
     header: 'Interest',
   }),
-  columnHelper.accessor('status', {
-    header: 'Status',
-    cell: ({ row }) => {
-      return (
-        <div>
-          {row.original?.status === 'inProgress' ? (
-            <ProcessingButton
-              style={{
-                backgroundColor: '#ebba34',
-                height: '0.7vw',
-                width: '0.7vw',
-                borderRadius: '50%',
-              }}
-            />
-          ) : row.original?.status === 'finished' ? (
-            <CompletedButton
-              style={{
-                backgroundColor: 'green',
-                height: '0.7vw',
-                width: '0.7vw',
-                borderRadius: '50%',
-              }}
-            />
-          ) : (
-            <AwaitingButton
-              style={{
-                backgroundColor: 'red',
-                height: '0.7vw',
-                width: '0.7vw',
-                borderRadius: '50%',
-              }}
-            />
-          )}
-        </div>
-      )
-    },
-  }),
+
   columnHelper.accessor('marks', {
     header: 'Marks',
     cell: ({ row }) => {
-      return <div>{row.original.marks}</div>
+      return <div>{row.original.pass ? row.original.marks : '-'}</div>
     },
   }),
   columnHelper.accessor('pass', {
@@ -124,7 +85,7 @@ const columns = [
           ) : row.original?.pass === 'Pass' ? (
             <div style={{ color: 'green' }}>Pass</div>
           ) : (
-            <></>
+            <div style={{ color: 'orange' }}>Not Appeared</div>
           )}
         </div>
       )
