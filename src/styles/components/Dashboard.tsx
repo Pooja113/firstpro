@@ -31,7 +31,7 @@ export const TableHeader = styled.th`
   }
 `
 export const TableData = styled.td`
-  font-size: 0.6rem;
+  font-size: 0.8rem;
 `
 
 export const TableHeadingRow = styled.tr``
@@ -53,7 +53,7 @@ export const ReattemptButtonContainer = styled.div`
 `
 
 export const ReattemptButton = styled.button`
-  font-size: 0.5rem;
+  font-size: 0.8rem;
   font-weight: 600;
   padding: 10px;
   border-radius: 10px;
