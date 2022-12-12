@@ -27,7 +27,7 @@ import {
   DownloadButton,
 } from 'styles/components/Dashboard'
 import Modal from 'react-modal'
-import { ModalTitle } from '../styles/components/ErrorModal'
+import { ModalTitle } from 'styles/components/ErrorModal'
 import usePost from 'hooks/usePost'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'

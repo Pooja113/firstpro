@@ -1,7 +1,5 @@
 import React from 'react'
 
-const Reattempt = () => {
-  return <div>Reattempt</div>
-}
+const Reattempt = () => <div>Reattempt</div>
 
 export default Reattempt

@@ -18,23 +18,21 @@ const VideoPreview = ({ stream }: { stream: MediaStream | null }) => {
   return <VideoStream ref={videoRef} autoPlay />
 }
 
-const VideoRecord = () => {
-  return (
-    <VideoContainer>
-      <ReactMediaRecorder
-        video
-        render={({ startRecording, stopRecording, previewStream }) => {
-          return (
-            <>
-              <button onClick={startRecording}>Start Recording</button>
-              <button onClick={stopRecording}>Stop Recording</button>
-              <VideoPreview stream={previewStream} />
-            </>
-          )
-        }}
-      />
-    </VideoContainer>
-  )
-}
+const VideoRecord = () => (
+  <VideoContainer>
+    <ReactMediaRecorder
+      video
+      render={({ startRecording, stopRecording, previewStream }) => {
+        return (
+          <>
+            <button onClick={startRecording}>Start Recording</button>
+            <button onClick={stopRecording}>Stop Recording</button>
+            <VideoPreview stream={previewStream} />
+          </>
+        )
+      }}
+    />
+  </VideoContainer>
+)
 
 export default VideoRecord
