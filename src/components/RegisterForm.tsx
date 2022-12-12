@@ -32,12 +32,11 @@ import ErrorModal from 'components/ErrorModal'
 import interests from 'assets/data/interests.json'
 import qualification from 'assets/data/qualification.json'
 import textCapitalize from 'utils/text'
+
 const RegisterForm = () => {
   const navigate = useNavigate()
   const { setLoader } = useContext(LoaderContext)
   const [modal, setModal] = useState(false)
-  const [errMsg, setMErrMsg] = useState()
-
   const { mutateAsync } = usePost()
 
   const {
@@ -75,7 +74,7 @@ const RegisterForm = () => {
       }
 
       if (response?.message) {
-        setMErrMsg(response?.message)
+        // setErrMsg(response?.message)
       }
     } catch (error: any) {
       setLoader(false)
@@ -222,7 +221,7 @@ const RegisterForm = () => {
         </RegisterContainer>
         <RegisterButton>Register</RegisterButton>
       </FormContainer>
-      <ErrorModal isOpen={modal} error={errMsg} close={() => setModal(false)} />
+      <ErrorModal isOpen={modal} error={`Candidate already appeared for exam`} close={() => setModal(false)} />
     </MainContainer>
   )
 }
