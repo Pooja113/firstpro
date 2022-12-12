@@ -4,7 +4,7 @@ import axiosInstance from 'services/axiosInstance'
 interface IParams {
   url: string
   payload?: any
-  token?: any
+  token?: boolean
 }
 
 const post = async ({ url, payload, token }: IParams) => {
