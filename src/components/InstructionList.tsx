@@ -13,8 +13,6 @@ import {
   InstructionHeading,
   ConfirmCheckbox,
   ConfirmConatiner,
-  BackButton,
-  BackButtonContainer,
 } from 'styles/components/InstructionList'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
@@ -74,10 +72,6 @@ const InstructionList = () => {
     }
   }
 
-  const goBack = () => {
-    setShowCamera(false)
-  }
-
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -96,9 +90,6 @@ const InstructionList = () => {
             sizeFactor={0.8}
             idealResolution={{ width: 640, height: 480 }}
           />
-          <BackButtonContainer>
-            <BackButton onClick={goBack}>Go back</BackButton>
-          </BackButtonContainer>
         </Modal>
         <InstructionHeader>Instructions before Test</InstructionHeader>
         <SubHeadings>
