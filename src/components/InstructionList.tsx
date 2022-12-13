@@ -63,6 +63,7 @@ const InstructionList = () => {
 
   const handleTakePhoto = async (base64: string) => {
     try {
+      setShowCamera(false)
       await patchAsync({ url: 'user/addPhoto', payload: { photo: base64 }, token: true })
       setShowCamera(false)
       const res = await startTest()

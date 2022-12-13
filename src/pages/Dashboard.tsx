@@ -1,12 +1,12 @@
 import React from 'react'
-import DashboardPage from 'components/Dashboard'
 import Footer from 'components/Footer'
 import Header from 'components/Header'
+import AntdDashboard from 'components/AntdDashboard'
 
 const Dashboard = () => (
   <>
     <Header />
-    <DashboardPage />
+    <AntdDashboard />
     <Footer />
   </>
 )
