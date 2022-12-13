@@ -14,6 +14,7 @@ import {
   ViewPhotoBtn,
   DownloadContainer,
   DownloadButton,
+  TableSubContainer,
 } from 'styles/components/Dashboard'
 import Modal from 'react-modal'
 import { ModalTitle } from 'styles/components/ErrorModal'
@@ -89,6 +90,7 @@ const AntdDashboard = () => {
 
   const handleReset = (clearFilters: () => void) => {
     clearFilters()
+    window.location.reload()
     setSearchText('')
   }
 
@@ -338,9 +340,15 @@ const AntdDashboard = () => {
     <>
       {contextHolder}
       <DownloadContainer>
+        <DownloadButton style={{ cursor: 'default' }}>
+          Total Number of Students = {data.length ? data.length : '0'}
+        </DownloadButton>
+        <DownloadButton onClick={() => window.location.reload()}>Reset</DownloadButton>
         <DownloadButton onClick={downloadExcelFile}>Download Excel Sheet</DownloadButton>
       </DownloadContainer>
-      <Table columns={columns} dataSource={data} />
+      <TableSubContainer>
+        <Table columns={columns} dataSource={data} />
+      </TableSubContainer>
     </>
   )
 }

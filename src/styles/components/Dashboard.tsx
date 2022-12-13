@@ -91,7 +91,7 @@ export const ViewPhotoBtn = styled.div`
 
 export const DownloadContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-evenly;
   background: #f9f1d2;
 `
 export const DownloadButton = styled.button`
@@ -120,4 +120,7 @@ export const PaginationContainer = styled.div`
       background-color: #ffd900;
     }
   }
+`
+export const TableSubContainer = styled.div`
+  margin: 10px 40px;
 `
