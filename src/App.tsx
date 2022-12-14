@@ -14,6 +14,7 @@ import Loader from 'components/Loader'
 import ProtectedRoutes from 'components/ProtectedRoutes'
 import { AnswerContext } from 'context/answers'
 import Questions from 'components/Questions'
+import ErrorPage from 'pages/ErrorPage'
 
 const queryClient = new QueryClient()
 
@@ -36,6 +37,7 @@ const App = () => {
                   <Route path="test" element={<Home />} />
                   <Route path="thankyou" element={<Thankyou />} />
                   <Route path="sorry" element={<FailPage />} />
+                  <Route path="errorpage" element={<ErrorPage />} />
                   <Route path="admin/dashboard" element={<Dashboard />} />
                   <Route path="admin/dashboard/questions" element={<Questions />} />
                 </Route>

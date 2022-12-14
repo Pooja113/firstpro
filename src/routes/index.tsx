@@ -38,6 +38,12 @@ const ROUTES: IRoutes = {
     SUBHEADER: false,
     SECURE: true,
   },
+  ERRORPAGE: {
+    TITLE: 'TEST',
+    LINK: '/errorpage',
+    SUBHEADER: false,
+    SECURE: true,
+  },
   THANKYOU: {
     TITLE: 'TEST',
     LINK: '/thankyou',
