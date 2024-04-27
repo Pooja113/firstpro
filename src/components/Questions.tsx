@@ -1,22 +1,22 @@
-import { LoaderContext } from 'context/loader'
+//import { LoaderContext } from 'context/loader'
 import useGet from 'hooks/useGet'
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import Footer from './Footer'
 import Header from './Header'
 import Question from './Question'
 
 const Questions = () => {
   const { refetch, data: studentData, isLoading } = useGet('fetchQuesions', 'admin/getQuestions', true)
-  const { setLoader } = useContext(LoaderContext)
+  // const { setLoader } = useContext(LoaderContext)
 
   useEffect(() => {
     refetch()
   }, [])
 
   useEffect(() => {
-    setLoader(true)
+    // setLoader(true)
     if (studentData?.data?.length > 0) {
-      setLoader(false)
+      //  setLoader(false)
     }
   }, [isLoading])
 

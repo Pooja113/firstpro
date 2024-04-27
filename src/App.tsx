@@ -15,7 +15,6 @@ import ProtectedRoutes from 'components/ProtectedRoutes'
 import { AnswerContext } from 'context/answers'
 import Questions from 'components/Questions'
 import ErrorPage from 'pages/ErrorPage'
-
 const queryClient = new QueryClient()
 
 const App = () => {

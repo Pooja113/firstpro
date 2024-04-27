@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import {
   CourseContainer,
   CourseField,
@@ -24,7 +24,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import usePost from 'hooks/usePost'
 import { useNavigate } from 'react-router-dom'
 import ROUTES from 'routes'
-import { LoaderContext } from 'context/loader'
+//import { LoaderContext } from 'context/loader'
 import ErrorModal from 'components/ErrorModal'
 import interests from 'assets/data/interests.json'
 import qualification from 'assets/data/qualification.json'
@@ -33,7 +33,7 @@ import textCapitalize from 'utils/text'
 
 const RegisterForm = () => {
   const navigate = useNavigate()
-  const { setLoader } = useContext(LoaderContext)
+  // const { setLoader } = useContext(LoaderContext)
   const [modal, setModal] = useState(false)
   const { mutateAsync } = usePost()
 
@@ -48,7 +48,7 @@ const RegisterForm = () => {
   })
 
   const onSubmit = async (data: any) => {
-    setLoader(true)
+    // setLoader(true)
     try {
       const response = await mutateAsync({
         url: 'user/registerUser',
@@ -70,7 +70,7 @@ const RegisterForm = () => {
       }
 
       if (response) {
-        setLoader(false)
+        // setLoader(false)
         navigate(`${ROUTES?.INSTRUCTIONS?.LINK}`, { replace: true })
       }
 
@@ -78,7 +78,7 @@ const RegisterForm = () => {
         // setErrMsg(response?.message)
       }
     } catch (error: any) {
-      setLoader(false)
+      // setLoader(false)
       setModal(true)
       return { error: error?.response?.data?.errorMessage }
     }
